@@ -1,0 +1,34 @@
+Maven:
+Alt+Insert - for dep management - while in pom.xml: 
+
+Ctrl+Shift+S -split vertically
+
+
+Ctrl+H: Navigate | Type Hierarchy 
+
+Shift+F6 - refactor rename
+
+Ctrl + Y - delete line
+
+
+Ctrl+N - navigate search class
+
+Alt+F7 - find references/usages of a method, class, etc
+
+Ctrl+Q - quickly see documentation
+Ctrl+B - jump to declaration
+
+Ctrl - ctrl-o eclipse
+
+Shift+F6 - refactor rename
+Ctrl+I - implement methods
+
+ctrl+shift+f9  = rebuild (current class)
+ctrl+shit f10 = run all tests
+
+Debug:
+F9: resume
+
+Ctrl+Alt+T - selected code surround with
+
+Ctrl+Space - autocomplete

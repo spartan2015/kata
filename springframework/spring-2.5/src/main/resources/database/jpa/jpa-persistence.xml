@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd	
+						">
+
+	<!--
+		of course JPA wich is the same just diffrent names EntityManager are
+		either 
+		
+		1. application managed and they are obtained by aplication
+		through PersistenceProvider.getEntityManager...
+		LocalEntityManagerFactoryBean 
+		
+		2. container managed (j2ee server or spring) - injected in the beans that need them:
+		LocalContainerEntityManagerFactoryBean 
+		
+		!!!as always - EntityManager is configured by a persistence.xml with a specific syntax for creating
+		persistence-unit(s) that contain the datasource and the entities
+		
+		- one problem with this approach: we need the persistence.xml - out of springs reach
+		and we can't configure via spring the dataSource that way
+		
+	-->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="motorist" />
+	</bean>
+
+	<bean id="jpaTemplate" class="org.springframework.orm.jpa.JpaTemplate">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="motoristJpaDao" class="database.jpa.MotoristJpaDao">
+		<property name="jpaTemplate" ref="jpaTemplate" />
+	</bean>
+	
+	<bean id="motoristJpaDaoSupport" class="database.jpa.MotoristJpaDaoSupport">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>	
+
+</beans>	

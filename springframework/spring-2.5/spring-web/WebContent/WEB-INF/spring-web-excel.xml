@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+<!-- 
+
+    To make RantExcelView available to Spring MVC, we need to register it with
+either ResourceBundleViewResolver or XmlViewResolver. Since we’re using
+XmlViewResolver, the following entry in roadrantz-views.xml will do the trick:
+
+noi l-am pus in views.xml - tot beans spring e si ala
+
+
+configureaza:
+
+<servlet-mapping>
+  <servlet-name>roadrantz</servlet-name>
+  <url-pattern>*.xls</url-pattern>
+</servlet-mapping>
+
+
+odata ce am configurat web.xml sa primeasca extensii xls si am realizat view-ul trebuie sa-l legam cumva 
+de un controller care sa ne puna datele in modelul pe care ExcelView il foloseste
+
+
+   The first thing to do is to add a URL mapping for the Excel request. Add the
+following <prop> entry to the mappings property of the urlMapping bean:
+   <prop key="/rantsForVehicle.xls">
+       modelPopulatorController
+   </prop>
+ 
+apoi cand trebuie sa aleaga controllerul view-ul de returnat:
+
+    The request’s URI provides a clue as to the type of view. The request URI
+already ends with htm for HTML requests. For Excel requests, we’ll map it to end
+with xls. The following getViewName() method extracts the extension of the URI
+and uses it to derive the view name:
+
+   private static final String BASE_VIEW_NAME = "excel";
+   private String getViewName(HttpServletRequest request) {
+     String requestUri = request.getRequestURI();
+     String extension = "." +
+         requestUri.substring(requestUri.lastIndexOf("."));
+     if("htm".equals(extension)) { extension=""; }
+     return BASE_VIEW_NAME + extension; // daca e excel atunci va return ca view=name: excel.xls
+   }
+ 
+If the URI ends with htm then it’s an HTML request and we’re going to let Inter-
+nalResourceViewResolver resolve to a JSP view. Otherwise, the view name will be
+vehicleRants followed by the extension of the URI.
+     Next we need to modify the handle() method of RantsForVehicleControl-
+ler to use the getViewName() method when choosing a view:
+    protected ModelAndView handle(HttpServletRequest request,
+        HttpServletResponse response, Object command,
+        BindException errors) throws Exception {
+    ...
+      return new ModelAndView(getViewName(request), model);
+    }
+
+ -->
+ 
+</beans>

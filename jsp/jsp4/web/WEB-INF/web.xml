@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    
+<filter>
+   <filter-name>Timing Filter</filter-name>
+   <filter-class>servlets.TimingFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>Timing Filter</filter-name>    
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+</filter-mapping>
+
+    <filter>
+       <filter-name>Session Recorder</filter-name>
+       <filter-class>servlets.SessionRecorder</filter-class>
+       <init-param>
+           <param-name>prefix</param-name>
+           <param-value>c:\</param-value>
+       </init-param>
+    </filter>
+
+    <filter-mapping>
+       <filter-name>Session Recorder</filter-name>
+       <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+	<welcome-file>
+            index.jsp
+        </welcome-file>
+    </welcome-file-list>
+    
+    
+    
+    <context-param>
+        <description>1</description>
+        <param-name>name</param-name>
+        <param-value>value</param-value>
+    </context-param>
+    
+    
+    <listener>
+        <listener-class>servlets.MyAppListener</listener-class>        
+    </listener>
+    
+    <servlet>
+        <servlet-name>servlet1</servlet-name>  
+        <servlet-class>servlets.servlet1</servlet-class>
+        
+        <init-param>
+            <param-name>parameter</param-name>
+            <param-value>value</param-value>
+        </init-param>
+
+
+    </servlet>
+    
+    <servlet>
+        <servlet-name>FileReceiverServlet</servlet-name>
+        <servlet-class>servlets.FileReceiverServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Uploader</servlet-name>
+        <servlet-class>servlets.Uploader</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReceiveUploadServlet</servlet-name>
+        <servlet-class>servlets.ReceiveUploadServlet</servlet-class>
+    </servlet>
+    
+    
+    <servlet>
+        <servlet-name>TableServlet</servlet-name>
+        <servlet-class>TableServlet</servlet-class>
+    </servlet>
+    
+    
+    
+    <servlet>
+        <servlet-name>logger</servlet-name>
+        <servlet-class>servlets.logger</servlet-class>
+    </servlet>
+    
+    
+    
+    
+     <servlet>
+        <servlet-name>ColorChoose</servlet-name>
+        <servlet-class>servlets.ColorChoose</servlet-class>
+    </servlet>
+    
+     <servlet>
+        <servlet-name>ColorChoose2</servlet-name>
+        <servlet-class>servlets.ColorChoose2</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>shoppingcart.AddToCart</servlet-class>
+    </servlet>
+    
+    
+     <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ColorChoose</servlet-name>
+        <url-pattern>/ColorChoose</url-pattern>
+    </servlet-mapping>
+    
+     <servlet-mapping>
+        <servlet-name>ColorChoose2</servlet-name>
+        <url-pattern>/ColorChoose2</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>servlet1</servlet-name>
+        <url-pattern>/servlet1</url-pattern>
+    </servlet-mapping>
+   
+    
+    <servlet>
+        <servlet-name>indexJSP</servlet-name>          
+        <jsp-file>/index.jsp</jsp-file>
+        
+        <init-param>
+            <param-name>parameter</param-name>
+            <param-value>value</param-value>            
+        </init-param>
+
+    </servlet>
+    
+
+    <servlet>
+        <servlet-name>RemoveItemServlet</servlet-name>
+        <servlet-class>shoppingcart.RemoveItemServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>shoppingcart.CheckoutServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/CheckoutServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>logger</servlet-name>
+        <url-pattern>/logger</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>FileReceiverServlet</servlet-name>
+        <url-pattern>/FileReceiverServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Uploader</servlet-name>
+        <url-pattern>/Uploader</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ReceiveUploadServlet</servlet-name>
+        <url-pattern>/ReceiveUploadServlet</url-pattern>        
+    </servlet-mapping>
+    
+    
+<servlet-mapping>
+        <servlet-name>TableServlet</servlet-name>
+        <url-pattern>/TableServlet</url-pattern>
+    </servlet-mapping>    
+  
+    
+<taglib>
+        <taglib-uri>/hello</taglib-uri>
+        <taglib-location>/WEB-INF/tld/hello.tld</taglib-location>
+</taglib>
+
+    <servlet-mapping>
+        <servlet-name>RemoveItemServlet</servlet-name>
+        <url-pattern>/RemoveItemServlet</url-pattern>
+    </servlet-mapping>    
+
+</web-app>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping
+	package="org.mseco.learning.hibernate2.associations.manyToManyWithAdditionalColumnOnIntermediateTable">
+	<class name="CategorizedItem" mutable="false">
+		<composite-id name="categorizedItemId" class="CategorizedItem$CategorizedItemId" access="field">
+			<key-property name="categoryId" column="category_id" access="field"></key-property>
+			<key-property name="itemId" column="item_id" access="field"></key-property>
+		</composite-id>
+		
+		<property name="desc" column="`desc`"></property>
+		
+		<many-to-one name="category" column="category_id"  insert="false" update="false"></many-to-one>
+		<many-to-one name="item" column="item_id" insert="false" update="false"></many-to-one>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.associations.optionalOneToManyWithAJoinTable">
+	<class name="Address">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		
+		<join table="addresses" optional="true" inverse="true">
+			<key column="address_id" unique="true" not-null="true"></key>
+			<many-to-one class="Person" name="person" column="person_id" />
+		</join>
+	</class>
+</hibernate-mapping>

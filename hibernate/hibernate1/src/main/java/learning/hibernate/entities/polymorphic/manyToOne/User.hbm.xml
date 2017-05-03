@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.entities.polymorphic.manyToOne">
+	<class name="User">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<!-- 
+		
+		In the examples so far, we assumed that BillingDetails is a class mapped explic-
+itly and that the inheritance mapping strategy is table per class hierarchy, or normal-
+ized with table per subclass.
+		Polymorphism in this case works just like in any other to-one or to-many mapping
+		
+		if that class declares any <union-subclass>, <subclass>, or <joined-subclass> elements,
+the association is naturally polymorphic		
+		 -->
+		<many-to-one name="billingDetails"></many-to-one>
+		<!-- 
+		There is just one thing to watch out for: If BillingDetails was mapped with
+lazy="true" (which is the default), Hibernate would proxy the defaultBilling-
+Details association target. In this case, you wouldn’t be able to perform a type-
+cast to the concrete class CreditCard at runtime, and even the instanceof
+operator would behave strangely:
+   User user = (User) session.get(User.class, userid);
+   BillingDetails bd = user.getDefaultBillingDetails();
+   System.out.println( bd instanceof CreditCard ); // Prints "false"
+   CreditCard cc = (CreditCard) bd; // ClassCastException!
+In this code, the typecast fails because bd is a proxy instance. When a method is
+invoked on the proxy, the call is delegated to an instance of CreditCard that is
+fetched lazily (it’s an instance of a runtime-generated subclass, so instanceof also
+fails). Until this initialization occurs, Hibernate doesn’t know what the subtype of
+		the given instance is—this would require a database hit, which you try to avoid
+with lazy loading in the first place. To perform a proxy-safe typecast, use load()
+		User user = (User) session.get(User.class, userId);
+BillingDetails bd = user.getDefaultBillingDetails();
+// Narrow the proxy to the subclass, doesn't hit the database
+CreditCard cc =
+    (CreditCard) session.load( CreditCard.class, bd.getId() );
+expiryDate = cc.getExpiryDate();
+		
+		    Note that you can avoid these issues by avoiding lazy fetching, as in the follow-
+ing code, using an eager fetch query:
+   User user = (User)session.createCriteria(User.class)
+       .add(Restrictions.eq("id", uid) )
+       .setFetchMode("defaultBillingDetails", FetchMode.JOIN)
+       .uniqueResult();
+   // The users defaultBillingDetails have been fetched eagerly
+   CreditCard cc = (CreditCard) user.getDefaultBillingDetails();
+   expiryDate = cc.getExpiryDate();
+		
+		 -->
+	</class>
+</hibernate-mapping>

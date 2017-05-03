@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.entities.associations.advanced">
+	<class name="User">
+		<id>
+			<generator class="native" />
+		</id>
+
+		<property name="name" />
+
+		<!-- primary key joined -->
+		<one-to-one name="address" class="Address"></one-to-one>
+
+		<!--
+			foreign key based - use a simple many-TO-ONE - works and it's simpler
+			for orm and the database schema
+		-->
+		<!--
+			By making the SHIPPING_ADDRESS_ID column unique, you declare that a
+			particular address can be referenced by at most one user, as a
+			shipping address. This isn’t as strong as the guarantee from a shared
+			primary key association, which allows a particular address to be
+			referenced by at most one user, period.
+		-->
+		<many-to-one name="shippingAddress" class="Address"
+			column="SHIPPING_ADDRESS_ID" cascade="save-update" unique="true" />
+
+	</class>
+</hibernate-mapping>

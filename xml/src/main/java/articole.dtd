@@ -1,0 +1,5 @@
+<!ELEMENT articole ( carte ) >
+
+<!ELEMENT carte ( #PCDATA ) >
+<!ATTLIST carte domeniu NMTOKEN #REQUIRED >
+

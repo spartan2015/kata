@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="transaction.factory_class">JDBCTransactionFactory</property> <!-- for java se -->
+		<property name="transaction.factory_class">CMTransactionFactory</property> <!-- for java ee -->
+		<property name="transaction.factory_class">JoinableCMTTransactionFactory</property> <!-- for java ee -->
+		<property name="transaction.factory_class">JTATransactionFactory</property> <!-- for java ee -->
+		<property name="transaction.factory_class">SpringTransactionFactory</property> <!-- for java se Spring framework-->
+		
+		<!-- p 444
+		If you plan to use JTA under Hibernate Transaction Api
+		  Hibernate needs to know the JTA implementation on which you’re deploy-
+  ing, for two reasons: First, different implementations may expose the JTA
+  UserTransaction, which Hibernate has to call internally now, under differ-
+  ent names. Second, Hibernate has to hook into the synchronization process
+  of the JTA transaction manager to handle its caches. You have to set the
+  hibernate.transaction.manager_lookup_class option to configure
+  both: for example, to org.hibernate.transaction.JBossTransaction-
+  ManagerLookup. Lookup classes for the most common JTA implementations
+  and application servers are packaged with Hibernate (and can be custom-
+  ized if needed). Check the Javadoc for the package.	
+    Hibernate is no longer responsible for managing a JDBC connection pool;
+  it obtains managed database connections from the runtime container.
+  These connections are exposed by the JTA provider through JNDI, a global
+  registry. You must configure Hibernate with the right name for your data-
+  base resources on JNDI, as you did in chapter 2, section 2.4.1, “Integration
+  with JTA.”
+  	
+		 -->
+		 <property name="transaction.manager_lookup_class">org.hibernate.transaction.JBossTransaction-ManagerLookup</property>
+		 <property name="hibernate.connection.datasource">java:/MyDatasource</property>
+		 
+	</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+To learn more, visit the Velocity homepage at http://jakarta.apache.org/velocity.
+
+<ul>
+#foreach($rant in $rants)
+<li>${rant.vehicle.state}/                         
+    ${rant.vehicle.plateNumber} --
+    ${rant.rantText}</li>
+#end
+</ul>
+
+
+Binding form fields in Velocity
+
+
+                                  Renders a set of check boxes. Checks the box(es)
+#springFormCheckboxes(path
+                                  whose value matches that of a command object
+options separator attributes)
+                                  property.
+                                  Renders a hidden field bound to a command
+#springFormHiddenInput(path
+                                  object property.
+attributes)
+                                  Renders a text field bound to a command object
+#springFormInput(path attributes)
+                                  property.
+                                  Renders a selection list allowing multiple selec-
+#springFormMultiSelect(path
+                                  tion. Selected values are bound to a command
+options attributes)
+                                  object property.
+                                  Renders a password field bound to a command
+#springFormPasswordInput(path
+                                  object property.
+attributes)
+                                  Renders a set of radio buttons where the selected
+#springFormRadioButtons(path
+                                  radio button is bound to a command object prop-
+options separator attributes)
+                                  erty.
+                                  Renders a selection list, allowing only a single
+#springFormSingleSelect(path
+                                  entry to be selected. The selected value is bound
+options attributes)
+                                  to a command object property.
+                                  Renders a text area bound to a command object
+#springFormTextarea(path
+                                  property.
+attributes)
+                                  Renders a message externalized in a resource
+#springMessage(messageCode)
+                                  bundle.
+                                  Renders a message externalized in a resource
+#springMessageText(messageCode
+                                  bundle, with a default value if the message isn’t
+text)
+                                  found in the resource bundle.
+                                  Renders validation errors.
+#springShowErrors(separator
+class/style)
+                                  Renders an absolute URL given a relative URL.
+#springUrl(relativeUrl)
+
+
+example:
+
+<html>
+  <head>
+       <title>#springMessage("title.addRant")</title>
+  </head>
+    <body>
+    <h2>#springMessage("title.addRant")</h2>
+    <form method="POST" action="addRant.htm">
+       <b>#springMessage("field.state")</b>#springFormInput(
+               "rant.vehicle.state" "")<br/>
+       <b>#springMessage("field.plateNumber") </b>#springFormInput(
+               "rant.vehicle.plateNumber" "")<br/>
+       #springMessage("field.rantText")
+      #springFormTextarea("rant.rantText" "rows='5' cols='50'")
+       <input type="submit"/>
+    </form>
+  </body>
+</html>
+
+
+
+</body>
+</html>

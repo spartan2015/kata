@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						"
+						
+	default-autowire="no"	
+							
+						>
+	<!-- 
+	default-init-method=""
+	default-destroy-method=""
+	 -->
+
+	<bean id="superMan" class="beans.start.beans.SuperManImpl" autowire="default">
+		<property name="superPower" ref="flySuperPower" />
+		
+		<property name="list">
+			<list>
+				<value>unu</value>
+				<value>doi</value>
+				<value>trei</value>
+			</list>
+		</property>
+		
+		<property name="set">
+			<set>
+				<value>unu</value>
+				<value>unu</value>
+				<value>doi</value>
+			</set>
+		</property>
+		
+		<property name="map">
+			<map>
+				<entry key="unu" value="unu"/>
+				<entry key="doi" value="doi"/>
+				<entry key="trei" value="trei"/>
+			</map>
+		</property>
+		
+		<property name="props">
+			<props>
+				<prop key="unu">unu</prop>
+				<prop key="doi">doi</prop>
+				<prop key="trei">trei</prop>
+			</props>
+		</property>
+		
+		<!-- 
+		<property name="props"><null /></property>
+		 -->
+	</bean>
+	
+	<bean id="superMan2" class="beans.start.beans.SuperManImpl">
+		<constructor-arg ref="flySuperPower" />
+	</bean>
+	
+	<bean id="flySuperPower" class="beans.start.beans.FlySuperPower" />
+
+	<bean id="kryptonite" class="beans.start.beans.Kryptonite" />
+	
+	
+	
+	<!-- 
+	BEAN SCOPE: singlenton - DEFAULT; prototype	
+	 -->
+	 <bean id="singleton-default" class="java.lang.String" />
+	 <bean id="singleton" class="java.lang.String" scope="singleton"/>
+	 <bean id="prototype" class="java.lang.String" scope="prototype"/>
+	 
+	 <!-- ONLY VALID WHEN IN A XmlWebApplicationContext - pt Web MVC si Portlets 
+	 <bean id="request" class="java.lang.String" scope="request"/>
+	 <bean id="session" class="java.lang.String" scope="session"/>
+	 <bean id="global-session" class="java.lang.String" scope="global-session"/> => PORTLESTS
+	  -->
+	 
+	<!-- INSTANTIATING THROUGH STATIC FACTORIES -->
+	<bean id="instantiate-through-static-factory" class="java.lang.Integer" factory-method="valueOf">
+		<constructor-arg value="11" />
+	</bean>
+
+	<!-- INIT and DESTROY methods -->
+	<bean id="init-destroy-method" class="java.lang.String" 
+		init-method="toUpperCase"
+		destroy-method="toLowerCase"
+		 />
+	
+	
+	
+	<aop:config>
+		<aop:aspect ref="kryptonite">
+			<aop:pointcut id="superThings" expression="execution(* *.doSuperThing(..))" />
+			<aop:before method="weakenSuperHero" pointcut-ref="superThings" />
+		</aop:aspect>
+	</aop:config>
+</beans>

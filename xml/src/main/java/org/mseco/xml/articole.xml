@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:articole xmlns:tns="http://irimia.vasile.drd/Articole"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://irimia.vasile.drd/Articole articole.xsd">
+	<carte domeniu="IT">Standarde de interoperabilitate</carte>
+</tns:articole>

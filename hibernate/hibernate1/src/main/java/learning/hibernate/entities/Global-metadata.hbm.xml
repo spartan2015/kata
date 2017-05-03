@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping schema="auction"
+	package="learning.hibernate.entities" auto-import="true" default-lazy="true"
+	default-cascade="all" default-access="field">
+
+</hibernate-mapping>

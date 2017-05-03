@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:ehcache="http://www.springmodules.org/schema/ehcache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd	
+						http://www.springmodules.org/schema/ehcache
+						http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd
+						">
+	
+	<!-- we will demonstrate caching database dao calls via proxies -->
+
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="url" value="jdbc:derby:jdbcDemoDB;create=true" />		
+		<property name="username" value="" />
+		<property name="password" value="" />
+	</bean>
+	
+	<!-- session factory implementation depends how you want to use hibernate:
+		1. classic xml mapping files: LocalSessionFactoryBean
+		2. annotated classes - simpler
+	 -->
+	 <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	 	<property name="dataSource" ref="dataSource" />
+	 	<property name="annotatedClasses">
+	 		<list>
+	 			<value>database.beans.Motorist</value>
+	 		</list>
+	 	</property>
+	 	<property name="hibernateProperties">
+	 		<props>
+	 			<prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+	 			<prop key="hibernate.hbm2ddl.auto">update</prop>
+	 			<prop key="hibernate.show_sql">true</prop>
+	 			<prop key="hibernate.format_sql">true</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	 
+	 
+	 <bean id="daoSupport" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="motoristHibernateDaoSupport" class="database.hibernate.MotoristHibernateDaoSupport" parent="daoSupport"/>
+			
+	<!-- declaring cached methods by tagging them with Java 5 annotations
+	@Cacheable(modelId="")
+	@CacheFlush(modelId="")
+	 -->
+	<ehcache:annotations>
+		<ehcache:caching cacheName="motoristCache" id="motoristCacheModelId"/>
+		<ehcache:flushing cacheNames="motoristCache" id="motoristFlusModelId" when="before"/>
+	</ehcache:annotations>
+	
+	<!-- declaring cached methods by tagging them with Jakarta Commons Attributes Metadata -->
+	<ehcache:commons-attributes />
+	
+	<!-- declaring cached methods in spring  xml -->
+	<!-- config location specifies the ehcache.xml specific ehcache config settings -->
+	<ehcache:config configLocation="database/cache/ehcache.xml"/>
+	
+	<!--  declaring cached methods by creating the proxy yourself -->
+	<ehcache:proxy id="motoristDao" refId="motoristHibernateDaoSupport">
+		<ehcache:caching methodName="getMotorists" cacheName="motoristCache"/>
+		<ehcache:flushing cacheNames="motoristCache" methodName="saveMotorist" when="before"/>
+	</ehcache:proxy>
+	
+	
+</beans>						

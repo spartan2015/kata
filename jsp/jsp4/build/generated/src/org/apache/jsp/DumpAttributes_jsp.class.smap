@@ -1,0 +1,12 @@
+SMAP
+DumpAttributes_jsp.java
+JSP
+*S JSP
+*F
++ 0 DumpAttributes.jsp
+DumpAttributes.jsp
+*L
+1,6:43
+9,45:51
+53,6:96
+*E

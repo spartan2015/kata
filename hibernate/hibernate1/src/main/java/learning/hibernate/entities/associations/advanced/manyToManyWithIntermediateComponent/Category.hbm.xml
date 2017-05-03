@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.entities.associations.advanced.manyToManyWithIntermediateComponent"> 
+	<class name="Category">
+		<id name="id" type="long">
+			<generator class="native" />
+		</id>
+		<!-- 
+		
+		    The advantage of a collection of components is clearly the implicit lifecycle of
+the link objects. To create an association between a Category and an Item, add a
+new CategorizedItem instance to the collection. To break the link, remove the
+element from the collection. No extra cascading settings are required, and the
+Java code is simplified:
+   CategorizedItem aLink =
+       new CategorizedItem(aUser.getUserName(), aCategory, anItem);
+   aCategory.getCategorizedItems().add( aLink );
+   aCategory.getCategorizedItems().remove( aLink );
+		
+The downside of this approach is that there is no way to enable bidirectional navi-
+gation: A component (such as CategorizedItem) can’t, by definition, have shared
+references. You can’t navigate from Item to CategorizedItem. However, you can
+write a query to retrieve the objects you need.
+		
+		 -->
+		<set name="categoryItems" inverse="true">
+			<key column="category_id" />			
+			<composite-element class="CategoryItem">
+				<parent name="category"/>
+				<many-to-one name="item" class="item" column="item_id"/>
+			</composite-element>			
+		</set>
+	</class>
+</hibernate-mapping>

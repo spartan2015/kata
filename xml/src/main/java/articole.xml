@@ -1,0 +1,15 @@
+<!-- Prolog begins --> 
+<!DOCTYPE articole [ 
+<!ELEMENT articole (carte+) > 
+<!ELEMENT carte (#PCDATA) > 
+<!ATTLIST carte domeniu (IT|Economie) #REQUIRED > 
+]> 
+<!-- sfarsit prolog --> 
+<!-- inceput cuprins -->
+<articole>
+	<carte domeniu="IT">Standarde de interoperabilitate</carte>
+</articole> 
+<!-- sfarsit cuprins -->
+<!-- Epilog --> 
+<!-- Acesta este un comentariu -->
+

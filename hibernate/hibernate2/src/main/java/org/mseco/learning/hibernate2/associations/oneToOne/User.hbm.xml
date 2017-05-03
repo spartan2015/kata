@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.associations.oneToOne">
+	<class name="User">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		
+		<one-to-one name="address" cascade="save-update" />
+		
+		<!-- 
+		Instead of sharing a primary key, two rows can have a foreign key relationship.
+One table has a foreign key column that references the primary key of the
+associated table. (The source and target of this foreign key constraint can even be
+the same table: This is called a self-referencing relationship.)		
+		 -->		
+		<many-to-one name="secondAddress" unique="true" cascade="save-update"/>
+		
+	</class>
+</hibernate-mapping>

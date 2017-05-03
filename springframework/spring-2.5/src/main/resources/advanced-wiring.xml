@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						"
+						
+	default-autowire="no"	
+							
+						>
+
+	<!-- parent and child beans -->
+	
+	<bean id="AbstractSuperHero" abstract="true">
+		<property name="superPower" ref="superPower" />
+	</bean>
+		
+	<bean id="superPower" class="beans.start.beans.FlySuperPower" />
+
+	<bean id="superMan" class="beans.start.beans.SuperManImpl" parent="AbstractSuperHero" />
+	
+	<!-- METHOD INJECTION MAAAAAN
+			1. Method replacement
+			2. Getter injection
+	 -->
+	 
+	 <bean id="magician" class="beans.advanced.beans.Magician" />
+	 
+	 <bean id="magicianReplaced" class="beans.advanced.beans.Magician">
+	 	<replaced-method name="getContents" replacer="replacer" />
+	 	<lookup-method name="getterStyleInjection" bean="ourString"/>
+	 </bean>
+	 
+	 <bean id="replacer" class="beans.advanced.beans.Replacer" />
+	 <bean id="ourString" class="java.lang.String">
+	 	<constructor-arg value="bunica has replaced you !!! mhahahahaha"/>	 	
+	 </bean>
+
+</beans>					

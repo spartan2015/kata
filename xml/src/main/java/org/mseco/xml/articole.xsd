@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	targetNamespace="http://irimia.vasile.drd/Articole"
+	xmlns:tns="http://irimia.vasile.drd/Articole"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"	 
+	>
+	<xsd:element name="articole">
+		<xsd:complexType>			
+			<xsd:sequence>
+				<xsd:element id="carte" name="carte" minOccurs="1" maxOccurs="unbounded">
+					<xsd:complexType mixed="true">
+						<xsd:attribute name="domeniu">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="IT"></xsd:enumeration>
+									<xsd:enumeration value="Economie"></xsd:enumeration>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>				
+			</xsd:sequence>			
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

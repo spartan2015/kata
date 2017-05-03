@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.mappingTypes.customTypes">
+	<typedef class="org.mseco.learning.hibernate2.mappingTypes.customTypes.MonetaryAmountParameterizedType"
+	           name="monetary_amount_usd">
+	    <param name="convertTo">USD</param>
+	</typedef>
+
+
+ <class name="EntityExample">
+  <id name="id">
+   <generator class="native"/>
+  </id>
+  <property generated="never" lazy="false" name="ma" type="org.mseco.learning.hibernate2.mappingTypes.customTypes.MonetaryAmountUserType">
+   <column name="amount"/>
+   <column name="currency"/>
+  </property>
+  <property generated="never" lazy="false" name="maComposite" type="org.mseco.learning.hibernate2.mappingTypes.customTypes.MonetaryAmountCompositeUserType">
+   <column name="amount1"/>
+   <column name="currency1"/>
+  </property>
+  <property generated="never" lazy="false" name="maParameterized">
+   <column name="amount2"/>
+   <column name="currency2"/>
+   <type name="org.mseco.learning.hibernate2.mappingTypes.customTypes.MonetaryAmountParameterizedType">
+    <param name="convertTo">USD</param>
+   </type>
+  </property>
+ </class>
+</hibernate-mapping>

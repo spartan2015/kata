@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.entities.mappingMaps.valueReferencesEntity">
+	<class name="Item">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		
+		<map name="bids">
+			<key colum="item_id" />
+			<map-key type="long" formula="bid_id"></map-key>
+			<one-to-many class="Bid"/>
+		</map>
+	</class>
+</hibernate-mapping>

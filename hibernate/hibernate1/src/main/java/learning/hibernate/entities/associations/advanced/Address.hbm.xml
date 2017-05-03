@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.entities.associations.advanced">
+	<class class="Address">
+		<!--
+			for one to one association with primary key join: user
+			constrained=true - adds a foreign key constraint linking the primary
+			key of the ADDRESS table to the primary key of the USERS table
+			
+			User newUser = new User();
+			Address shippingAddress = new Address();
+			newUser.setShippingAddress(shippingAddress);
+			shippingAddress.setUser(newUser);            // Bidirectional
+			session.save(newUser);
+			
+		-->
+		<id>
+			<generator class="foreign">
+				<param name="property">user</param>
+			</generator>
+		</id>
+
+		<property name="street" />
+		
+		<one-to-one name="user" class="User" property-ref="address" constrained="true" />
+	</class>
+</hibernate-mapping>

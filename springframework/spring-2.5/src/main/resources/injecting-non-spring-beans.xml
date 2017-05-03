@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+	<!-- 
+	We are injecting in fact 
+		1. Classes for wich we HAVE a source codd
+		2. that are instantiated by someone other than spring 
+	 -->
+	
+	<!-- 
+	STEPS:
+	1. adnotate the class with @Configurable("springBeanId")
+	2. declare in spring xml an abstract bean with the wiring you wish
+	3. declare in spring xml: <aop:spring-configured />
+	4. run the app with aspectj: -javaagent:/path/to/aspectjweaver.jar 
+	 -->
+	 
+	 <aop:spring-configured />
+	 
+	 <bean id="springBeanId" abstract="true" class="beans.advanced.beans.ConfigurableClass">
+	 	<property name="str" value="aspectj configuration via spring" />
+	 </bean>
+
+</beans>						

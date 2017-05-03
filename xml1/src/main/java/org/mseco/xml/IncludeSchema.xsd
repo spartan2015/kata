@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/IncludeSchema"
+	xmlns:tns="http://www.example.org/IncludeSchema" elementFormDefault="qualified"
+	xmlns:b = "http://mseco.org/biblioteca"
+	>
+
+	<b:
+	
+	<!-- poti acum refolosi tipurile daca vorbim de un chameleon - incluzi o schema fara targetNameSpace -->
+	<xsd:include schemaLocation="gardernofeden.xsd"/>
+	
+	
+
+</schema>

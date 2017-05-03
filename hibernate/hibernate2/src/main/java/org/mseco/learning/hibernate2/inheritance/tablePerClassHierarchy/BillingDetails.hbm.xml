@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.inheritance.tablePerClassHierarchy">
+	<class name="BillingDetails" abstract="true">
+		<id name="id">
+			<generator class="increment" />
+		</id>	
+		
+		<discriminator column="discriminator"></discriminator>
+		
+		<property name="date" />
+		
+		
+		
+		<subclass name="CreditCard" discriminator-value="cc">
+			<property name="cardNumber" />
+			<property name="expDate" type="date"/>			
+		</subclass>
+		
+		<subclass name="BankAccount" discriminator-value="ba">
+			<property name="iban" />
+			<property name="currency" />
+		</subclass>
+	</class>
+</hibernate-mapping>

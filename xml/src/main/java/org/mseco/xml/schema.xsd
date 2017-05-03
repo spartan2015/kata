@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/schema"
+	xmlns:tns="http://www.example.org/schema" elementFormDefault="qualified">
+
+<element name="carte">
+	<complexType>
+		<sequence>
+			<element name="autor" type="string" />
+			<element name="denumire" type="string" />			
+			<element name="editura" type="string" />
+			<element name="localitate" type="string" />
+			<element name="an" type="string" />
+		</sequence>
+	</complexType>
+</element>
+
+
+</schema>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://ns.soacookbook.com/book" xmlns:tns="http://ns.soacookbook.com/book" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="book" type="tns:book"/>
+
+  <xs:complexType name="book">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string" default="a"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

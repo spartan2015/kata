@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.inheritance.tablePerSubclass">
+	<class name="BillingDetails" abstract="true">
+		<id name="id">
+			<generator class="increment" />
+		</id>	
+					
+		<property name="date" />
+					
+		<joined-subclass name="CreditCard">
+			<key column="CreditCard_id" />
+			<property name="cardNumber" />
+			<property name="expDate" type="date"/>			
+		</joined-subclass>
+		
+		<joined-subclass name="BankAccount">
+			<key column="BankAccount_id" />
+			<property name="iban" />
+			<property name="currency" />
+		</joined-subclass>
+	</class>
+</hibernate-mapping>

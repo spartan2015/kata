@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+   	 http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+
+	<var name="customer" class="flows.pizza.Customer" scope="flow" />
+
+	<start-state idref="askForPhoneNumber" />
+
+
+	<view-state id="askForPhoneNumber" view="phoneNumberForm">
+		<transition on="submit" to="lookupCustomer" />
+	</view-state>
+
+	<action-state id="lookupCustomer">
+		<action bean="lookupCustomerAction"></action>
+		<transition on="success" to="checkDeliveryArea" />
+		<transition on-exception="flows.pizza.CustomerNotFoundException"
+			to="addNewCustomer" />
+	</action-state>
+
+	<view-state id="addNewCustomer" view="newCustomer">
+		<render-actions>
+			<action bean="addNewCustomer" method="setupForm"></action>
+		</render-actions>
+		<transition on="submit" to="checkDeliveryArea">
+			<action bean="addNewCustomer" method="bind"></action>			
+		</transition>
+	</view-state>
+
+	<decision-state id="checkDeliveryArea">
+		<if test="${flowScope.customer.inDeliveryArea" then="finish"
+			else="warnNoDeliveryAvailable" />
+	</decision-state>
+
+	<view-state id="warnNoDeliveryAvailable" view="warnNoDeliveryAvaiable">
+		<transition on="continue" to="finish" />
+	</view-state>
+
+
+	<end-state id="finish">
+		<output-mapper>
+			<mapping source="flowScope.customer" target="customer" />
+		</output-mapper>
+	</end-state>
+
+	<global-transitions>
+		<transition on="cancel" to="finish" />
+	</global-transitions>
+
+</flow>      

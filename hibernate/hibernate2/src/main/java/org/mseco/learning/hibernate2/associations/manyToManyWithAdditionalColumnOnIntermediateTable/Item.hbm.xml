@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping
+	package="org.mseco.learning.hibernate2.associations.manyToManyWithAdditionalColumnOnIntermediateTable">
+	<class name="Item">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<set cascade="all" name="categorizedItems" sort="unsorted">
+			<key column="item_id"/>			
+			<one-to-many class="CategorizedItem"/>
+		</set>
+	</class>
+</hibernate-mapping>

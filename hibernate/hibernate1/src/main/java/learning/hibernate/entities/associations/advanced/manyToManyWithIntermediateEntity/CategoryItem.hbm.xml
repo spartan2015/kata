@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping
+	package="learning.hibernate.entities.associations.advanced.manyToManyWithIntermediateEntity">
+	<class name="CategoryItem">
+
+		<composite-id>
+			<key-property name="categoryId" column="category_id"
+				access="field"></key-property>
+			<key-property name="itemId" column="item_id" access="field"></key-property>
+		</composite-id>
+
+		<!-- 
+		                                     The two <many-to-one> mappings are effec-
+tively read-only; insert and update are set to false. This is necessary because the
+columns are mapped twice, once in the composite key (which is responsible for
+insertion of the values) and again for the many-to-one associations.
+		
+		 -->
+		<many-to-one name="category" column="category_id" insert="false"
+			update="false" />
+
+		<many-to-one name="item" column="item_id" insert="false"
+			update="false" />
+
+	</class>
+</hibernate-mapping>
+

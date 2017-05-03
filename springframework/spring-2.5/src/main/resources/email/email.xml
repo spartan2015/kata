@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						"
+						
+	default-autowire="no"	
+							
+						>
+		
+		<!-- Configuring a mail sender -->
+		<!-- 
+		Mail sender implementation                             Description
+                           Simple implementation of an SMTP mail sender based on Jason
+CosMailSenderImpl
+                           Hunter’s COS (com.oreilly.servlet) implementation from his
+                           Java Servlet Programming book (O’Reilly, 1998).
+                           A mail sender based on the JavaMail API. Allows for sending of MIME
+JavaMailSenderImpl
+                           messages as well as non-SMTP mail (such as Lotus Notes).
+		
+		 -->
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="465" />
+		<property name="username" value="irimia.vasile@gmail.com" />
+		<property name="password" value="meritocratie" />		
+	</bean>
+		
+
+	<bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from">
+			<value><![CDATA[RoadRantz <notify@roadrantz.com>]]></value>
+		</property>
+		<property name="subject" value="You've got new Rantz!" />
+		<property name="text">
+			<value>
+		      <![CDATA[
+		Someone's been ranting about you! Log in to RoadRantz.com or
+		click on the link below to see what they had to say.
+		http://www.roadrantz.com/rantsForVehicle.htm?
+		        ➥ state=%STATE%&plateNumber=%PLATE%
+		      ]]>
+			</value>
+		</property>
+	</bean>
+	
+	<bean name="sendMail" class="email.SendMail">
+		<property name="mailMessage" ref="mailMessage" />
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+
+
+
+	<!-- perhaps the configuration is on jndi -->
+	<!-- 
+	  <bean id="mailSession"
+      class="org.springframework.jndi.JndiObjectFactoryBean">
+	    <property name="jndiName" value="mail/Session" />
+	    <property name="resourceRef" value="true" />
+	  </bean>
+	
+	
+  	<jee:jndi-lookup id="mailSession" jndi-name="mail/Session"
+		resource-ref="true" />
+	
+	<bean id="mailSender1"
+    class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	  <property name="session" ref="mailSession" />
+	</bean>
+	 -->		 
+</beans>

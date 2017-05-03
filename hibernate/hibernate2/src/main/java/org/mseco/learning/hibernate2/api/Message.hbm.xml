@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping 
+	PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+	>
+<hibernate-mapping package="org.mseco.learning.hibernate2.api" >
+	<class name="Message" table="MESSAGES_TABLE">
+		<id name="id" type="long">
+			<generator class="native" />
+		</id>
+		
+		<version name="version"></version>
+		
+		<property name="text" type="string" column="text" />
+		
+		<many-to-one name="nextMessage" column="nextMessage_id" foreign-key="fk_nextMessage_id" cascade="all"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+<!-- Suppose that you want to dig into a running application and change its configuration on the fly.
+That’s where Java Management Extensions (JMX) comes in.
+
+    JMX is a technology that enables you to instrument applications for manage-
+ment, monitoring, and configuration. Originally available as a separate extension
+to Java, JMX is now a standard part of the Java 5 distribution.
+
+             JMX in Action (Man-
+ning, 2002).
+
+
+   The key component of an application that is instrumented for management
+with JMX is the MBean (managed bean). An MBean is a JavaBean that exposes
+certain methods that define the management interface. The JMX specification
+defines four types of MBeans:
+      Standard MBeans—Standard MBeans are MBeans whose management inter-   
+      face is determined by reflection on a fixed Java interface that is imple-
+      mented by the bean class.
+      
+      Dynamic MBeans—Dynamic MBeans are MBeans whose management inter-   
+      face is determined at runtime by invoking methods of the DynamicMBean
+      interface. Because the management interface isn’t defined by a static inter-
+      face, it can vary at runtime.
+      
+      Open MBeans—Open MBeans are a special kind of dynamic MBean whose
+      attributes and operations are limited to primitive types, class wrappers for
+      primitive types, and any type that can be decomposed into primitives or
+      primitive wrappers.
+      
+      Model MBeans—A model MBean is a special kind of dynamic MBean that
+      bridges a management interface to the managed resource. Model MBeans
+      aren’t written as much as they are declared. Model MBeans are typically
+      produced by a factory that uses some meta-information to assemble the
+      management interface.
+      
+   Spring’s MBeanExporter is a bean that exports one or more Spring beans as
+Model MBeans in an MBean server. An MBean server (sometimes called an MBean
+ agent) is a container where MBeans live and through which the MBeans are
+accessed. For MBeans to be of any use for management and configuration, they
+must be registered in an MBean server.
+
+
+ -->
+ <bean name="jmxconfigurable" class="jmx.JmxConfigurable"  />
+ 
+ <bean class="org.springframework.jmx.export.MBeanExporter">
+  <property name="beans">
+    <map>
+      <entry key="rantz:name=emailSchedule" value-ref="jmxconfigurable"/>
+    </map>
+  </property>
+  
+  <property name="assembler" ref="assembler" />
+  <!-- 
+  <property name="server" ref="jmxServer" />
+   -->
+</bean>
+ 
+ 
+ <!-- 
+      As configured above, MBeanExporter assumes that it is running within an
+     application server that provides an MBean server (such as Tomcat or
+     JBoss). But if your Spring application will be running stand-alone or in a
+     container that doesn’t provide an MBean server, you’ll want to configure
+     an MBeanServerFactoryBean:
+
+<bean id="jmxServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+  <property name="defaultDomain" value="rantz" />
+</bean> 
+  -->
+  
+  
+  <!-- 
+   As you can see from figure 12.9, all public members of the cronEmailTrigger
+bean are exported as MBean operations and attributes. 
+
+picking and choosing which methods and properties of a bean become opera-
+tions and attributes of a model MBean, we must specify an MBean assembler:
+
+<bean id="mbeanExporter"
+      class="org.springframework.jmx.export.MBeanExporter">
+  <property name="beans">
+    <map>
+      <entry key="rantz:name=emailSchedule"
+           ➥ value-ref="cronEmailTrigger"/>
+    </map>
+  </property>
+  <property name="assembler" ref="assembler" />
+</bean>
+  
+  
+    MethodNameBasedMBeanInfoAssembler—Lets you explicitly configure methods to expose by name
+    
+<bean id="assembler"
+    class="org.springframework.jmx.export.assembler.
+                     ➥ MethodNameBasedMBeanInfoAssembler">
+  <property name="managedMethods">
+    <list>
+      <value>configureMe</value>     
+    </list>
+  </property>
+</bean>
+    
+ 
+  InterfaceBasedMBeanInfoAssembler—Exposes bean methods based on
+
+<bean id="assembler"
+    class="org.springframework.jmx.export.assembler.
+                     ➥ InterfaceBasedMBeanInfoAssembler">
+  <property name="managedInterfaces">
+    <list>
+      <value>com.roadrantz.service.mbean.ManagedCronTrigger</value>
+    </list>
+  </property>
+</bean>
+
+
+
+  what is contained in an interface
+  MetadataMBeanInfoAssembler—Exposes bean methods and properties that
+  are annotated with @ManagedOperation and @ManagedAttribute
+  
+  
+  <bean id="assembler"
+    class="org.springframework.jmx.export.assembler.
+                   ➥ MetadataMBeanInfoAssembler">
+  <property name="attributeSource" ref="attributeSource" />
+</bean>
+  
+  The attributeSource property is used to tell MetadataMBeanInfoAssembler
+what kind of metadata to look for. In theory, MetadataMBeanInfoAssembler
+can be configured to read MBean metadata from virtually any number of
+metadata sources, so long as the attributeSource property is configured with
+an implementation of org.springframework.jmx.export.metadata.JmxAttri-
+buteSource. Spring comes with two such implementations to choose from:
+     AttributesJmxAttributeSource—Reads MBean metadata that is precom-
+   ■
+     piled into source code using Jakarta Commons Attributes
+     AnnotationJmxAttributeSource— Reads MBean metadata from JDK 1.5
+   ■
+     annotations
+  
+  
+  <bean id="attributeSource"
+    class="org.springframework.jmx.export.annotation.
+                   ➥ AnnotationJmxAttributeSource" />
+  
+  
+  Meanwhile, MBeanExporter is wired with a reference to the MetadataMBean-
+InfoAssembler along with a couple of other useful properties:
+  
+  <bean id="mbeanExporter"
+    class="org.springframework.jmx.export.MBeanExporter">
+  <property name="assembler" ref="assembler" />
+  <property name="autodetectModeName"
+      value="AUTODETECT_ASSEMBLER" />
+  <property name="namingStrategy" ref="namingStrategy" />
+</bean>
+  
+                      AUTODETECT_ASSEMBLER. This tells the MBeanExporter to use
+the MetadataMBeanInfoAssembler to look for all beans in the Spring application
+context that are annotated with the @ManagedResource annotation.
+  
+  
+     However, the beans property did more than just list the beans to expose as
+MBeans; it also gave the MBeans their names. If we’re not explicitly listing the
+beans anymore, how can we make sure that the MBeans are named appropriately?
+   That’s what the namingStrategy property is for. By default, MBeanExporter
+uses KeyNamingStrategy, which draws the MBean name from the key value in the
+map that is wired into the beans property. Since we’re not using the beans map,
+KeyNamingStrategy won’t work. Instead, we’ll use MetadataNamingStrategy,
+which is declared as follows:
+  <bean id="namingStrategy"
+       class="org.springframework.jmx.export.naming.
+                     ➥ MetadataNamingStrategy">
+     <property name="attributeSource" ref="attributeSource" />
+  </bean>
+  
+   -->
+  
+<bean id="assembler"
+    class="org.springframework.jmx.export.assembler.
+                     ➥ MethodNameBasedMBeanInfoAssembler">
+  <property name="managedMethods">
+    <list>
+      <value>configureMe</value>     
+    </list>
+  </property>
+</bean>
+
+
+
+<!-- 
+Handling MBean object name collisions
+
+    By default, MBeanExporter will throw an InstanceAlreadyExistsException
+should you try to export an MBean that is named the same as an MBean that’s
+already in the MBean server. But you can change that behavior by setting the reg-
+istrationBehaviorName property on the MBeanExporter. For example, the fol-
+lowing <bean> declares an MBeanExporter that replaces the existing MBean with
+the new MBean being registered:
+
+<bean class="org.springframework.jmx.export.MBeanExporter">
+  <property name="beans">
+    <map>
+      <entry key="rantz:name=emailSchedule"
+
+          value-ref="cronEmailTrigger"/>
+    </map>
+  </property>
+  <property name="registrationBehaviorName"
+      value="REGISTRATION_REPLACE_EXISTING" />
+</bean>
+
+
+                              You’d like to be notified (via an exception) when an
+REGISTRATION_FAIL_ON_EXISTING
+                              MBean registration fails due to a name collision
+                              You’d like to attempt to register an MBean but fail
+REGISTRATION_IGNORE_EXISTING
+                              silently on a name collision
+                              You’d like to replace an existing MBean with a new
+REGISTRATION_REPLACE_EXISTING
+                              MBean
+
+ -->  
+ 
+ 
+ <!-- 
+ Remoting MBeans
+ 
+    In response to the need for a standard for remote JMX, the Java Community
+Process produced JSR-160, the Java Management Extensions (JMX) Remote API
+Specification. This specification defines a standard for JMX remoting, 
+ 
+ Exposing remote MBeans
+The simplest thing we can do to make our MBeans available as remote objects is
+to configure Spring’s ConnectorServerFactoryBean:
+ 
+ 
+ ConnectorServerFactoryBean creates and starts a JSR-160 JMXConnectorServer.
+By default, the server listens for the JMXMP protocol on port 9875—thus it is
+bound to service:jmx:jmxmp://localhost:9875. The problem with this is that
+most JMX implementations do not support JMXMP. Therefore, we’ll need to
+choose some other protocol for accessing our MBeans.
+ 
+  -->
+  
+  <bean class="org.springframework.jmx.support.ConnectorServerFactoryBean">
+  <property name="serviceUrl"
+      value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/rantz" />
+</bean>
+
+<!-- 
+The serviceUrl property is used to specify the remote binding for the JMXCon-
+nectorServer. In this case, we’re binding it to an RMI registry listening on port
+1099 of the localhost. That means we’ll also need an RMI registry running. As
+you’ll recall from chapter 8, an RMI registry can be started through Spring with
+the following <bean> declaration:
+
+ -->
+
+<bean class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
+  <property name="port" value="1099" />
+</bean>
+
+<!-- 
+And that’s it! Now our MBeans are available through RMI. But there’s little point
+in doing this if nobody will ever access the MBeans over RMI. So, let’s now turn
+our attention to the client side of JMX remoting and see how to wire up a remote
+MBean in Spring.
+
+ -->  
+ 
+ 
+ <!-- 
+ Accessing remote MBeans
+ 
+ <bean id="mBeanServerClient"
+    class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">
+  <property name="serviceUrl"
+      value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/
+                 ➥ rantz" />
+</bean>
+ 
+ 
+ <bean id="jmxClient"
+    class="com.springinaction.jmx.JmxClient">
+  <property name="mbeanServerConnection"
+      ref="mBeanServerClient" />
+</bean>
+ 
+ 
+                                                                       For exam-
+ple, say that we’d like to know how many MBeans are registered in the remote
+MBean server. The following code snippet will print that information:
+   int mbeanCount = mbeanServerConnection.getMBeanCount();
+   print ("There are " + mbeanCount + " MBeans");
+    And you may also query the remote server for all of the MBean names using
+the queryNames() method:
+   java.util.Set mbeanNames =
+       mbeanServerConnection.queryNames(null, null);
+ 
+ 
+     For accessing MBean attributes, you’ll want to use the getAttribute() and
+setAttribute() methods. For example, to retrieve the value of an MBean, you’d
+call the getAttribute() method like so:
+   String cronExpression = mbeanServerConnection.getAttribute(
+        new ObjectName("rantz:name=emailSchedule"),
+        "cronExpression");
+Changing the value of an MBean’s property is similarly done using the setAt-
+tribute() method:
+   mbeanServerConnection.setAttribute(
+        new ObjectName("rantz:name=emailSchedule"),
+        new Attribute("cronExpression", "0 59 23 * * ?"));
+If you’d like to invoke a method on a remote MBean, the invoke() method is
+what you’ll call. Here’s how you might invoke the sendDailyRantEmails()
+method on the RantService MBean:
+   mbeanServerConnection.invoke(
+        new ObjectName("rantz:name=rantService"),
+        "sendDailyRantEmails",
+        new Object[] {},
+        new String[] {""});
+ 
+ 
+ But spring simplifies this with proxying the mbean
+ 
+ <bean id="remoteRantServiceMBean"
+    class="org.springframework.jmx.access.MBeanProxyFactoryBean">
+  <property name="objectName" value="rantz:name=RantService" />
+  <property name="server" ref="mBeanServerClient" />
+  <property name="proxyInterface"
+      value="com.roadrantz.service.mbean.RantServiceRemoteMBean" />
+</bean>
+ 
+  -->
+  
+  
+  
+ <!-- 
+ Handling notifications
+Querying an MBean for information is only one way of keeping an eye on the
+state of an application. It is not, however, the most efficient way to be informed of
+significant events within the application.
+ 
+ 
+     Spring’s support for sending notifications comes in the form of the Notifica-
+tionPublisherAware interface. Any bean-turned-MBean that wishes to send noti-
+fications should implement this interface. 
+ 
+ 
+ <bean id="rantService"
+    class="com.roadrantz.service.RantServiceImpl">
+...
+  <property name="notificationPublisher">
+    <bean class="org.springframework.jmx.export.notification.
+           ➥ ModelMBeanNotificationPublisher" />
+  </property>
+</bean>
+ 
+ 
+ 
+ With a NotificationPublisher object at hand, we are now able to write the code
+that sends a notification when the one-millionth motorist registers. The following
+checkForOneMillionthMotorist() method should do the trick:
+  private void checkForOneMillionthMotorist() {
+     if(rantDao.getMotoristCount() == 1000000) {
+       notificationPublisher.sendNotification(
+           new Notification(
+               "RantService.OneMillionMotorists", this, 0));
+     }
+  }
+ 
+ 
+ 
+ 
+  istening for notifications
+The standard way to receive MBean notifications is to implement the javax.man-
+agement.NotificationListener interface. For example, consider PagingNoti-
+ficationListener:
+   package com.roadrantz.service.mbean;
+   import javax.management.Notification;
+   import javax.management.NotificationListener;
+   public class PagingNotificationListener
+       implements NotificationListener {
+     public PagingNotificationListener() {}
+     public void handleNotification(Notification notification,
+         Object handback) {
+        ... // send pager message
+     }
+   }
+ 
+ 
+ 
+    The only thing left to do is register PagingNotificationListener with the
+MBeanExporter:
+  <bean class="org.springframework.jmx.export.MBeanExporter">
+  ...
+    <property name="notificationListenerMappings">
+      <map>
+          <entry key="rantz:name=rantService">
+            <bean class=
+              "com.roadrantz.service.mbean.
+                   ➥ PagingNotificationListener" />
+          </entry>
+       </map>
+     </property>
+  </bean>
+ 
+  -->
+</beans>

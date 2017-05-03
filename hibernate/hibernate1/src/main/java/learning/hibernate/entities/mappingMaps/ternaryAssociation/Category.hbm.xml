@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.entities.mappingMaps.ternaryAssociation">
+	<class name="category">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<map name="users">
+			<key column="category_id"></key>
+			<map-key-many-to-many column="item_id" class="Item"></map-key-many-to-many>
+			<many-to-many column="user_id" class="User"></many-to-many>			
+		</map>
+		
+	</class>
+</hibernate-mapping>

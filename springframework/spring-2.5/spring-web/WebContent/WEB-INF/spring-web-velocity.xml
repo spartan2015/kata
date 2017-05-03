@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+	<!--
+		Velocity separates Java code from the web pages, making the web site
+		more maintainable over the long run and providing a viable alternative
+		to JavaServer Pages.
+	-->
+
+	<!--
+		VelocityConfigurer sets up the Velocity engine in Spring we’ve told
+		Velocity where to find its templates by setting the resourceLoaderPath
+		property
+	-->
+	<bean id="velocityConfigurer"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="WEB-INF/jsp/velocity/" />
+		<property name="velocityProperties">
+			<props>
+				<!--
+					By default, Velocity’s #foreach loop maintains a counter variable
+					called $velocityCount that starts with a value of 1 on the first
+					iteration of the loop. But here we’ve set the
+					directive.foreach.counter.name property to loopCounter so that the
+					loop counter can be referred to with $loopCounter. We’ve also made
+					the loop counter zero-based by setting the direc-
+					tive.foreach.counter.initial.value property to 0.
+				-->
+				<prop key="directive.foreach.counter.name">loopCounter</prop>
+				<prop key="directive.foreach.counter.initial.value">0</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!--
+		The VTL doesn’t directly support date formatting. However, Velocity
+		does have tools for date and number formatting. To enable these tools,
+		you’ll need to tell the VelocityViewResolver the name of the
+		attributes to expose them through. These attributes are specified
+		through VelocityViewResolver’s dateToolAt- tribute and
+		numberToolAttribute properties Here, the date tool is assigned to a
+		$dateTool attribute in Velocity. So, to format the rant’s posted date,
+		all you need to do is reference the date through the num- ber tool’s
+		format() function. For example: $dateTool.format("FULL",
+		rant.postedDate)
+	-->
+
+	<bean id="velocityViewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="suffix" value=".html" />
+		<property name="dateToolAttribute" value="dateTool" />		
+		<property name="numberToolAttribute" value="numberTool" />		
+		<property name="exposeRequestAttributes" value="true"/>		
+		<property name="exposeSessionAttributes" value="true" />		
+		<property name="exposeSpringMacroHelpers" value="true" />
+	</bean>
+
+
+</beans> 

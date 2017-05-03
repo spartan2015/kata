@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>training</groupId>
+	<artifactId>springframework</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>spring-di</module>
+		<module>spring-2.5</module>
+		<module>spring-jsf</module>
+		<module>spring-ws</module>
+		<module>spring-jpa-rest</module>
+		<module>spring-java-configuration</module>
+		<module>model</module>
+    <module>spring-boot-jpa</module>
+    <module>spring-jpa-java-config</module>
+    <module>spring-web-start</module>
+    <module>spring-security</module>
+  </modules>
+	
+</project>

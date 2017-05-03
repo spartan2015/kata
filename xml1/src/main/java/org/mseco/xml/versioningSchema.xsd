@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/versioningSchema"
+	xmlns:tns="http://www.example.org/versioningSchema" elementFormDefault="qualified"
+	version="1.0.0" <!--1. it is not enforceable by tools -->
+	>
+	<!-- 2. - change the name of the file or it's location 
+	
+	<customer
+  xmlns="http://www.soacookbook.com/Customer"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.soacookbook.com/Customer
+  http://www.soacookbook.com/Customer-v1.0.0.xsd">
+	
+	
+	bad:   The schemaLocation attribute is not authoritative,
+meaning that it is a hint to processors, and can be ignored
+	
+	 -->
+	
+	
+	  <!-- The best solution is to use the namespace itself to indicate the version of the schema
+	  <schema targetNameSpace="http://mseco/org/versiunea1/Customer.ver1.0.xsd"
+	
+	  The namespace for SOAP 1.2 is http://www.w3.org/2003/05/soap-envelope.
+	  The namespace for WS-Addressing 1.0 is http://www.w3.org/2005/08/addressing.
+	  The namespace for XML Schema 1.0 is http://www.w3.org/2001/XMLSchema, and it
+  		uses the namespace for instances of http://www.w3.org/2001/XMLSchema-instance.
+  		
+  		!! in Java, it is illegal to begin a package name with a number. - so pay attention when you wsimport the namespace: v10=good, 1=bad
+  			
+	 -->
+	 
+</schema>

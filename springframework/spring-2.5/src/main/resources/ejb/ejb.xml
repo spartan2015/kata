@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3c.org/2001/XMLSchema-instance"
+		xmlns:jee="http://www.springframework.org/schema/jee"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+		">
+<!-- 
+Proxying session beans (EJB 2.x)
+
+Spring comes with two proxies suitable for accessing session EJBs:
+  LocalStatelessSessionProxyFactoryBean—Used to access local EJBs
+■
+  (EJBs that are in the same container as their clients)
+  SimpleRemoteStatelessSessionProxyFactoryBean—Used                to    access
+■
+  remote EJBs (EJBs that are in a separate container from their clients)
+
+ -->
+
+	<bean name="citationService"
+		class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean"
+		lazy-init="true" 
+		>
+		<!--LAZY-INIT=TRUE -  we are telling Spring to not look
+up the home interface until the trafficService bean is first used—which should
+be plenty of time for the EJB to be bound in the naming service.
+		 -->
+		<property name="jndiName" value="ejb/CitationService" />
+		<property name="businessInterface" value="remoting.rmi.CitationService" />
+	</bean>
+ 
+ <!-- 
+
+   Well, Spring 2 makes things even easier by supplying EJB configuration ele-
+ments in the new JEE namespace. The JEE namespace includes two configuration
+elements specifically for EJB:
+     <jee:local-slsb>—Configures a proxy to a local stateless session bean in
+   ■
+     the Spring application context
+     <jee:remote-slsb>—Configures a proxy to a remote stateless session bean
+   ■
+     in the Spring application context
+
+ 
+  -->
+  <jee:local-slsb id="citationService"
+    jndi-name="ejb/CitationService"
+    business-interface="remoting.rmi.CitationService"/>
+  
+ 
+ 
+ <!-- Declaring EJB 3 session beans in Spring -->
+ <bean id="citationServiceEJB3"
+    class="org.springframework.jndi.JndiObjectFactoryBean">
+  <property name="jndiName" value="ejb/CitationService" />
+  <property name="resourceRef" value="true" />
+  <!-- 
+                     resourceRef property indicates that the EJB should be looked
+up as a Java resource, in effect prefixing the value of jndiName with java:comp/
+env/ before performing the lookup.
+  
+   -->
+</bean>
+
+
+<jee:jndi-lookup id="citationServiceEJB3"
+    jndi-name="ejb/CitationService"
+    resource-ref="true" />
+
+ 
+ <!-- 
+ Developing Spring-enabled EJBs (EJB 2.x)
+ 
+ 
+                   Spring can make developing EJBs a little bit easier. Spring comes
+with four abstract support classes that bring regular EJBs into the world of Spring:
+      AbstractMessageDrivenBean—Useful for developing message-driven beans
+   ■
+      that accept messages from sources other than JMS (as allowed by the EJB 2.1
+      specification)
+      AbstractJmsMessageDrivenBean—Useful for developing message-driven
+   ■
+      beans that accept messages from JMS sources
+      AbstractStatefulSessionBean—Useful for developing stateful session
+   ■
+      EJBs
+      AbstractStatelessSessionBean—Useful for developing stateless session
+   ■
+      EJBs
+ 
+ 
+               suppose that you were to expose the functionality of the rantSer-
+vice bean as a stateless session EJB. Listing 11.1 shows how you might implement
+this EJB.
+ 
+ 
+ public class RantServiceEjb
+    extends AbstractStatelessSessionBean
+    implements RantService {
+  public RantServiceEjb() {}
+  private RantService rantService;
+  protected void onEjbCreate() throws CreateException {
+    rantService = (RantService)
+                                                    Looks up rant service
+        getBeanFactory().getBean("rantService");
+  }
+  public void addMotorist(Motorist motorist)
+      throws MotoristAlreadyExistsException {
+    rantService.addMotorist(motorist);
+  }
+                                          Delegates
+  public void addRant(Rant rant) {
+                                          to POJO
+    rantService.addRant(rant);
+  }
+   public List<Rant> getRantsForDay(Date date) {
+    return rantService.getRantsForDay(date);
+  }
+  public List<Rant> getRantsForVehicle(Vehicle vehicle) {
+    return rantService.getRantsForVehicle(vehicle);
+  }
+                                                          Delegates
+  public List<Rant> getRecentRants() {
+                                                          to POJO
+    return rantService.getRecentRants();
+  }
+  public void sendDailyRantEmails() {
+    rantService.sendDailyRantEmails();
+  }
+  public void sendEmailForVehicle(Vehicle vehicle) {
+    rantService.sendEmailForVehicle(vehicle);
+  }
+}
+ 
+ 
+     The big unanswered question regarding the EJB in listing 11.1 is where the
+bean factory comes from. In typical JEE fashion, the abstract EJB classes retrieve
+the bean factory from JNDI. By default, they expect to find the Spring bean factory
+in JNDI with the name java:comp/env/ejb/BeanFactoryPath. This means that
+you’ll need to configure the bean factory in JNDI at that name.
+ 
+ 
+     If you’d rather configure the bean factory under a different JNDI name, set
+the beanFactoryLocatorKey property before the bean factory is loaded (in either
+the constructor or in the setSessionContext() method). For example:
+   public void setSessionContext(SessionContext sessionContext) {
+      super.setSessionContext(sessionContext);
+      setBeanFactoryLocatorKey("java:comp/env/ejb/SpringContext");
+   }
+With this setSessionContext() method in place, the Spring context will be
+located using java:comp/env/ejb/SpringContext instead of the default JNDI
+name.
+ 
+  -->
+ 
+ 
+ 
+ <!-- Spring and EJB3 
+ 
+    Spring doesn’t provide any direct support for the EJB 3 specification. However,
+there is a Spring add-on that makes it possible to use EJB 3 annotations to perform
+dependency injection and AOP in Spring.
+ Pitchfork
+ 
+ 
+                                                       itchfork comes with two bean
+factory postprocessors to choose from:
+      org.springframework.jee.config.JeeBeanFactoryPostProcessor
+    ■
+      org.springframework.jee.ejb.config.JeeEjbBeanFactoryPostProces-
+    ■
+      sor
+For the most part, these two bean factory postprocessors are identical. Both sup-
+port all of the annotations in table 11.1, except for the @EJB annotation, which is
+only supported by JeeEjbBeanFactoryPostProcessor. 
+ 
+ <bean class="org.springframework.jee.config.
+             ➥ JeeBeanFactoryPostProcessor" />
+ 
+ 
+ With JeeBeanFactoryPostProcessor in place, we’re now ready to start using the
+EJB 3 annotations. Next I’ll show you how to apply these annotations in Spring-
+managed beans.
+ 
+ 
+ injecting a resource:
+ 
+ @Resource(name = "quest")
+ 
+ In chapter 1, we injected the knight’s quest property using XML in the Spring
+configuration. But here we’re letting the @Resource annotation do all of the work.
+@Resource will try to find an object named quest and, if it’s found, wire it into the
+438  CHAPTER 11
+     Spring and Enterprise JavaBeans
+    quest property. Notice that there wasn’t a need for a setQuest() method—
+    @Resource can inject directly into private properties!
+ 
+                          Declares an exception to be an application exception,
+@ApplicationException
+                          which, by default, does not roll back a transaction
+                          Declares a method to be an interceptor method
+@AroundInvoke
+                          Declares a dependency to an EJB
+@EJB
+                          Declares that a method should not be intercepted by a
+@ExcludeClassInterceptors
+                          class interceptor
+ 
+ 
+                             Declares that a method should not be intercepted by a
+@ExcludeDefaultInterceptors
+                            default interceptor
+                            Specifies one or more interceptors classes to associate
+@Interceptors
+                            with a bean class or method
+                            Specifies a method to be executed after a bean is con-
+@PostConstruct
+                            structed and all dependency injection is done to per-
+                            form initialization
+                            Specifies a method to be executed prior to bean being
+@PreDestroy
+                            removed from the container
+                            Declares a dependency to an external resource
+@Resource
+                            Declares a bean to be a stateless session bean
+@Stateless
+                            Specifies that a method should be invoked within a
+@TransactionAttribute
+                            transaction context
+
+
+In addition to dependency injection, Pitchfork also supports EJB 3 interceptor
+annotations. EJB 3 interceptors are a simple form of AOP around advice that can
+be applied using annotations.
+
+
+ 
+ -->
+ 
+ 
+</beans>

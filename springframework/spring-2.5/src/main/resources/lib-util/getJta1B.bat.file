@@ -1,0 +1,5 @@
+set JAVA_HOME=C:\Program Files\Java\jre6
+set path=%path%;"c:\Program Files\GnuWin32\bin";"c:\Program Files\WinRAR";"D:\Java Kits\apache-maven-2.2.1\bin\"
+wget "http://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/VerifyItem-Start/jta-1_0_1B-classes.zip?BundledLineItemUUID=bQVIBe.pAjEAAAElxkAdbWnB&OrderID=AOtIBe.pL0wAAAEluUAdbWnB&ProductID=fIDACUFB4D0AAAEYXtA5AXiq&FileName=/jta-1_0_1B-classes.zip" -o c:\jta-1_0_1B-classes.zip
+unrar e c:\jta-1_0_1B-classes.zip
+mvn install:install-file -Dfile="d:\Java Kits\jta-1_0_1B-classes.zip" -DgroupId=javax.transaction -DartifactId=jta -Dversion=1.0.1B -Dpackaging=jar

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="learning.hibernate.entites.polymorphic.implicit">
+	<class name="BankAccount">
+		
+		<property name="owner" /> <!-- this superclass property must be duplicated in every subclass -->
+		<property name="account" />
+		<!--
+			nothing special need be done here - the superclass properties are
+			persistent because hibernate scans the classpath
+		-->
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.associations.oneToMany">
+	<class name="Address">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<many-to-one name="person" column="person_id" not-null="true"></many-to-one>
+	</class>
+</hibernate-mapping>

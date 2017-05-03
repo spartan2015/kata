@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+	<!-- resolving message text is based on java i18n internationalization
+	
+	default interface that a messages resolver must implement: MessageSource
+	
+	Spring already implements it: ResourceBundleMessageSource		
+	 -->
+	 
+	 <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	 	<property name="basename" value="messages"/>
+	 </bean>
+
+</beans>						

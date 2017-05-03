@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+	<!-- httpInvoker offers best of both worlds: RMI and Hessian/Burlap
+	
+	HttpInvoker has one significant limitation that you should keep in mind: it is a
+remoting solution offered by the Spring Framework only. This means that both
+the client and the service must be Spring-enabled applications. This also implies,
+at least for now, that both the client and the service must be Java based. And
+because Java serialization is being used, both sides must have the same version of
+the classes (much like RMI).
+	 -->
+	
+	<!-- the client -->
+	<bean id="citationService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl">
+			<value>http://${serverName}/${contextPath}/citation.service</value>
+		</property>
+		<property name="serviceInterface">
+			<value>remoting.rmi.CitationService</value>
+		</property>
+	</bean>
+	
+	<!-- export the service -->
+	<bean id="httpCitationService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service">
+			<ref bean="citationService"/>
+		</property>
+		<property name="serviceInterface">
+			<value>remoting.rmi.CitationService</value>
+		</property>
+	</bean>
+	
+		<!-- 
+	because it is a controller you need to do two more things:
+	 1. Configure a URL handler in your Spring configuration file to dispatch Hessian 
+	 	service URLs to the appropriate Hessian service bean.
+	 	
+	 	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+			<property name="mappings">
+				<props>
+					<prop key="/citation.service">hessianCitationService</prop>
+				</props>
+			</property>
+		</bean>
+	 	
+	 2. Configure a Spring DispatcherServlet in web.xml and deploy your application
+		as a web application.
+		
+		<servlet>
+			<servlet-name>citation</servlet-name>
+			<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>citation</servlet-name>
+			<url-pattern>*.service</url-pattern>
+		</servlet-mapping>
+	 -->
+
+</beans>						

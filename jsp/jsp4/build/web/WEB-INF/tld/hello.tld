@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+      version="2.0">
+          
+   <tlib-version>1.0</tlib-version>
+   <short-name>hello</short-name>
+   <description>
+       An example Hello World tag.
+   </description>
+   
+   <tag>
+     <name>hello</name>
+     <tag-class>servlets.HelloWorldTag</tag-class>
+     <body-content>empty</body-content>
+   </tag>
+
+   
+   <tag>
+     <name>DayTag</name>
+     <tag-class>servlets.DayTag</tag-class>
+     <body-content>jsp</body-content>
+   </tag>
+
+   <tag>
+     <name>TestBodyTag</name>
+     <tag-class>servlets.TestBodyTag</tag-class>
+     <body-content>jsp</body-content>
+   </tag> 
+   
+   <tag>
+     <name>simplehello</name>
+     <tag-class>servlets.HelloWorldSimpleTag</tag-class>
+     <body-content>empty</body-content>
+   </tag> 
+   
+   
+   <tag>
+     <name>NameTag</name>
+     <tag-class>servlets.NameTag</tag-class>
+     <body-content>jsp</body-content>
+     
+     <attribute>
+         <name>firstName</name>                  
+         <required>true</required>
+         <rtexprvalue>false</rtexprvalue>         
+         <type>String</type>
+         <description>Desc</description>
+     </attribute>
+     
+     <attribute>
+         <name>lastName</name>                  
+         <required>true</required>     
+         <rtexprvalue>false</rtexprvalue> 
+         <type>String</type>
+         <description>Desc</description>
+         
+     </attribute>
+     
+     <dynamic-attributes>true</dynamic-attributes>
+     
+    <variable>
+        <name-given>myVariable</name-given>
+        <variable-class>String</variable-class>
+        <declare>true</declare>
+        <scope>AT_END</scope>
+        <description>An example variable</description>
+    </variable>
+
+
+   </tag> 
+   
+</taglib>

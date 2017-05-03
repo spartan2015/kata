@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+	
+	<application>
+		<message-bundle>messages</message-bundle>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>ro</supported-locale>			
+		</locale-config>
+	</application>
+	
+	<validator>	
+		<validator-id>myValidator</validator-id>
+		<validator-class>org.mseco.learning.jsf.validators.MyValidator</validator-class>
+	</validator>
+	
+	<converter>
+		<converter-id>dateConverter</converter-id>
+<!--		<converter-for-class></converter-for-class>-->
+		<converter-class>org.mseco.learning.jsf.converters.DateConverter</converter-class>		
+	</converter>
+<!-- 
+    Objects that have a potentially long initialization time, such as a data access
+object that needs to establish a database connection, should be created at appli-
+cation startup (perhaps with a ServletContextListener; see chapter 12 for an
+example). This is because the facility creates objects when they’re first refer-
+enced, which could cause unexpected delays in the middle of a user’s experience
+for objects with long initialization periods.
+
+ -->
+	<managed-bean>
+		<managed-bean-name>jsfel</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.JsfEl</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>value</property-name>
+<!--			<property-class></property-class>-->
+			<value>neo</value>
+<!--			<null-value/>-->
+		</managed-property>
+		<managed-property>
+			<property-name>list</property-name>
+			<list-entries>
+				<value-class>java.lang.String</value-class>
+				<value>UK</value>
+				<value>RO</value>
+			</list-entries>
+		</managed-property>
+		<managed-property>
+			<property-name>map</property-name>
+			<map-entries>
+				<key-class>java.lang.String</key-class>
+				<value-class>java.lang.String</value-class>
+				<map-entry>				
+					<key>man</key>
+					<value>power</value>
+				</map-entry>
+			</map-entries>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>list</managed-bean-name>
+		<managed-bean-class>java.util.ArrayList</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<list-entries>
+			<value>alpha</value>
+			<value>power</value>
+			<value>expertise</value>
+			<value>experience</value>
+			<value>composure</value>
+		</list-entries>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>map</managed-bean-name>
+		<managed-bean-class>java.util.HashMap</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<map-entries>
+			<map-entry>
+				<key>key</key>
+				<value>value</value>
+			</map-entry>
+		</map-entries>
+	</managed-bean>
+	
+	
+	<!-- value-binding with JSF EL -->
+	<!-- a managed bean can’t reference an object with a shorter life span than the man-
+aged bean itself.	
+	-->
+	<managed-bean>
+		<managed-bean-name>myBean</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.MyBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>		
+		<managed-property>
+			<property-name>list</property-name>
+			<value>#{list}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>map</property-name>
+			<value>#{map}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>number</property-name>
+			<value>#{1+100}</value>
+		</managed-property>
+	</managed-bean>
+	
+	
+	<managed-bean>
+		<managed-bean-name>helloBean</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.HelloBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>myForm</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.MyForm</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>message</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.Message</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>lifeCycle</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.LifeCycle</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>identifiers</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.Identifiers</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>commonComponentProperties</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.CommonComponentProperties</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userForm</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.UserForm</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>applicationUsage</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.ApplicationUsage</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>facesContextUsage</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.FacesContextUsage</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+</faces-config>

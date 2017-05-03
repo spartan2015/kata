@@ -1,0 +1,92 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="Your_WebApp_ID" version="2.5">
+
+	<display-name>Archetype Created Web Application</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/spring-web-service.xml
+			/WEB-INF/spring-web-data.xml
+			/WEB-INF/spring-web-security.xml
+			/WEB-INF/spring-web-controllers.xml
+			/WEB-INF/spring-web-viewresolvers.xml
+			/WEB-INF/spring-web-messages.xml
+			/WEB-INF/spring-web-jakartavalidation.xml
+			/WEB-INF/spring-web-exceptions.xml
+			/WEB-INF/spring-web-viewresolvers.xml
+			/WEB-INF/spring-web-tiles.xml
+			/WEB-INF/spring-web-velocity.xml
+			/WEB-INF/spring-web-freemarker.xml
+			/WEB-INF/spring-web-excel.xml
+			/WEB-INF/spring-web-pdfs.xml
+			/WEB-INF/spring-web-customviews.xml
+			/WEB-INF/spring-web-webflow1.0.xml
+			/WEB-INF/spring-web-dwr.xml
+  </param-value>
+	</context-param>
+
+
+	<!--
+		With ContextLoaderListener configured, you’ll need to tell it the
+		location of the Spring configuration file(s) to load. If not specified
+		otherwise, the context loader will look for a Spring configuration
+		file at /WEB-INF/applicationCon- text.xml.
+	-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+
+	<servlet>
+		<servlet-name>spring-web</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!--
+		The <servlet-name> given to the servlet is significant. By default,
+		when Dis- patcherServlet is loaded, it will load the Spring
+		application context from an XML file whose name is based on the name
+		of the servlet. In this case, because the servlet is named spring-web,
+		DispatcherServlet will try to load the application context from a file
+		named spring-web-servlet.xml.
+	-->
+
+
+	<servlet-mapping>
+		<servlet-name>spring-web</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>spring-web</servlet-name>
+		<url-pattern>*.xls</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>spring-web</servlet-name>
+		<url-pattern>*.pdf</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>spring-web</servlet-name>
+		<url-pattern>*.rss</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<servlet-name>dwr</servlet-name>
+		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dwr</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+</web-app>

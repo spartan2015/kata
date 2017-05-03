@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EvaluateHandRequest
+    xmlns="http://mseco/poker">
+  <card>
+    <suit>HEARTS</suit>
+    <face>TEN</face>
+  </card>
+  <card>
+    <suit>SPADES</suit>
+    <face>KING</face>
+  </card>
+  <card>
+    <suit>HEARTS</suit>
+    <face>KING</face>
+  </card>
+  <card>
+    <suit>DIAMONDS</suit>
+    <face>TEN</face>
+  </card>
+  <card>
+    <suit>CLUBS</suit>
+    <face>TEN</face>
+  </card>
+</EvaluateHandRequest>
+

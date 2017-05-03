@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+Internally, JSF uses a variable resolver to locate
+beans that are managed within the JSF application. The default JSF variable
+resolver looks up variables declared within the JSF configuration file (faces-con-
+fig.xml). More specifically, consider the following declaration of the motorist
+bean in faces-config.xml for the answer to where the rantService property
+comes from:
+ -->
+ 
+   <managed-bean>
+     <managed-bean-name>motorist</managed-bean-name>
+     <managed-bean-class>
+       com.roadrantz.domain.Motorist
+     </managed-bean-class>
+     <managed-bean-scope>request</managed-bean-scope>
+     <managed-property>
+       <property-name>rantService</property-name>
+       <value>#{rantService}</value>
+     </managed-property>
+   </managed-bean>
+<!-- 
+Here the motorist bean is declared as a request-scoped JSF-managed bean. But
+take note of the <managed-property> element. JSF supports a simple implementa-
+tion of setter injection. #{rantService} indicates that the rantService property
+is being wired with a reference to a bean named rantService.
+
+   In a conventional JSF application (e.g., one where Spring is not involved), the
+rantService bean would be declared in faces-config.xml as a JSF-managed bean:
+
+ -->
+ 
+ <managed-bean>
+  <managed-bean-name>rantService</managed-bean-name>
+  <managed-bean-class>
+    com.roadrantz.service.RantServiceImpl
+  </managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+  <managed-property>
+    <property-name>rantDao</property-name>
+    <value>#{rantDao}</value>
+  </managed-property>
+</managed-bean>
+<!-- 
+For integration with Spring, we would like JSF to resolve its variables from the
+Spring application context. To do that, we’ll need to replace the default JSF vari-
+able resolver with a Spring-aware variable resolver.
+ -->
+ 
+ <application>
+  <variable-resolver>
+    org.springframework.web.jsf.DelegatingVariableResolver
+  </variable-resolver>
+</application>
+ <!-- 
+When JSF needs to resolve a variable, DelegatingVariableResolver will first look
+to the original variable resolver. If a JSF-managed bean can be found that fits the
+bill then it will be used. If not, however, DelegatingVariableResolver will then
+turn to the Spring application context to see if it can find a bean whose name
+matches the JSF variable name.
+    For DelegatingVariableResolver to be able to resolve variables as Spring-
+managed beans, we’ll need to make sure that the Spring application context is
+loaded. To do that we’ll need to configure a ContextLoaderListener in the appli-
+cation’s web.xml file.
+
+
+
+    But maybe you don’t want to pick and choose Spring beans to expose as JSF-
+managed beans. Instead, it may be more convenient for JSF to have wholesale
+access to the Spring application context. For that, let’s look at another JSF variable
+resolver that lets JSF access the Spring application context itself.
+ 
+  -->
+ <variable-resolver>
+  org.springframework.web.jsf.WebApplicationContextVariableResolver
+</variable-resolver>
+ 
+ <!-- 
+ WebApplicationContext-VariableResolver only resolves one variable: the spring context
+
+With WebApplicationContextVariableResolver in place, your JSF pages have
+direct access to the Spring application context through a variable named webAp-
+plicationContext.
+ 
+  -->
+
+  

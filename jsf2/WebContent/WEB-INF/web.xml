@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>jsf2</display-name>
+	<welcome-file-list>
+		<welcome-file>hello.jsp</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+<!--	<error-page>-->
+<!--		<exception-type>java.lang.Exception</exception-type>	-->
+<!--  		<location>/projecttrack/error.jsp</location>  	-->
+<!--	</error-page>-->
+
+
+
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>/WEB-INF/projecttrack-beans.xml,/WEB-INF/projecttrack-navigation.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.jsp</param-value>
+	</context-param>
+	<!--           MyFaces-specific configuration parameters
+   -->
+	<context-param>
+		<param-name>myfaces_allow_javascript</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+
+	<context-param>
+		<param-name>org.apache.myfaces.PRETTY_HTML</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>myfaces_allow_designmode</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+<!--Not on maven yet: only as separate donwload-->
+<!--	<filter>-->
+<!--        <filter-name>JTidyFilter</filter-name>-->
+<!--        <filter-class>org.w3c.tidy.servlet.filter.JTidyFilter</filter-class>-->
+<!--        <init-param>-->
+<!--            <param-name>properties.filename</param-name>-->
+<!--            <param-value>MyJTidyServlet.properties</param-value>-->
+<!--        </init-param>-->
+<!--        <init-param>-->
+<!--            <param-name>tee</param-name>-->
+<!--            <param-value>false</param-value>-->
+<!--        </init-param>-->
+<!--        <init-param>-->
+<!--            <param-name>config</param-name>-->
+<!--            <param-value>indent: auto; indent-spaces: 2</param-value>-->
+<!--        </init-param>-->
+<!--        <init-param>-->
+<!--            <param-name>doubleValidation</param-name>-->
+<!--            <param-value>false</param-value>-->
+<!--        </init-param>-->
+<!--        <init-param>-->
+<!--            <param-name>validateOnly</param-name>-->
+<!--            <param-value>false</param-value>-->
+<!--        </init-param>        -->
+<!--    </filter>-->
+<!---->
+<!--	<filter-mapping>-->
+<!--		<filter-name>JTidyFilter</filter-name>-->
+<!--		<url-pattern>*.jsp</url-pattern>-->
+<!--	</filter-mapping>-->
+
+
+	<listener>
+		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+</web-app>

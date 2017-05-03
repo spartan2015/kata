@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.polymorphicAssociations.unions">
+	<class name="User">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		
+		<!--only ToMany associations you can have towards a Table Per Concrete Class With unions
+		 because the fk must can not be from user towards the union tables (plural)
+		
+		If you want to enable the polymorphic union feature, a requirement for this poly-
+morphic association is that it’s inverse; there must be a mapping on the opposite
+side. In the mapping of BillingDetails, with <union-subclass>, you have to
+include a <many-to-one> association:
+		- p 
+		
+		-->
+		<set name="billingDetails" inverse="true"> <!-- it has to be inverse true - because BillingDetails table does not exist -->
+			<key column="User_id" />
+			<one-to-many class="BillingDetails" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings
+		cacheModelsEnabled="true"
+		enhancementEnabled="true"
+		lazyLoadingEnabled="true"
+		maxRequests="32"
+		maxSessions="10"
+		maxTransactions="5"
+		useStatementNamespaces="false"
+	/>
+	
+	<transactionManager type="JDBC" >
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+			<property name="JDBC.ConnectionURL" value="jdbc:derby:jdbcDemoDB;create=true"/>
+			<property name="JDBC.Username" value=""/>
+			<property name="JDBC.Password" value=""/>
+		</dataSource>
+	</transactionManager>
+ 	
+<!-- 	<typeAlias alias="motorist" type="database.beans.Motorist"/>-->
+ 	
+	<sqlMap resource="database/ibatis/domain/motorist-sql.xml"/>
+</sqlMapConfig>

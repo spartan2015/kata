@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="learning.hibernate.entities.associations.Item">
+		<id>
+			<generator class="native" />
+		</id>
+		<!--
+			Suppose the application modifies the association, by, for exam- ple,
+			adding a bid to an item in this fragment of the addBid() method:
+			bid.setItem(item); bids.add(bid); This code is fine, but in this
+			situation, Hibernate detects two changes to the in- memory persistent
+			instances. From the point of view of the database, only one value has
+			to be updated to reflect these changes: the ITEM_ID column of the BID
+			table. Hibernate doesn’t transparently detect the fact that the two
+			changes refer to the same database column, because at this point
+			you’ve done nothing to indicate that this is a bidirectional
+			association. In other words, you’ve mapped the same column twice (it
+			doesn’t matter that you did this in two mapping files), and Hiber-
+			nate always needs to know about this because it can’t detect this
+			duplicate auto- matically (there is no reasonable default way it
+			could be handled). You need one more thing in the association mapping
+			to make this a real bidi- rectional association mapping. The inverse
+			attribute tells Hibernate that the col- lection is a mirror image of
+			the <many-to-one> association on the other side Without the inverse
+			attribute, Hibernate tries to execute two different SQL state- ments,
+			both updating the same foreign key column, when you manipulate the
+			link between two instances. By specifying inverse="true", you
+			explicitly tell Hibernate which end of the link it should not
+			synchronize with the database. In this example, you tell Hibernate
+			that it should propagate changes made at the Bid end of the
+			association to the database, ignoring changes made only to the bids
+			collection. If you only call anItem.getBids().add(bid), no changes
+			are made persistent! You get what you want only if the other side,
+			aBid.setItem(anItem), is set cor- rectly. This is consistent with the
+			behavior in Java without Hibernate: If an associa- tion is
+			bidirectional, you have to create the link with pointers on two
+			sides, not just one. It’s the primary reason why we recommend
+			convenience methods such as addBid()—they take care of the
+			bidirectional references in a system without con- tainer-managed
+			relationships. (Can you switch the inverse side? The <many-to-one>
+			element doesn’t have an inverse attribute, but you can map it with
+			update="false" and insert="false" to effectively ignore it for any
+			UPDATE or INSERT statements. The collection side is then noninverse
+			and considered for insertion or updating of the foreign key col- umn.
+			We’ll do this in the next chapter.)
+		-->
+		<!--
+			What is the effect of cascade on inverse? Many new Hibernate users
+			ask this question. The answer is simple: The cascade attribute
+			has nothing to do with the inverse attribute. They often appear on
+			the same collection mapping. If you map a collection of entities as
+			inverse="true", you’re controlling the generation of SQL for a
+			bidirectional association map- ping. It’s a hint that tells Hibernate
+			you mapped the same foreign key column twice. On the other hand,
+			cascading is used as a convenience fea- ture. If you decide to
+			cascade operations from one side of an entity rela- tionship to
+			associated entities, you save the lines of code needed to manage the
+			state of the other side manually. We say that object state becomes
+			transitive. You can cascade state not only on collections of enti-
+			ties, but on all entity association mappings. cascade and inverse
+			have in common the fact that they don’t appear on collections of
+			value types or on any other value-type mappings. The rules for these
+			are implied by the nature of value types.
+		-->
+		<!-- 
+		cascade delete: If you can guarantee that no other object (or row in any other table) holds a reference to these bids, you can make the dele-
+tion transitive.
+
+     Let’s consider one further complication. You may have shared references to
+the Bid objects. As suggested earlier, a User may have a collection of references to
+the Bid instances they made. You can’t delete an item and all its bids without
+removing these references first. You may get an exception if you try to commit this
+transaction, because a foreign key constraint may be violated.
+   You have to chase the pointers. This process can get ugly, as you can see in the fol-
+lowing code, which removes all references from all users who have references
+before deleting the bids and finally the item:
+Obviously, the additional query (in fact, many queries) isn’t what you want. How-
+ever, in a network object model, you don’t have any choice other than executing
+code like this if you want to correctly set pointers and references—there is no
+persistent garbage collector or other automatic mechanism. No Hibernate cascad-
+ing option helps you; you have to chase all references to an entity before you
+finally delete it.
+
+
+		 -->
+		 
+		 <!-- delete-orphan -->
+		 <!-- 
+		     Hibernate offers you a way to declare this guarantee for collections of entity
+references. You can tell Hibernate, “If I remove an element from this collection, it
+will be an entity reference, and it’s going to be the only reference to that entity
+instance. You can safely delete it.” The code that worked for deletion with a collec-
+tion of components works with collections of entity references.
+    This option is called cascade orphan delete. You can enable it on a collection
+mapping in XML as follows:
+		 
+		  -->
+		  <!-- 
+		  Also note that this trick works only for collections of entity references in a one-to-
+many association; conceptually, no other entity association mapping supports it.
+		  
+		   -->
+		 
+		<set name="bids" inverse="true" cascade="save-update, delete, delete-orphan">
+			<key column="item_id" />
+			<one-to-many class="Bid" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						"
+
+	default-autowire="no">
+	<!--
+		1. create a subcless of TimerTask (java 1.3 rudimentary schedulling)
+	-->
+
+	<bean name="ScheduledTask" class="schedulestasks.ScheduledTask">
+	</bean>
+
+	<bean id="scheduledEmailTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="timerTask" ref="ScheduledTask" />
+		<property name="period" value="86400000" />
+		<property name="delay" value="3600000" />
+	</bean>
+
+	<!-- start the timers
+	Unfortunately, even though the task will be run every 24 hours, there is no way to
+specify what time of the day it should be run. ScheduledTimerTask does have a
+delay property that lets you specify how long to wait before the task is first run.
+	
+	 -->
+	<bean
+		class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="scheduledEmailTask" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Suppose that we want the daily rant email to be sent at 11:59 p.m. every night.
+	     In order to specify precisely when the email is sent, you’ll need to use the
+Quartz scheduler instead.
+  For more information about Quartz, visit the Quartz home page at http://
+www.opensymphony.com/quartz.
+
+	1. Creating a Quartz job
+	
+	 -->
+	 <bean id="dailyRantEmailJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+	<property name="jobClass" value="scheduledtask.QuartzJobImpl" />
+	<property name="jobDataAsMap">
+		<map>
+		<!-- 
+			<entry key="rantService" value-ref="rantService" />
+		 -->
+		</map>
+	</property>
+	</bean>
+	<!-- 
+	         to schedule the report job to run every 24 hours, with the first run start-
+ing one hour after the application starts, declare the following bean:
+	
+	 -->
+	 
+	 <bean id="simpleReportTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	  <property name="jobDetail" ref="dailyRantEmailJob"/>
+	  <property name="startDelay" value="3600000" />
+	  <property name="repeatInterval" value="86400000" />
+	</bean>
+		 
+<!-- Scheduling a cron job
+
+  Seconds (0–59)
+1
+  Minutes (0–59)
+2
+  Hours (0–23)
+3
+  Day of month (1–31)
+4
+  Month (1–12 or JAN–DEC)
+5
+  Day of week (1–7 or SUN–SAT)
+6
+  Year (1970–2099)
+7
+
+ -->
+	<bean id="cronEmailTrigger"
+	    class="org.springframework.scheduling.quartz.CronTriggerBean">
+	  <property name="jobDetail" ref="dailyRantEmailJob"/>
+	  <property name="cronExpression" value="0 59 23 * * ?" />
+	</bean>
+
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronEmailTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 
+	simpler configuration
+	
+		 <bean id="scheduledEmailTask"
+    class="org.springframework.scheduling.timer.
+           ➥ MethodInvokingTimerTaskFactoryBean">
+  <property name="targetObject" ref="rantService"/>
+  <property name="targetMethod" value="sendDailyRantEmails" />
+</bean>
+
+    MethodInvokingTimerTaskFactoryBean is good when scheduling simple one-
+method calls using a ScheduledTimerTask. But ScheduledTimerTask didn’t pro-
+vide us with the precision needed to schedule the email at just before midnight
+every night. So instead of using MethodInvokingTimerTaskFactoryBean, let’s
+redeclare the dailyRantEmailJob bean as follows:
+   <bean id="dailyRantEmailJob"
+       class="org.springframework.scheduling.quartz.
+             ➥ MethodInvokingJobDetailFactoryBean">
+     <property name="targetObject" ref="rantService"/>
+     <property name="targetMethod" value="sendDailyRantEmails" />
+   </bean>
+
+	 
+	 -->
+	 
+
+
+</beans>						

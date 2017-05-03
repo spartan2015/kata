@@ -1,0 +1,17 @@
+uvs_service_url_exchangerate = /uvsw-web/rest/auth/uvs-info/v2/exchangerates
+
+uvs_service_url_in = /uvsw-web/rest/auth/uvs-in/v2/in
+
+uvs_service_url_info = /uvsw-web/rest/auth/uvs-info/v2/dealerinfo
+
+uvs_service_url_masterdata = /uvss-search-web/rest/auth/uvs-masterdata-out/v2/fetch
+
+uvs_service_url_masterdataequipment = /uvss-search-web/rest/auth/uvs-masterdata-out/v2/equipments
+
+uvs_service_url_out = /uvsw-web/rest/auth/uvs-out/v2/out
+
+uvs_service_url_searchfin = /uvss-search-web/rest/auth/uvs-search/v2/fins
+
+uvs_service_url_searchoverview = /uvss-search-web/rest/auth/uvs-search/v2/overview
+
+uvs_service_url_vehicledetail = /uvss-search-web/rest/auth/uvs-search/v2/vehicleDetail

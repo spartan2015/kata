@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.entities.associations.advanced.bag">
+	<class name="Item">
+		<id>
+			<generator class="native"></generator>
+		</id>
+		
+		<!-- 
+		unlike a bag or any other collections this one has to managet the collection
+		- inverse="FALSE" not true - THIS TIME because if the association were handled by
+		Bid, it would not know the list-index. - in the symetric association on Bid we must
+		say it is update="false" insert="false"
+		 -->
+		<list name="bids" table="bids" inverse="false">
+			<key column="item_id"></key>
+			<list-index column="position" base="0"></list-index>
+			<one-to-many class="Bid" />
+		</list>		
+	</class>
+</hibernate-mapping>

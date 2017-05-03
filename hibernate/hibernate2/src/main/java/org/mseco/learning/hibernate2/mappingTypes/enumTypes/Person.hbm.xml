@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Configuration//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.mappingTypes.enumTypes">
+	<typedef name="ratingEnum" class="org.mseco.learning.hibernate2.mappingTypes.enumTypes.StringEnumUserType">
+		<param name="class">org.mseco.learning.hibernate2.mappingTypes.enumTypes.Rating</param>
+	</typedef>
+	<class name="Person">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<property name="rating" >
+			<type name="org.mseco.learning.hibernate2.mappingTypes.enumTypes.StringEnumUserType">
+				<param name="class">org.mseco.learning.hibernate2.mappingTypes.enumTypes.Rating</param>
+			</type>
+		</property>
+		
+		<property name="secondRating" type="ratingEnum" access="field" update="false" />
+		
+	</class>
+</hibernate-mapping>

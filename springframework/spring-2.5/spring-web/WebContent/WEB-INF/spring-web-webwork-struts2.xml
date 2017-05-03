@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+	<!--
+		once struts.properties or webworl.proprites has the objectFactory set
+		to spring: This line of configuration tells WebWork/Struts 2 to try to
+		retrieve objects from the Spring container before creating them
+		itself. This means that whenever Web- Work needs an instance of an
+		action class, it will first look in the Spring applica- tion context
+		for the action, as shown in figure 16.3. If it’s found then it will
+		use the Spring-managed action.
+	-->
+
+	<bean id="rantsForDayAction" class="com.roadrantz.webwork.RantsForDayAction"
+		scope="prototype">
+		<property name="rantService" ref="rantService" />
+	</bean>
+<!-- 
+Notice that the scope attribute has been set to prototype. That’s because Web-
+Work expects a fresh instance of the action to handle each request. 
+
+
+   On the WebWork, side, we’ll need to declare an <action> element in
+xwork.xml:
+<action name="rantsForDay" class="rantsForDayAction">
+  <result>dayRants.jsp</result>
+</action>
+
+ -->
+</beans>	

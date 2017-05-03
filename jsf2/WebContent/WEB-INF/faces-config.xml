@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+                              "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+<faces-config>
+	<converter>
+		<converter-id>converterId</converter-id>
+		<converter-class>org.mseco.learning.jsf.ConverterImpl</converter-class>
+	</converter>
+	<managed-bean>
+		<managed-bean-name>bean</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.Bean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>dataTableBean</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.DataTableBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>validator</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.ValidatorBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>hello</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.Hello</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>events</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.Events</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>messages</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.Messages</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>jsfEL</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.JsfEL</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>messageFormat</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.MessageFormatImpl</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>input</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.Input</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>managedBean</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.ManagedBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>name</property-name>
+			<value>neo</value>
+		</managed-property>
+		<managed-property>
+			<property-name>list</property-name>
+			<list-entries>
+				<value-class>java.lang.String</value-class>
+				<value>a</value>
+				<value>b</value>
+				<value>c</value>
+			</list-entries>
+		</managed-property>
+		<!--
+			<managed-property> <property-name>array</property-name>
+			<list-entries> <value-class>java.lang.String</value-class>
+			<value>a</value> <value>b</value> </list-entries> </managed-property>
+
+			<managed-property> <property-name>set</property-name> <list-entries>
+			<value-class>java.lang.String</value-class> <value>a</value>
+			<value>b</value> <value>c</value> </list-entries> </managed-property>
+
+			<managed-property> <property-name>map</property-name> <map-entries>
+			<key-class>java.lang.String</key-class>
+			<value-class>java.lang.String</value-class> <map-entry> <key>a</key>
+			<value>a</value> </map-entry> </map-entries> </managed-property>
+		-->
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>checkbox</managed-bean-name>
+		<managed-bean-class>org.mseco.learning.jsf.Checkbox</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<navigation-rule>
+		<from-view-id>/hello.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>goodbye</from-outcome>
+			<to-view-id>/goodbye.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/redirectToHello</from-view-id>
+		<navigation-case>
+			<from-outcome>hello</from-outcome>
+			<to-view-id>/hello.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>hello1</from-outcome>
+			<to-view-id>/hello.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<description>GLOBAL *</description>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<validator>
+		<validator-id>validatorId</validator-id>
+		<validator-class>org.mseco.learning.jsf.ValidatorImpl</validator-class>
+	</validator>
+	<application>
+		<message-bundle>messages</message-bundle>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>ro</supported-locale>
+		</locale-config>
+	</application>
+	<lifecycle>
+		<phase-listener>org.mseco.learning.jsf.PhaseListenerImpl</phase-listener>
+	</lifecycle>
+</faces-config>

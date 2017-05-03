@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd	
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+						">
+
+	<!-- TRANSACTIONS
+	1. is delegated to a Transaction Manager - specific for each persistence provider: 
+			org.springframework.*
+		- jdbc: 		jdbc.datasource.DataSourceTransactioManager
+		- hibernate:	orm.hibernate3.HibernateTransactionManager
+		- jpa:			orm.jpa.JpaTransactionManager
+		- jta:			transaction.jta.JtaTransactionManager
+	
+	-->
+		 
+	 	 
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	 	<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	 
+	<!-- 	
+	2.1. For programatic fine grained control: declare a TransactionTemplate and wire it into the bean		
+	 -->
+	<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	
+	
+	<!-- DECLARATIVE TRANSACTION -->
+	<!-- TRANSACTION PROPAGATION LEVELS:
+	PROPAGATION_MANDATORY - a transaction must be in progress or else, exception
+	PROPAGATION_NESTED - indicates that the method must run in a nested transaction if a transaction already exists
+						 if no transaction exists it behaves like a PROPAGATION_REQUIRED
+	PROPAGATION_NEVER - if a transaction exists - throw error
+	PROPAGATION_NOT_SUPPORTED - the method should not run in a transaction - if one exists it will be suspended
+	PROPAGATIOn_REQUIRED - the current method must run within a transaction (current) or a new one will be created
+	PROPAGATION_REQUIRES_NEW - a new transaction will always be started for this method, if a transaction already exits it will be suspended
+	PROPAGATION_SUPPORTS - the current method does not require transaction but may run in one if it already exists	 
+	-->
+	 
+	<!-- ISOLATION LEVEL:
+	ISOLATION_DEFAULT
+	
+	ISOLATION_READ_UNCOMMITED (worst)
+	ISOLATION_READ_COMMITED (no dirty)
+	ISOLATION_REPEATABLE_READ (no dirty, no non-repeatable reads)
+	ISOLATION_SERIALIZABLE - max isolation (no dirty, nonrepetable, phantom)
+	 --> 
+	 
+	 <!-- READ-ONLY ? -->
+	 
+	 <!-- TIME-OUT -->
+	
+	<!-- ROLLBACK-RULES:
+	BY DEFAULT: transaction are rollbed back only on RuntimeExceptions and not CheckedExceptions
+	 --> 						
+	
+	<!-- declarative 1: proxying - an ancient declarative way like the first aspects -->
+	<bean id="motoristDaoTarget" class="database.transaction.MotoristDaoImpl" />
+	
+	<bean id="motoristDao" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" >
+		<property name="target" ref="motoristDaoTarget" />
+		
+		<property name="proxyInterfaces" value="database.transaction.MotoristDao"/>
+		
+		<property name="transactionManager" ref="transactionManager" />
+		
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATIOn_SUPPORTS,readonly</prop> <!-- PROPAGATION,ISOLATION,readonly,-Exception,+Exception -->
+			</props>
+		</property>
+	</bean>
+	
+	
+	<!-- but this code is for just one bean - spring next step is to abstract it 
+		the beans you need transaction on need only specify the target and the interface
+	-->
+	<bean abstract="true" id="transactionPorxyFactoryAbstract" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATIOn_SUPPORTS,readonly</prop> <!-- PROPAGATION,ISOLATION,readonly,-Exception,+Exception -->
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="motoristDao1" parent="transactionPorxyFactoryAbstract">
+		<property name="target" ref="motoristDaoTarget" />		
+		<property name="proxyInterfaces" value="database.transaction.MotoristDao"/>
+	</bean>
+	
+	<!-- simpler indeed but we still deal with two bean - the target and the proxy, as with aspects we can go beyound that
+	you need to add the tx namespace
+	 -->
+	<tx:advice id="txAdvice"><!-- you still need to declare a "transactionManager" bean -->
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true"/> 
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="expression(* *..MotoristDao.*(..))"/>
+	</aop:config>
+	
+	
+	<!-- of course, the next things - annotation driven transactions
+	you define the tx:annotation-driven in xml, then, you specify the annotations:
+	@Transactional - at CLASS or METHOD LEVEL, or BOTH
+	 -->
+	<tx:annotation-driven/> <!-- default transaction manager is "transactionManager" -->
+						
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="url" value="jdbc:derby:jdbcDemoDB;create=true" />
+		<property name="username" value="" />
+		<property name="password" value="" />
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>database.beans.Motorist</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="daoSupport" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="motoristHibernateDaoSupport" class="database.transactions.MotoristHibernateDaoSupportTransactionTemplate"
+		parent="daoSupport" >
+		<property name="transactionTemplate" ref="transactionTemplate" />
+	</bean>
+
+</beans>

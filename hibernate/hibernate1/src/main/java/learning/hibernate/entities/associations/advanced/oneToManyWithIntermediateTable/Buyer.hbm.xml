@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.entities.associations.advanced.oneToManyWithIntermediateTable">
+	<class name="Buyer">
+		<id name="id" column="buyer_id">
+			<generator class="native" />
+		</id>
+		<!-- hibernate in action page 296 -->
+		<set name="boughItems">
+			<key column="buyer_id"></key>
+			<many-to-many
+				class="Item"
+				column="item_id"
+				unique="true"
+				/>				
+		</set>
+	</class>
+</hibernate-mapping>

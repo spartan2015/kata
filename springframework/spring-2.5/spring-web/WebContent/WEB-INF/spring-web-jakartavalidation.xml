@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+	<!-- you need spring modules validator: springmodules-validator.jar -->
+	<bean id="beanValidator"
+		class="org.springmodules.validation.commons.DefaultBeanValidator">
+		<property name="validatorFactory" ref="validatorFactory" />
+	</bean>
+
+	<bean id="validatorFactory"
+		class="org.springmodules.validation.commons.DefaultValidatorFactory">
+		<property name="validationConfigLocations">
+			<list>
+				<value>WEB-INF/validator-rules.xml</value>
+				<!-- 
+	     The validator-rules.xml file contains a set of predefined validation rules for
+common validation needs such as email and credit card numbers. This file comes
+with the Commons Validator distribution, so you won’t have to write it yourself	
+	 -->
+				<value>WEB-INF/validation.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 
+	   One last thing to do is change the controller’s declaration to wire in the new
+declarative implementation of Validator:
+  <bean id="addRantController"
+         class="com.roadrantz.mvc.AddRantFormController">
+
+    <property name="validator" ref="beanValidator" />
+  </bean>
+	
+	 -->
+	
+
+</beans>

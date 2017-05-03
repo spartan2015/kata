@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd	
+						">
+
+	<!-- 
+	Aspects based on:
+		1. Spring Interfaces:
+			MethodBeforeAdvice
+			AfterReturningAdvice
+			ThrowsAdvice
+			MethodInterceptor - around interceptor - all of the above in ONE METHOD
+			IntroductionInterceptor (say you need to know when each object was created:
+									 you create this type of aspect wich creates on the target
+									  object a Date instance variable and an accessor for this matter)
+	 -->
+
+	<bean id="pojo" class="aspects.beans.PojoImpl" />
+
+	<bean id="threeInterfacesAdvice" class="aspects.beans.AnAspectPojo" />
+	
+	<bean id="aroundAdvice" class="aspects.beans.AnAroundAdvice" />
+	
+
+	<!-- Basic pointcuts - the old not recommended way - aop:advice construct is a simplification of this:
+	 
+		1. define a Regular Expressions Pointcut
+	-->
+	<bean id="pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value=".*perform" />
+	</bean>
+	
+	<!-- 2. make an advisor by associating Pointcut + Advice -->
+	<bean id="advisor" class="org.springframework.aop.support.DefaultPointcutAdvisor" >
+		<property name="advice" ref="threeInterfacesAdvice"/>
+		<property name="pointcut" ref="pointcut" />
+	</bean>
+
+	<!-- first simplification of the two steps in 1 -->
+	<bean id="advisorSimpler" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor" >
+		<property name="advice" ref="threeInterfacesAdvice" />
+		<property name="pattern" value=".*perform" />
+	</bean>
+
+	
+	<!-- AspectJ expression pointcut definiiton -->
+	<bean id="aspectJExpressionPointcut" class="org.springframework.aop.support.AspectJExpressionPointcut">
+		<property name="expression" value="execution(* *.perform(..))" />
+	</bean>
+	
+	<!-- againt the two first stepst in one - this time using AspectJExpression -->
+	<bean id="advisorAspectJ" class="org.springframework.aop.support.AspectJExpressionAdvisor">
+		<property name="expression" value="execution(* *.perform(..))"/>
+		<property name="advice" value="threeInterfacesAdvice" />
+	</bean>
+	
+	<!-- 3. Create proxy for the target - I. the simplest way - just a proxy for a specific target object - stupid -->
+	<bean id="proxyForPojo" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="pojo" />
+		<property name="interceptorNames" value="advisorAspectJ" />
+		<property name="proxyInterfaces" value="aspects.beans.Pojo" />
+	</bean>
+	
+	<!-- a step up- declaring an abstract ProxyFactoryBean so we could apply it to all targets - still stupid -->
+	<bean id="proxyAbstract" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+		<property name="interceptorNames" value="advisorAspectJ" />
+		<property name="proxyInterfaces" value="aspects.beans.Pojo" />
+	</bean>
+	
+	<bean id="proxyForPojo2" parent="proxyAbstract">
+		<property name="target" ref="pojo" />
+	</bean>
+	
+	<!-- autoproxying - the next best thing - no need for manually proxying -->
+	<!-- I. BASIC AUTOPROXY  based on advisors pointcut expression detected automaticly by spring
+		it is based on a BeanPostProcessor wich analyzez the beans created and if they match an adivsors expression they are 
+		autoproxied - neat ha ?
+		wi this you just need to:
+			1. declare this one bean that does the BeanPostProcessor: org.springframework.aop.framework.DefaultAdvisorAutorProxyCreator
+			2. declare the bean
+			3. declare the advisor
+			
+	 -->
+	<bean class="org.springframework.aop.framework.DefaultAdvisorAutorProxyCreator" />
+	
+	
+	<!-- autoproxy based on AspectJ annotations - much simpler than the previous - isn't it ?
+	1. you annotate pojo classes to be aspects
+		- @Aspect
+		- @Pointcut("execution(* *.perform(..))") public void performance(){} - yep just a marker method
+		- @Before("performance()") // yes the markers methods name
+		- @AfterReturning("performance()")
+		- @AfterThrowing("performance()")
+	2. declare it as a bean
+	3. declare: aop:aspectj-autoproxy
+	 -->
+	<bean id="AnnotatedAspect" class="aspects.beans.AspectJAnootatedAspect" />
+	
+	<aop:aspectj-autoproxy />
+	
+	
+	
+	
+	<!-- PURE POJO ASPECTS
+	 a final prefered way since we work only with simple pojo(s), no need to tie the aspect to the framework:
+	 
+	 aop:config - contains all the following:
+	 
+	 	aop:aspect - has a reference to the Pojo Advice 
+	 	aop:advisor
+	 	aop:pointcut
+	 
+	 	Advice:
+		 	aop:before
+	 		aop:after				- regardless of whether the advised method return succesfully or not
+	 		aop:after-returning
+	 		aop:after-throwing
+	 		aop:around	 	
+	 	 
+	 -->
+	<aop:config>
+		<aop:pointcut id="p-for-all-aspects" expression="execution(* *.perform(..))"/>
+		<aop:aspect ref="threeInterfacesAdvice">
+			<aop:pointcut id="p" expression="execution(* *.perform(..))"/>
+			
+			<aop:before method="before" pointcut-ref="p"/>
+			
+			<aop:after-returning method="afterRetuning" pointcut="execution(* *.perform(..))"/>
+			
+			<aop:after-throwing method="afterThroing" pointcut-ref="p"/>
+		</aop:aspect>
+	</aop:config>
+	
+</beans>

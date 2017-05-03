@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.polymorphicAssociations.unions">
+	<class name="BillingDetails" abstract="true">
+		<!-- identity generator not posible - the id needs to be unique across two tables - we use increment - this presuposes 
+		that only hibernate accesses the database -->
+		<id name="id">
+			<generator class="increment"></generator>
+		</id>
+		
+		<many-to-one name="user" foreign-key="fk_user" column="User_id"></many-to-one>
+		
+		<union-subclass name="CreditCard">
+			<property name="cardNumber"></property>
+		</union-subclass>
+		
+		<union-subclass name="BankAccount">
+			<property name="accountNumber"></property>
+		</union-subclass>
+	</class>
+</hibernate-mapping>

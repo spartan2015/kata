@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+     For more information on FreeMarker, visit the FreeMarker home page at
+http://freemarker.sourceforge.net.
+
+
+<html>
+  <head><title>Rantz</title></head>
+  <body>
+    <h2>Rantz:</h2>
+    <a href="addRant.htm">Add rant</a><br/>
+    <a href="register.htm">Register new motorist</a><br/>
+    <ul>
+    <#list rants as rant>
+    <li>${rant.vehicle.state}/
+        ${rant.vehicle.plateNumber} --
+        ${rant.rantText}</li>
+    </#list>
+    </ul>
+  </body>
+</html>
+
+
+Binding form fields in FreeMarker
+
+                                     Renders a set of check boxes. Checks the
+<@spring.formCheckboxes path,
+                                     box(es) whose value matches that of a com-
+options, separator, attributes />
+                                     mand object property.
+                                     Renders a hidden field bound to a command
+<@spring.formHiddenInput path,
+                                     object property.
+attributes />
+                                     Renders a text field bound to a command
+<@spring.formInput path, attributes,
+                                     object property.
+fieldType />
+                                     Renders a selection list allowing multiple
+<@spring.formMultiSelect path,
+                                     selection. Selected values are bound to a
+options, attributes />
+                                     command object property.
+                                     Renders a password field bound to a com-
+<@spring.formPasswordInput path,
+                                     mand object property.
+attributes />
+                                     Renders a set of radio buttons where the
+<@spring.formRadioButtons path,
+                                     selected radio button is bound to a command
+options, separator, attributes />
+                                     object property.
+                                     Renders a selection list allowing only a single
+<@spring.formSingleSelect path,
+                                     entry to be selected. The selected value is
+options, attributes />
+                                     bound to a command object property.
+                                     Renders a text area bound to a command
+<@spring.formTextarea path,
+                                     object property.
+attributes />
+                                     Render a message externalized in a resource
+<@spring.message messageCode />
+                                     bundle.
+                                     Renders a message externalized in a resource
+<@spring.messageText messageCode,
+                                     bundle, with a default value if the message
+text />
+                                     isn’t found in the resource bundle.
+                               Renders validation errors.
+<@spring.showErrors separator,
+class/style />
+                               Renders an absolute URL given a relative URL.
+<@spring.url relativeUrl />
+
+
+
+
+example:
+
+<#import "/spring.ftl" as spring />        Imports Spring macros
+<html>                                     for FreeMarker
+  <head>
+      <title><@spring.message "title.addRant"/></title>
+       <style>
+          .error {
+               color: #ff0000;
+               font-weight: bold;
+          }
+       </style>
+  </head>
+    <body>
+    <h2><@spring.message "title.addRant"/></h2>
+    <form method="POST" action="addRant.htm">
+      <b><@spring.message "field.state"/> </b><@spring.formInput
+            "rant.vehicle.state", "" /><br/>
+       <b><@spring.message "field.plateNumber"/></b><@spring.formInput
+                "rant.vehicle.plateNumber", "" /><br/>                                                                 
+       <@spring.message "field.rantText"/>                                                                 
+       <@spring.formTextarea "rant.rantText",
+                "rows='5' cols='50'" />
+       <input type="submit"/>
+    </form>
+  </body>
+</html>
+
+
+</body>
+</html>

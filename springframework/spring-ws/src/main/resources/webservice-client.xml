@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- 
+	merge inclusiv marshallingul - desi destul de prost dar merge - l-am setat pe tcpmon - java -jar tcpmon - create local 8081 si redirectat catre 800
+	
+	 -->
+	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+		<property name="messageFactory">
+			<bean class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
+		</property>
+		<property name="messageSender" ref="messageSender" />
+		
+		<property name="marshaller" ref="marshaller" />
+		<property name="unmarshaller" ref="marshaller" />
+		
+		<property name="defaultUri" value="http://localhost:8081/springws/services" />
+		
+	</bean>
+	<!-- 
+	Table 9.5 Message senders send the messages to a web service. Spring-WS comes with two message
+senders.
+              Message sender                                     What it does
+              
+CommonsHttpMessageSender
+                                              Sends the message using Jakarta Commons HTTP  
+                                              Client. Supports a preconfigured HTTP client, allow-
+                                              ing advanced features such as HTTP authentication
+                                              and HTTP connection pooling.
+HttpUrlConnectionMessageSender            !!!! nu are proprietate URL - teapa !!!                                
+                                              Sends the message using Java’s basic facilities for  
+                                              HTTP connections. Provides limited functionality.
+	 -->
+
+	<bean id="messageSender"
+		class="org.springframework.ws.transport.http.HttpUrlConnectionMessageSender">		
+	</bean>
+
+
+	<bean id="templateBasedClient" class="client.TemplateBasedPokerClient">
+		<property name="webServiceTemplate" ref="webServiceTemplate" />	
+	</bean>
+	
+	<bean id="marshallingTemplateBasedClient" class="client.MarshallingPokerClient">
+		<property name="webServiceTemplate" ref="webServiceTemplate" />	
+	</bean>
+
+
+	<bean id="pokerClientGateway" class="client.PokerServiceGateway">
+		<property name="messageFactory">
+			<bean
+				class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
+		</property>
+		<property name="messageSender" ref="messageSender" />
+		<property name="marshaller" ref="marshaller" />
+		<property name="unmarshaller" ref="marshaller" />
+		
+		<property name="defaultUri" value="http://localhost:8080/springws/services" />
+	</bean>
+	
+	
+	<bean id="marshaller" class="org.springframework.oxm.castor.CastorMarshaller">
+		<property name="mappingLocation" value="classpath:mapping.xml" />
+	</bean>
+	
+	
+</beans>

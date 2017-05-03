@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.inheritance.tablePerConcreteClassWithImplicitPolymorphism">
+	<class name="BankAccount">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<property name="iban" />
+		<property name="currency" />
+		
+		<!-- from superclass -->
+		<property name="date" />
+	</class>
+</hibernate-mapping>

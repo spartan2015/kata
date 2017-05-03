@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tiles-definitions>
+
+  <definition name="template"
+      page="/WEB-INF/jsp/rantzTemplate.jsp">
+	    <put name="title" value="Generic Title"/>
+    	<put name="header" value=".header"/>
+    	<put name="content" value="/WEB-INF/jsp/tiles/defaultContentPage.jsp"/>
+    	<put name="footer" value="/WEB-INF/jsp/tiles/footer.jsp"/>
+  </definition>
+  
+  
+  <definition name=".header" page="/WEB-INF/jsp/tiles/header.jsp" controllerClass="com.roadrantz.tiles.HeaderTileController" />
+  
+  <definition name="home" extends="template">
+  	<put name="title" value="HomePage" />
+  	<put name="content" value="/WEB-INF/jsp/tiles/home.jsp"/>
+  </definition>
+  
+</tiles-definitions>

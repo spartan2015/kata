@@ -1,0 +1,13 @@
+Use maven to build package: 
+	mvn package
+
+For testing the limited coins version you can edit the initial inventor in coin-inventory.properties in the current folder then run the application.
+
+Expected 2 parameters: Store Type (limited or unlimited) and the amount you need change for\n 
+
+use java to execute: java -jar coinchange.jar CoinChangeApp unlimited|limited amount
+
+E.g.
+java -jar coinchange.jar CoinChangeApp unlimited 100
+java -jar coinchange.jar CoinChangeApp limited 16
+

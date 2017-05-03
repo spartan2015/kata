@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header />
+	<SOAP-ENV:Body>
+		<EvaluateHandRequest>
+			<ns1:card xmlns:ns1="http://castor.exolab.org/">
+				<ns1:suit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="java:java.lang.String">CLUBS</ns1:suit>
+				<ns1:face xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="java:java.lang.String">ACE</ns1:face>
+			</ns1:card>
+		</EvaluateHandRequest>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header />
+	<SOAP-ENV:Body>
+		<evaluate-hand-request>
+			<hand>
+				<suit>CLUBS</suit>
+				<face>ACE</face>
+			</hand>
+		</evaluate-hand-request>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header />
+	<SOAP-ENV:Body>
+		<EvaluateHandRequest xmlns="http://mseco/poker">
+			<card xmlns="">
+				<suit>CLUBS</suit>
+				<face>ACE</face>
+			</card>
+		</EvaluateHandRequest>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header />
+	<SOAP-ENV:Body>
+		<EvaluateHandRequest xmlns="http://mseco/poker">
+			<ns1:card xmlns:ns1="http://castor.exolab.org/">
+				<ns1:suit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="java:java.lang.String">CLUBS</ns1:suit>
+				<ns1:face xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="java:java.lang.String">ACE</ns1:face>
+			</ns1:card>
+		</EvaluateHandRequest>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header />
+	<SOAP-ENV:Body>
+		<EvaluateHandRequest xmlns="http://mseco/poker">
+			<ns1:card xmlns:ns1="http://castor.exolab.org/">
+				<ns1:suit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="java:java.lang.String">CLUBS</ns1:suit>
+				<ns1:face xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="java:java.lang.String">ACE</ns1:face>
+			</ns1:card>
+		</EvaluateHandRequest>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header />
+	<SOAP-ENV:Body>
+		<EvaluateHandRequest xmlns="http://mseco/poker">
+			<ns1:card xmlns:ns1="http://castor.exolab.org/">
+				<ns1:suit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="java:java.lang.String">CLUBS</ns1:suit>
+				<ns1:face xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="java:java.lang.String">ACE</ns1:face>
+			</ns1:card>
+		</EvaluateHandRequest>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

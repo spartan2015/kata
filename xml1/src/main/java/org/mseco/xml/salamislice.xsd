@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:tns="http://ns.soacookbook.com/salami" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://ns.soacookbook.com/salami">
+    <xsd:annotation>
+      <xsd:documentation>
+          Book schema as Salami Slice design.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="book">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:title"/>
+                <xsd:element ref="tns:author"/>
+                <xsd:element ref="tns:category"/>
+                <xsd:element ref="tns:price"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="title" type="xsd:string" />
+    <xsd:element name="author" type="xsd:string" />
+    <xsd:element name="category" type="xsd:string" />    
+    <xsd:element name="price" type="xsd:float" />
+    <!-- offers bet reuse but with high risk of tight coupling -->
+</xsd:schema>

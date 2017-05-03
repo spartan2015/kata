@@ -1,0 +1,23 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://ns.soacookbook.com/eden"
+  xmlns:tns="http://ns.soacookbook.com/eden"
+  elementFormDefault="qualified">
+    <xsd:annotation>
+        <xsd:documentation>
+        Book schema as Garden of Eden design.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="book" type="tns:bookType"/>
+    <xsd:element name="title" type="xsd:string"/>
+    <xsd:element name="author" type="xsd:string"/>
+    <xsd:element name="category" type="xsd:string"/>
+    <xsd:element name="price" type="xsd:double"/>
+    <xsd:complexType name="bookType">
+        <xsd:sequence>
+            <xsd:element ref="tns:title"/>
+            <xsd:element ref="tns:author"/>
+            <xsd:element ref="tns:category"/>
+            <xsd:element ref="tns:price"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

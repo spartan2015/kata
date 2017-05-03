@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.entities.polymorphic.manyToOne">
+	<class name="User">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<!-- 
+		    Hibernate doesn’t support a polymorphic billingDetails one-to-many collec-
+tion in User, if this inheritance mapping strategy is applied on the BillingDe-
+tails hierarchy. If you need polymorphic many-to-one associations with this
+strategy, you’ll have to resort to a hack. The technique we’ll show you in this sec-
+tion should be your last choice. Try to switch to a <union-subclass> mapping first.
+		
+		 -->
+		 
+		 <!-- 
+		     Suppose that you want to represent a polymorphic many-to-one association
+from User to BillingDetails, where the BillingDetails class hierarchy is
+mapped with a table per concrete class strategy and implicit polymorphic behavior in
+Hibernate. You have a CREDIT_CARD table and a BANK_ACCOUNT table, but no
+BILLING_DETAILS table. Hibernate needs two pieces of information in the USERS
+table to uniquely identify the associated default CreditCard or BankAccount:
+       The name of the table in which the associated instance resides
+    ■
+       The identifier of the associated instance
+    ■
+The USERS table requires a DEFAULT_BILLING_DETAILS_TYPE column in addition
+to the DEFAULT_BILLING_DETAILS_ID. This extra column works as an additional
+discriminator and requires a Hibernate <any> mapping in User.hbm.xml:
+		 
+		  -->
+	
+	<!-- technique isn’t available with annotations or in Java Persistence (this mapping is
+so rare that nobody asked for annotation support so far).
+	 -->	  
+	<any name="defaultBillingDetails" id-type="long" meta-type="string">
+    	<meta-value value="CREDIT_CARD" class="CreditCard"/>
+    	<meta-value value="BANK_ACCOUNT" class="BankAccount"/>
+    	<column name="DEFAULT_BILLING_DETAILS_TYPE"/>
+    	<column name="DEFAULT_BILLING_DETAILS_ID"/>
+	</any>
+		  
+	</class>
+</hibernate-mapping>

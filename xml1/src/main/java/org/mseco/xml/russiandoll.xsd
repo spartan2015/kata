@@ -1,0 +1,31 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://ns.soacookbook.com/russiandoll"
+           xmlns:tns="http://ns.soacookbook.com/russiandoll"
+           elementFormDefault="unqualified">
+<xsd:annotation>
+    <xsd:documentation>
+      Book schema as Russian Doll design.
+    </xsd:documentation>
+</xsd:annotation>
+<xsd:element name="book">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="title">
+            	<xsd:simpleType>
+            		<xsd:restriction base="xsd:string">
+            			<xsd:minLength value="2" />
+            		</xsd:restriction>
+            	</xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="author" type="xsd:string"/>
+            <xsd:element name="category" type="xsd:string"/>
+            <xsd:element name="price" type="xsd:float"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+</xsd:schema>
+<!-- 
+offers best encapsulation and loose coupling - changes affect only this element
+what makes the object not usable in other schema is the unqualified from schema I GUESS
+ -->                             
+                             

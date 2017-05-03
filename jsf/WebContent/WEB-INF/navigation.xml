@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+
+
+	<navigation-rule>
+		<from-view-id>/hello.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/goodbye.jsp</to-view-id>
+			<!--                                                                 The <redirect>
+element also forces the request for the new view to be handled externally by the
+web container, which means it will be processed by any additional application
+logic you may have (like a servlet filter)
+
+This will change the url of the browser, as opposed to a postback
+			 -->
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/events.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>hello</from-outcome>
+			<to-view-id>/hello.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/events.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>date</from-outcome>
+			<to-view-id>/date.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!--  global navigation rules -->
+	<navigation-rule>
+		<from-view-id>*</from-view-id> <!-- /corporate/* -->
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/logout.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+</faces-config>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.mappingCollections.ofValues">
+	<class name="Item">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		
+		<primitive-array name="numbers">
+			<key column="Item_id"></key>	
+			<list-index column="list_index"></list-index>		
+			<element column="number" type="int" />
+		</primitive-array>
+		
+		<bag name="images_names_unique">
+			<key column="Item_id" />			
+			<element type="string" />
+ 		</bag>
+		
+		<idbag name="images_names_duplicates" order-by="name_column">  <!-- duplicates possible  --> 
+			<collection-id type="long" column="id">
+				<generator class="increment"></generator>
+			</collection-id>			
+			<key column="Item_id"></key>
+			<element type="string" column="name_column"/>
+		</idbag>
+		
+		<bag name="images_bag" table="images_bag"> <!--  no duplicates possible -->
+			<key column="Item_id" />			
+			<composite-element class="org.mseco.learning.hibernate2.mappingCollections.ofValues.Image">
+				<parent name="parent"/>
+				<property name="name"></property>
+			</composite-element>
+		</bag>
+		
+		<set name="images_set" order-by="name_column">
+			<key column="Item_id" />
+			
+			<composite-element class="org.mseco.learning.hibernate2.mappingCollections.ofValues.Image">
+				<parent name="parent"/>
+				<property name="name" column="name_column" />
+			</composite-element>
+		</set>
+		
+		<set name="images_set_sorted" sort="natural">
+			<key column="Item_id" />
+			
+			<composite-element class="org.mseco.learning.hibernate2.mappingCollections.ofValues.Image" >
+				<parent name="parent"/>
+				<property name="name" />
+			</composite-element>
+		</set>
+		
+		<list name="images_list" >
+			<key column="Item_id"></key>
+			<list-index base="0" column="list_index"></list-index>
+			<composite-element class="org.mseco.learning.hibernate2.mappingCollections.ofValues.Image">
+				<parent name="parent"/>
+				<property name="name" />
+			</composite-element>
+		</list>
+				
+		
+		<map name="images_map" order-by="name">
+			<key column="Item_id"></key>
+			<map-key column="map_key" type="string"></map-key>
+			<composite-element class="org.mseco.learning.hibernate2.mappingCollections.ofValues.Image">
+				<parent name="parent"/>
+				<property name="name" column="name" />
+			</composite-element>
+		</map>
+		
+		<map name="images_map_sorted" sort="natural">
+			<key column="Item_id" />
+			<map-key type="string"></map-key>
+			
+			<composite-element class="org.mseco.learning.hibernate2.mappingCollections.ofValues.Image">
+				<property name="name" />
+			</composite-element>
+		</map>
+		
+		<map name="images_map_compositekey">
+			<key column="Item_id" />
+			<composite-map-key class="org.mseco.learning.hibernate2.mappingCollections.ofValues.Image">
+				<key-property name="name" column="name_key"></key-property>
+			</composite-map-key>
+			<composite-element class="org.mseco.learning.hibernate2.mappingCollections.ofValues.Image">
+				<property name="name" />
+			</composite-element>
+		</map>
+	</class>
+
+</hibernate-mapping>	

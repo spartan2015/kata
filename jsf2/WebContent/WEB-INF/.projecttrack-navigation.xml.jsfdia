@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#projecttrack#login.jsp"
+  PATH="/projecttrack/login.jsp" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#projecttrack#login.jsp:0" NAME="item"
+   PATH="/projecttrack/login.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success_readwrite::#projecttrack#protected#inbox.jsp"
+    NAME="output" PATH="/projecttrack/protected/inbox.jsp"
+    TARGET="rules:#projecttrack#protected#inbox.jsp"
+    TITLE="success_readwrite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success_readonly::#projecttrack#general#details.jsp"
+    NAME="output1" PATH="/projecttrack/general/details.jsp"
+    TARGET="rules:#projecttrack#general#details.jsp"
+    TITLE="success_readonly" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="failure::#projecttrack#login.jsp"
+    NAME="output2" PATH="/projecttrack/login.jsp"
+    TARGET="rules:#projecttrack#login.jsp" TITLE="failure" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#projecttrack#protected#inbox.jsp"
+  PATH="/projecttrack/protected/inbox.jsp" SHAPE="352,289,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#projecttrack#protected#inbox.jsp:0"
+   NAME="item" PATH="/projecttrack/protected/inbox.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{inboxBean.details}:#projecttrack#general#details.jsp"
+    NAME="output" PATH="/projecttrack/general/details.jsp"
+    TARGET="rules:#projecttrack#general#details.jsp"
+    TITLE="#{inboxBean.details}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{inboxBean.approve}:#projecttrack#protected#approve.jsp"
+    NAME="output1" PATH="/projecttrack/protected/approve.jsp"
+    TARGET="rules:#projecttrack#protected#approve.jsp"
+    TITLE="#{inboxBean.approve}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{inboxBean.reject}:#projecttrack#protected#reject.jsp"
+    NAME="output2" PATH="/projecttrack/protected/reject.jsp"
+    TARGET="rules:#projecttrack#protected#reject.jsp"
+    TITLE="#{inboxBean.reject}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#projecttrack#general#show_all.jsp"
+  PATH="/projecttrack/general/show_all.jsp" SHAPE="352,497,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#projecttrack#general#show_all.jsp:0"
+   NAME="item" PATH="/projecttrack/general/show_all.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{inboxBean.details}:#projecttrack#general#details.jsp"
+    NAME="output" PATH="/projecttrack/general/details.jsp"
+    TARGET="rules:#projecttrack#general#details.jsp"
+    TITLE="#{inboxBean.details}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#projecttrack#general#details.jsp"
+  PATH="/projecttrack/general/details.jsp" SHAPE="592,273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#projecttrack#general#details.jsp:0"
+   NAME="item" PATH="/projecttrack/general/details.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel_readonly::#projecttrack#general#show_all.jsp"
+    NAME="output" PATH="/projecttrack/general/show_all.jsp"
+    TARGET="rules:#projecttrack#general#show_all.jsp"
+    TITLE="cancel_readonly" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel_readwrite::#projecttrack#protected#inbox.jsp"
+    NAME="output1" PATH="/projecttrack/protected/inbox.jsp"
+    TARGET="rules:#projecttrack#protected#inbox.jsp"
+    TITLE="cancel_readwrite" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#projecttrack#protected#create.jsp"
+  PATH="/projecttrack/protected/create.jsp" SHAPE="352,145,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#projecttrack#protected#create.jsp:0"
+   NAME="item" PATH="/projecttrack/protected/create.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success_readwrite:#{createProjectBean.add}:#projecttrack#protected#inbox.jsp"
+    NAME="output" PATH="/projecttrack/protected/inbox.jsp"
+    TARGET="rules:#projecttrack#protected#inbox.jsp"
+    TITLE="#{createProjectBean.add}:success_readwrite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success_readonly:#{createProjectBean.add}:#projecttrack#general#show_all.jsp"
+    NAME="output1" PATH="/projecttrack/general/show_all.jsp"
+    TARGET="rules:#projecttrack#general#show_all.jsp"
+    TITLE="#{createProjectBean.add}:success_readonly" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="cancel::#projecttrack#protected#inbox.jsp"
+    NAME="output2" PATH="/projecttrack/protected/inbox.jsp"
+    TARGET="rules:#projecttrack#protected#inbox.jsp" TITLE="cancel" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#projecttrack#protected#approve.jsp"
+  PATH="/projecttrack/protected/approve.jsp" SHAPE="592,481,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#projecttrack#protected#approve.jsp:0"
+   NAME="item" PATH="/projecttrack/protected/approve.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success_readwrite:#{updateProjectBean.approve}:#projecttrack#protected#inbox.jsp"
+    NAME="output" PATH="/projecttrack/protected/inbox.jsp"
+    TARGET="rules:#projecttrack#protected#inbox.jsp"
+    TITLE="#{updateProjectBean.approve}:success_readwrite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success_readonly:#{updateProjectBean.approve}:#projecttrack#general#show_all.jsp"
+    NAME="output1" PATH="/projecttrack/general/show_all.jsp"
+    TARGET="rules:#projecttrack#general#show_all.jsp"
+    TITLE="#{updateProjectBean.approve}:success_readonly" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel_readwrite:#{updateProjectBean.cancel}:#projecttrack#protected#inbox.jsp"
+    NAME="output2" PATH="/projecttrack/protected/inbox.jsp"
+    TARGET="rules:#projecttrack#protected#inbox.jsp"
+    TITLE="#{updateProjectBean.cancel}:cancel_readwrite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel_readonly:#{updateProjectBean.cancel}:#projecttrack#general#show_all.jsp"
+    NAME="output3" PATH="/projecttrack/general/show_all.jsp"
+    TARGET="rules:#projecttrack#general#show_all.jsp"
+    TITLE="#{updateProjectBean.cancel}:cancel_readonly" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure::#projecttrack#protected#approve.jsp" NAME="output4"
+    PATH="/projecttrack/protected/approve.jsp"
+    TARGET="rules:#projecttrack#protected#approve.jsp" TITLE="failure" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#projecttrack#protected#reject.jsp"
+  PATH="/projecttrack/protected/reject.jsp" SHAPE="48,481,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#projecttrack#protected#reject.jsp:0"
+   NAME="item" PATH="/projecttrack/protected/reject.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success_readwrite:#{updateProjectBean.reject}:#projecttrack#protected#inbox.jsp"
+    NAME="output" PATH="/projecttrack/protected/inbox.jsp"
+    TARGET="rules:#projecttrack#protected#inbox.jsp"
+    TITLE="#{updateProjectBean.reject}:success_readwrite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success_readonly:#{updateProjectBean.reject}:#projecttrack#general#show_all.jsp"
+    NAME="output1" PATH="/projecttrack/general/show_all.jsp"
+    TARGET="rules:#projecttrack#general#show_all.jsp"
+    TITLE="#{updateProjectBean.reject}:success_readonly" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel_readwrite:#{updateProjectBean.cancel}:#projecttrack#protected#inbox.jsp"
+    NAME="output2" PATH="/projecttrack/protected/inbox.jsp"
+    TARGET="rules:#projecttrack#protected#inbox.jsp"
+    TITLE="#{updateProjectBean.cancel}:cancel_readwrite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel_readonly:#{updateProjectBean.cancel}:#projecttrack#general#show_all.jsp"
+    NAME="output3" PATH="/projecttrack/general/show_all.jsp"
+    TARGET="rules:#projecttrack#general#show_all.jsp"
+    TITLE="#{updateProjectBean.cancel}:cancel_readonly" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure::#projecttrack#protected#approve.jsp" NAME="output4"
+    PATH="/projecttrack/protected/approve.jsp"
+    TARGET="rules:#projecttrack#protected#approve.jsp" TITLE="failure" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="64,305,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="inbox::#projecttrack#protected#inbox.jsp"
+    NAME="output" PATH="/projecttrack/protected/inbox.jsp"
+    TARGET="rules:#projecttrack#protected#inbox.jsp" TITLE="inbox" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="show_all::#projecttrack#general#show_all.jsp" NAME="output1"
+    PATH="/projecttrack/general/show_all.jsp"
+    TARGET="rules:#projecttrack#general#show_all.jsp" TITLE="show_all" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="create::#projecttrack#protected#create.jsp"
+    NAME="output2" PATH="/projecttrack/protected/create.jsp"
+    TARGET="rules:#projecttrack#protected#create.jsp" TITLE="create" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="logout::#projecttrack#login.jsp"
+    NAME="output3" PATH="/projecttrack/login.jsp"
+    TARGET="rules:#projecttrack#login.jsp" TITLE="logout" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{authenticationBean.logout}:#projecttrack#login.jsp"
+    NAME="output4" PATH="/projecttrack/login.jsp"
+    TARGET="rules:#projecttrack#login.jsp"
+    TITLE="#{authenticationBean.logout}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{createProjectBean.create}:#projecttrack#protected#create.jsp"
+    NAME="output5" PATH="/projecttrack/protected/create.jsp"
+    TARGET="rules:#projecttrack#protected#create.jsp"
+    TITLE="#{createProjectBean.create}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

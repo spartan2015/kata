@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.associations.oneToMany">
+	<class name="Person">
+		<id name="id">
+			<generator class="native" />
+		</id>
+				 
+		<set name="addresses" inverse="true" cascade="save-update, delete, delete-orphan">
+			<key column="person_id"></key>
+			<one-to-many class="Address" />			
+		</set>
+		
+		
+		<!-- 
+		You can’t make an indexed collection inverse="true"(list). The collection becomes
+responsible for state synchronization, and the one side, the Bid, has to be made
+inverse. However, there is no inverse="true" for a many-to-one mapping so you
+need to simulate this attribute on a <many-to-one>:
+   <class name="Bid"
+          table="BID">
+       ...
+       <many-to-one name="item"
+                     column="ITEM_ID"
+                     class="Item"
+                     not-null="true"
+                     insert="false"
+                     update="false"/>
+   </class>
+		- p 293
+		 -->
+		 <list name="addresses_list">
+		 	<key column="Person_id" />
+		 	<list-index base="0" column="list_index" />
+		 	<one-to-many class="Address" />
+		 </list>
+		 
+	</class>
+</hibernate-mapping>

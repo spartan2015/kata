@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd	
+						">
+						
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="url" value="jdbc:derby:jdbcDemoDB;create=true" />		
+		<property name="username" value="" />
+		<property name="password" value="" />
+	</bean>
+	
+	<!-- session factory implementation depends how you want to use hibernate:
+		1. classic xml mapping files: LocalSessionFactoryBean
+		2. annotated classes - simpler
+	 -->
+	 <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	 	<property name="dataSource" ref="dataSource" />
+	 	<property name="annotatedClasses">
+	 		<list>
+	 			<value>database.beans.Motorist</value>
+	 		</list>
+	 	</property>
+	 	<property name="hibernateProperties">
+	 		<props>
+	 			<prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+	 			<prop key="hibernate.hbm2ddl.auto">update</prop>
+	 			<prop key="hibernate.show_sql">true</prop>
+	 			<prop key="hibernate.format_sql">true</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	 
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="motoristHibernateDao" class="database.hibernate.MotoristHibernateDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	<!-- as always simplifying with DaoSupport -->
+	
+	<bean id="daoSupport" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="motoristHibernateDaoSupport" class="database.hibernate.MotoristHibernateDaoSupport" parent="daoSupport"/>
+	
+	
+	<!-- spring free dao - just with hibernate session -->
+	<bean id="motoristHibernateOnlySpringFreeDao" class="database.hibernate.MotoristHibernateOnlySpringFreeDao" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	
+	
+</beans>

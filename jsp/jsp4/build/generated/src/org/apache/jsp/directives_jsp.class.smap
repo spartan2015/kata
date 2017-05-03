@@ -1,0 +1,16 @@
+SMAP
+directives_jsp.java
+JSP
+*S JSP
+*F
++ 0 directives.jsp
+directives.jsp
++ 1 UploadForm.jsp
+UploadForm.jsp
+*L
+14,3:52
+1#1,16:55
+17#0,2:70
+21,3:72
+25,2:76
+*E

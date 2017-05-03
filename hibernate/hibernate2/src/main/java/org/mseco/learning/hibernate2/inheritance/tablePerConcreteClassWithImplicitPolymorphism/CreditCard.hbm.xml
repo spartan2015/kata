@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.inheritance.tablePerConcreteClassWithImplicitPolymorphism">
+	<!-- 
+	   The main problem with this approach is that it doesn’t support polymorphic
+associations very well. 
+	Hibernate in action - p 193
+	
+	    Polymorphic queries (queries that return objects of all classes that match the
+interface of the queried class) are also problematic. A query against the superclass
+must be executed as several SQL SELECTs, one for each concrete subclass. For a
+query against the BillingDetails class Hibernate uses the following SQL:
+   select CREDIT_CARD_ID, OWNER, NUMBER, EXP_MONTH, EXP_YEAR ...
+   from CREDIT_CARD
+   select BANK_ACCOUNT_ID, OWNER, ACCOUNT, BANKNAME, ...
+   from BANK_ACCOUNT
+	
+	 -->
+	
+	<class name="CreditCard">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<property name="cardNumber" />
+		<property name="expDate" />
+		
+		<!-- from superclass -->
+		<property name="date" />
+	</class>
+</hibernate-mapping>

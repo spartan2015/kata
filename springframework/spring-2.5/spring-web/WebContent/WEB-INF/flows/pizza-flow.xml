@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation=
+    "http://www.springframework.org/schema/webflow
+   	 http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<var name="order"
+      class="flows.pizza.Order"
+      scope="flow"/>
+	
+   	<!-- 
+   	
+Table 15.2   Scopes that data can live in within a flow.
+      Scope                                               Visibility
+  Request          If an object is created in Request scope, it is only visible within the context of the
+                   current request. Request-scoped variables do not survive redirects.
+  Flash            An object created in Flash scope is visible within the context of the current request
+                   and until the next user event is triggered. Flash-scoped variables live beyond redi-
+                   rects.
+  Flow             If an object is created in Flow scope, it will be visible within the context of the current
+                   flow execution, but will not be visible to subflows.
+  Conversation     Objects created in Conversation scope are visible within the context of the current
+                   flow execution as well as in the context of subflow executions.
+   	
+   	
+   	 --> 
+   	 
+   	 <start-state idref="getCustomerInfo"/>
+   	 
+   	<subflow-state id="getCustomerInfo" flow="customerinfo-flow">
+   		<attribute-mapper>
+   			<output-mapper>
+   				<mapping source="customer" target="flowScope.order.customer"/>   				
+   			</output-mapper>
+   		</attribute-mapper>
+   		<transition on="finish" to="showOrder" />
+   	</subflow-state>
+   	 
+   	 <view-state id="showOrder" view="orderDetails">
+   	 	<transition on="addPizza" to="addPizza" />
+   	 	<transition on="continue" to="takePayment" />
+   	 </view-state>
+   	 
+   	 <view-state id="addPizza" view="newPizzaForm">
+   	 	<render-actions>
+   	 		<action bean="addNewPizza" method="setupForm"></action>
+   	 	</render-actions>
+   	 	<transition  on="submit" to="showOrder" >
+   	 		<action bean="addNewPizza" method="bind"></action>
+   	 		<evaluate-action expression="${flowScope.order.addPizza(requestScope.pizza)}" />
+   	 	</transition>
+   	 </view-state>
+   	 
+   	 <view-state id="takePayment" view="paymentForm">
+   	 	<transition on="submit" to="submitOrder" >
+   	 	<!--  this method must return void: public void approveCreditCard(String creditCardNumber) -->
+   	 		<bean-action bean="paymentProcessor" method="approveCreditCard">
+   	 			<method-arguments>
+   	 				<argument expression="${requestParameters.creditCardNumber}"/>
+   	 			</method-arguments>
+   	 		</bean-action>
+   	 	</transition>
+   	 	<transition on-exception="flows.pizza.PaymentException" to="takePayment" />
+   	 </view-state>
+   	 
+   	 <action-state id="submitOrder">
+   	 	<bean-action bean="orderService" method="saveOrder">
+   	 		<method-arguments>
+   	 			<argument expression="${flowScope.order}"/>
+   	 		</method-arguments>
+   	 	</bean-action>
+   	 	<transition on="success" to="finish" />
+   	 </action-state>
+   	
+   	   	    	 
+   	 <end-state id="finish" view="orderComplete" />
+   	
+   	 
+   	  <global-transitions>
+   	 	<transition on="cancel" to="finish" />   	 	
+   	 </global-transitions>
+</flow>   	  

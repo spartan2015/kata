@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.mappingTypes">
+	<class name="EntityExample">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<property name="bool" type="boolean" /> <!-- yes_no or true_false -->
+		<property name="b" type="byte"/>
+		<property name="s" type="short" />
+		<property name="i" type="integer" />
+		<property name="l" type="long" />
+		<property name="f" type="float" />
+		<property name="d" type="double" />
+		<property name="bigd" type="bigdecimal" precision="2" scale="10"/>
+		<property name="string" type="string" length="10"/>
+				
+		<property name="date" type="date" />
+		<property name="time" type="time" />
+		<!-- 
+		    A caveat: If you map a java.util.Date property with timestamp (the most
+common case), Hibernate returns a java.sql.Timestamp when loading the prop-
+erty from the database. Hibernate has to use the JDBC subclass because it includes
+		nanosecond information that may be present in the database. Hibernate can’t just
+cut off this information. This can lead to problems if you try to compare your
+java.util.Date properties with the equals() method, because it isn’t symmetric
+with the java.sql.Timestamp subclass equals() method. First, the right way (in
+any case) to compare two java.util.Date objects, which also works for any sub-
+class, is aDate.getTime() > bDate.getTime() (for a greater-than comparison).
+Second, you can write a custom mapping type that cuts off the database nanosec-
+ond information and returns a java.util.Date in all cases. Currently (although
+this may change in the future), no such mapping type is built into Hibernate.
+		- p 216
+		 -->
+		<property name="timestamp" type="timestamp" />
+		
+		<property name="calendar_timestamp" type="timestamp" />
+		<property name="calendar_date" type="date" />
+		
+		<!-- p 217 - these are eagerly loaded - bad idea -->
+		<property name="byte_array" type="binary" />
+		<property name="text" type="text" />
+		<!-- these are lazy loaded - good -->
+		<!-- 
+		   To create and set a java.sql.Blob or java.sql.Clob value, if you have these
+property types in your domain model, use the static Hibernate.createBlob()
+and Hibernate.createClob() methods and provide a byte array, an input stream,
+or a string
+		p 218
+		 -->
+		<property name="clob" type="clob" />
+		<property name="blob" type="blob" />
+		
+		<property name="serializable" type="serializable" />
+		
+		<property name="clazz" type="class" />
+		<property name="locale" type="locale"/>
+		<property name="timeZone" type="timeZone" />
+		<property name="currency" type="currency" />
+		
+	</class>
+</hibernate-mapping>	

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Motorist"> 
+	<select id="getMotorists" resultClass="database.beans.Motorist">
+		select 	id,
+				email,
+				password,
+				firstName,
+				lastName				
+			from Motorist
+	</select>
+	
+	<select id="getMotorist" parameterClass="int" resultClass="database.beans.Motorist">
+		select 	id,
+				email,
+				password,
+				firstName,
+				lastName				
+			from Motorist
+			where id=#value#
+	</select>
+	
+	<insert id="insertMotorist" parameterClass="database.beans.Motorist">
+		insert into motorist(email,password,firstName,lastName)
+					values(#email#,#password#,#firstName#,#lastName#)
+	</insert>
+	
+	<update id="updateMotorist" parameterClass="database.beans.Motorist">
+		update motorist set email=#email#,password=#password#,firstName=#firstName#,lastName=#lastName#
+			where id=#id#
+	</update>
+	
+	<delete id="deleteMotorist" parameterClass="database.beans.Motorist">
+		delete from Motorist where id=#id#
+	</delete>
+</sqlMap>
+	

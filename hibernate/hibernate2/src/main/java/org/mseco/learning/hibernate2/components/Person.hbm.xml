@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.mseco.learning.hibernate2.components"
+	>
+	<class name="Person" table="person_component"> 
+		<id name="id" type="long" column="id">
+			<generator class="native" />
+		</id>
+		
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="cnp" />
+		<property name="age" />
+		<property name="sex" />
+		<property name="educationLevel" />
+		
+		<component name="address" class="org.mseco.learning.hibernate2.components.Address">
+			<property name="country"></property>
+			<property name="region"></property>
+			<property name="city"></property>
+			<property name="street"></property>
+			<property name="building"></property>
+		</component>
+		
+	</class>
+</hibernate-mapping>	
+	

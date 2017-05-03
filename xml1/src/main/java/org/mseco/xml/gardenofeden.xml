@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+	  xmlns='http://ns.soacookbook.com/eden'
+	  xsi:schemaLocation='http://ns.soacookbook.com/eden gardenofeden.xsd'>
+	  <title>T</title>
+	  <author>a</author>
+	  <category></category>
+	  <price>2.2</price>	  
+</book>

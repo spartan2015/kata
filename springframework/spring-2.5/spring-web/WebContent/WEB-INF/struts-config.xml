@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+In order for Struts to have access to Spring-managed beans, you’ll need to register
+a Struts plug-in that is aware of the Spring application context. Add the following
+code to your struts-config.xml to register the plug-in:
+
+ContextLoaderPlugIn loads a Spring application context (a WebApplicationCon-
+text, to be specific), using the context configuration files listed (comma-
+separated) in its contextConfigLocation property.
+
+ -->
+<plug-in className=
+    "org.springframework.web.struts.ContextLoaderPlugIn">
+  <set-property property="contextConfigLocation"
+      value="/WEB-INF/spring-web-servlet.xml,
+      		/WEB-INF/spring-web-service.xml,
+      		/WEB-INF/spring-web-data.xml,
+            "/>
+</plug-in>
+
+<!--
+I.  you could access spring context from a struts action class with:
+
+ApplicationContext ctx =  WebApplicationContextUtils.getRequiredWebApplicationContext(
+    getServlet().getServletContext());
+RantService rantService =
+    (RantService) ctx.getBean("rantService");
+
+
+or
+
+                        Spring comes with ActionSupport, an extension of
+Struts’s Action that overrides the setServlet() method to retrieve the Spring
+application context from the ContextLoaderPlugIn. Any class that extends
+ActionSupport has access to the Spring application context by calling getWebApplicationContext()
+
+
+    But this approach also has its negative side. Most notably, your action classes
+will directly use Spring-specific classes. This tightly couples your Struts action code
+with Spring, which may not be desirable. Also, the action class is responsible for
+looking up references to Spring-managed beans. This is in direct opposition to
+the notion of dependency injection (DI).
+
+
+II. Delegating to Spring-configured actions
+
+   The first step in Struts-to-Spring delegation is to tell Struts that we want to use
+DelegatingRequestProcessor instead of its normal request processor. To do this,
+we add the following XML to the struts-config.xml:
+
+ -->
+<controller processorClass=
+    "org.springframework.web.struts.DelegatingRequestProcessor"/>
+<!-- 
+<controller processorClass=
+    "org.springframework.web.struts.DelegatingTilesRequestProcessor"/>
+
+In its simplest form, you can configure an <action> element in struts-config.xml
+like this:
+-->
+   <action path="/rantsForVehicle" />
+ <!-- 
+ When a request comes in for /rantsForVehicle.do, DelegatingRequestProces-
+sor will automatically refer to the Spring application context, looking for a bean
+named /rantsForVehicle—the same as the action’s path.
+
+in spring xml:
+
+<bean name="/rantsForVehicle"
+    class="com.roadrantz.struts.RantsForVehicleAction">
+ 
+  --> 

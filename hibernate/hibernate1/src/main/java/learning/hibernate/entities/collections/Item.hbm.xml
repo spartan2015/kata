@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class>
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<!-- 
+		The possible standard collection
+property types are Set, List, Collection, and Map. Arrays aren’t considered.
+		    Furthermore, the JPA specification only specifies that collection properties
+hold references to entity objects. Collections of value types, such as simple String
+instances, aren’t standardized. However, the specification document already men-
+tions that future versions of JPA will support collection elements of embeddable
+classes (in other words, value types). You’ll need vendor-specific support if you
+want to map collections of value types with annotations. Hibernate Annotations
+include that support, and we’d expect many other JPA vendors support the same.
+		
+		
+		 -->
+		
+		<!-- not in jpa -->
+		<primitive-array name="primitiveArray">
+			<index column="index"></index>
+			<key column="item_id"></key>			
+			<element type="string" column="filename"></element>
+		</primitive-array>
+		
+		<!-- not in jpa -->
+		<array name="arrayImages">
+			<index column="index"></index>
+			<key column="item_id"></key>			
+			<element type="string" column="filename"></element>
+		</array>
+		
+		<!-- Collection - dupicates, no order - interface Collection
+		     Hibernate supports persistent bags (it uses lists internally but
+  ignores the index of the elements). Use a java.util.ArrayList to initial-
+  ize a bag collection.
+		
+		 -->
+		<idbag name="bagImages">
+			<collection-id column="bagImagesId" type="long">
+				<!-- native generator for bags is not supported -->
+				<generator class="sequence"></generator>
+			</collection-id>
+			
+			<key column="item_id"></key>
+			
+			<element type="string" column="filename"></element>
+		</idbag>
+		
+		<!-- Set -->
+		<set name="images" table="images" order-by="filename asc">
+			<key column="item_id"></key>			
+			<element type="string" column="filename" not-null="true"></element>
+		</set>
+		
+		<!--   java.util.SortedSet
+		 -->
+		<set name="sortedImages" sort="natural">
+			<key column="item_id"></key>
+			<element type="string" column="filename"></element>
+		</set>
+		
+		<!-- list -->
+		<list name="listImages">
+			<list-index base="0" column="list_index"></list-index>
+			
+			<key column="item_id"></key>
+			
+			<element type="string" column="filename" />						
+		</list>
+		
+		
+		<!-- Map -->
+		<map name="mapImages" order-by="image_name asc">
+			<key column="item_id"></key>
+			<map-key type="string" column="image_name"></map-key>
+			<element type="string" column="filename"></element>
+		</map>
+		
+		<map name="sortedMapImages" sort="natural">
+			<key column="item_id"></key>
+			<map-key type="string" column="image_name"></map-key>
+			<element type="string" column="filename"></element>
+		</map>
+		
+		<map name=""></map>
+	</class>
+</hibernate-mapping>

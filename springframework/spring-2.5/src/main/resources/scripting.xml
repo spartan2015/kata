@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						http://www.springframework.org/schema/lang
+						http://www.springframework.org/schema/lang/spring-lang-2.0.xsd
+						">
+	
+	<lang:jruby id="lime" 
+		script-source="classpath:beans/advanced/scripting/interfaces/lime.rb"	
+		script-interfaces="beans.advanced.scripting.interfaces.Lime"
+		refresh-check-delay="5"
+		/>		
+				
+	<lang:groovy id="groovyLime"
+		script-source="classpath:beans/advanced/scripting/interfaces/GroovyLime.groovy"
+		refresh-check-delay="5"
+	 />	
+	 
+	 <lang:bsh id="beanShellLime"
+	 	script-source="classpath:beans/advanced/scripting/interfaces/lime.bsh"
+	 	script-interfaces="beans.advanced.scripting.interfaces.Lime"
+	 	refresh-check-delay="5"
+	 />	
+	 
+	 <!-- Injecting a bean into a scripted bean -->
+	 <bean id="javaLime" class="beans.advanced.scripting.beans.JavaLime" />
+	 
+	 <lang:groovy id="coconut"
+		script-source="classpath:beans/advanced/scripting/beans/groovyCoconut.groovy"
+	 	refresh-check-delay="5">
+	 	<lang:property name="lime" ref="javaLime" />
+	 </lang:groovy>
+	 
+	<!--  -->
+	<lang:bsh id="beanShellLime"	 	
+	 	script-interfaces="beans.advanced.scripting.interfaces.Lime"
+	 	refresh-check-delay="5"
+	 >
+	 	<lang:inline-script>
+	 	![CDATA[
+	 	String drink(){
+	 		System.out.println("bunica merge pe camp la baut");
+	 		return "this is a scripted BEAN MAN !!!";
+	 	}
+	 	]]
+	 	</lang:inline-script>
+	 </lang:bsh>	 
+	 	
+</beans>						

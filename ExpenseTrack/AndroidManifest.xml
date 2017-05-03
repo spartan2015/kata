@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.mseco.doc.expensetrack"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="org.mseco.doc.expensetrack.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="org.mseco.doc.expensetrack.DisplayMessageActivity"
+            android:label="@string/title_activity_display_message"
+            android:parentActivityName="org.mseco.doc.expensetrack.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mseco.doc.expensetrack.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.mseco.doc.expensetrack.ShowLocationActivity"
+            android:label="@string/title_activity_show_location"
+            android:parentActivityName="org.mseco.doc.expensetrack.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mseco.doc.expensetrack.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.mseco.doc.expensetrack.ListTransactions"
+            android:label="@string/title_activity_list_transactions" >
+        </activity>
+        <activity
+            android:name="org.mseco.doc.expensetrack.ManageTransactionTypes"
+            android:label="@string/title_activity_manage_transaction_types" >
+        </activity>
+    </application>
+
+</manifest>

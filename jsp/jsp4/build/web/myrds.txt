@@ -1,0 +1,34 @@
+00:50:FC:E6:F4:D2
+
+0050FCE6F4D2
+
+
+0050FCC17B4D
+
+
+252
+69
+
+
+128 + 64 +  32 + 16 + 8 + 4 + 2 + 1
+
+69 = 64 + 4 + 1
+
+252 = 255 - 2 - 1
+68.1
+
+
+213.157.176.2
+213.157.176.3
+-----------------------------7d734d18140370
+Content-Disposition: form-data; name="textInput1"
+
+valueInput
+-----------------------------7d734d18140370
+Content-Disposition: form-data; name="textInput2"
+
+valueInput
+-----------------------------7d734d18140370
+Content-Disposition: form-data; name="textInput3"
+
+valueInput

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd	
+						">
+	<!-- simple connections - not pooled: -->
+	
+	<!-- works multithreaded but opens a new connection for each request- really BAD -->
+	<bean id="dataSource1" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="url" value="jdbc:derby:jdbcDemoDB;create=true" />		
+		<property name="username" value="" />
+		<property name="password" value="" />
+	</bean>
+
+
+	<!-- realy bad for multithreaded apps - use just for development mode -->
+	<bean id="dataSource2" class="org.springframework.jdbc.datasource.SingleConnectionDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:hsql://localhost/roadrantz/roadrantz" />
+		
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+</beans>

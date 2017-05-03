@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+	<!-- 
+	Securitatea se aplica in mai multi pasi:
+	I. SecurityInterceptor - interceptor implementat ca filtru sau proxy - yala - in yala sunt mai mult pasi
+		1. AuthenticationManager  - face autentificarea: esti cine pretinzi ca esti ? (acesta consulta mai multi authenticationProviders pentru a vedea daca ai sau nu credentialurile necesare - pentru asta trebuie configurat obligatoriu un AuthenticationManager si cel putin un AuthenticationProvider (DaoAuthentificationProvider ce la randul lui trebuie sa configureze UserDetailsService care la randul lui are nevoie de UserDao)
+		2. AccessDecisionManager - face autorizarea - ai dreptul sa accesezi resursa respectiva ? - face lucrul asta comparand autorizatia ta cu autorizatia necesara pentru accesarea resursei - analizeaza ce a hotarat AuthenticationManagerul si pe baza de voteri decide daca mergi mai departe sau nu
+		3. RunAsManager - un anumit user poate impersona alt user; spre exemplu tu ai dreptul sa accesezi metoda insa metoda pe care o accesezi acceseaza la randul ei alte metode securizatea la care s-ar putea sa nu ai acces decat daca impersonezi un alt utilizator.
+		4. AfterInvocationManager - spre exemplu dupa ce ruleaza functia poti filtra rezultatul primit conform unor reguli proprii - de exemplu o lista de Facturi, poti filtra sa returneze numai o anumita parte din facturi, conform autorizatia utilizatorului.	
+	
+	 -->
+
+	<!-- authenticationManager just does the authenticate() method wich just delegates everyting to some
+	authentication providers - like a daoAuthenticationProvider who knows the details of auth
+	
+	List of authentication providers:
+	- adapters.AuthByAdapterProvider - authentication using adapters - authenticate with users created withing the web container - Jboss, Tomcat, Jetty, Resin
+	- providers.anonymous.AnonymousAuthenticationProvider
+	- providers.cas.CasAuthenticationProvider - authenticate agains JA-SIG Central AUthentication Service  - single sign on capabilities
+	
+	- providers.dao.DaoAuthenticationProvider
+	
+	- providers.dao.LdapAuthenticationProvider
+	- providers.jaas.JaasAuthenticationProvider - retrieving information from a Jaas login configuration
+	- providers.rememberme.RemeberMeAuthenticationProvider - makes it possible to automaticly authenticate a user without prompting him with a user and password
+	- providers.rcp.RemoteAuthenticationProvider - authenticate agains a remote service
+	- providers.TestingAuthenticationProvider - unit testing - TestingAuthenticationToken is considered VALID
+	- providers.x509.X509AuthenticationProvider - x.509 certificate provider - a web service client
+	- provider.runas.RunAsImplAuthenticationProvider - authenticating a user who has his identity substituted by a run-as manager
+	
+	you can implement your own by implementing AuthenticationProvider
+	
+	 
+	 -->
+	<bean id="authenticationManager" class="org.springframework.security.providers.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref bean="daoAuthenticationProvider" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="daoAuthenticationProvider" class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userDetailsService" />
+		<property name="passwordEncoder">
+			<bean class="org.springframework.security.providers.encoding.PlaintextPasswordEncoder" />
+		</property>
+		
+		<property name="userCache">
+			<bean class="org.springframework.security.providers.dao.cache.NullUserCache" />
+			<!-- 
+			<bean class="org.springframework.security.providers.dao.cache.EhCacheBasedUserCache">
+				<property name="cache" ref="ehcache" />
+			</bean>
+			
+			trebuie configurat ehcache-ul pt acesta insa se merita
+			
+			<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+				<property name="cacheManager" ref="cacheManager" />
+				<property name="cacheName" value="userCache" />
+			</bean>
+			
+			<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+				<property name="configLocation" value="classpath:ehcache.xml" />
+			</bean>
+			
+			 -->
+		</property>
+	</bean>
+		
+	<bean id="userDetailsService" class="security.services.UserService">
+		<property name="userDao" ref="userDao" />
+	</bean>						
+	
+	<bean id="userDao" class="security.dao.UserDao" parent="daoSupport" />
+	
+		
+	<!-- if we store password encrypted we can use a decryptor for comparison with the credential
+	encoding.Md5PasswordEncoder
+	encoding.PlainTextPasswordEncoder
+	encoding.ShaPasswordEncoder
+	ldap.authenticator.LdapShaPasswordEncoder
+	 -->
+	
+	
+	<!--  springs also comes with two already implemented dao supports:
+		InMemoryDaoImpl - testing only of course
+		JdbcDaoImpl - this also assumes a certain db structure
+	 -->
+	
+	<bean id="inMemorydaoAuthenticationProvider" class="org.springframework.security.userdetails.memory.InMemoryDaoImpl">
+		<property name="userMap">
+			<value>
+				user1=pass1,disabled,ROLE_ADMIN
+				user2=pass2,ROLE_USER,ROLE_ADMIN
+			</value>
+		</property>
+	</bean>
+	
+	<!-- by default jdbc will query with this: 
+		select username,password,enabled from users where username = ?
+		select username,authority from authorities where username = ?
+	 -->
+	<bean id="jdbcDaoAuthenticationProvider" class="org.springframework.security.userdetails.jdbc.JdbcDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="usersByUsernameQuery">
+			<value>
+				select username,password,enabled from users where username = ?
+			</value>
+		</property>
+		<property name="authoritiesByUsernameQuery">
+			<value>
+				select username,authority from authorities where username = ?
+			</value>
+		</property>
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	<!-- database connection: hibernate annotation - Derby EmbeddedDriver-->
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="url" value="jdbc:derby:jdbcDemoDB;create=true" />		
+		<property name="username" value="" />
+		<property name="password" value="" />
+	</bean>
+	
+	
+	 <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	 	<property name="dataSource" ref="dataSource" />
+	 	<property name="annotatedClasses">
+	 		<list>
+	 			<value>security.entities.User</value>	 			
+	 			<value>security.entities.Role</value>
+	 		</list>
+	 	</property>
+	 	<property name="hibernateProperties">
+	 		<props>
+	 			<prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+	 			<prop key="hibernate.hbm2ddl.auto">update</prop>
+	 			<prop key="hibernate.show_sql">true</prop>
+	 			<prop key="hibernate.format_sql">true</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+		
+	
+	<!-- as always simplifying with DaoSupport -->
+	
+	<bean id="daoSupport" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	
+	<!-- 
+	Cache
+	Daca spre exemplu autentificare se face printr-o interogare in baza de date putem pune raspunsul in cache
+	astfel incat la o a doua interogare raspunsul sa fie luat rapid din cache fara sa mai chinuim baza de date.
+	Pentru asta facem urmatoarele:
+		- configuram DaoAuthentificationProvider cu un 
+			org.springframework.security.providers.dao.UserCache - o interfata cu 3 metode:
+				public UserDetails getUserFromCache(String username)
+				public void putUserInCache(UserDetails userDetails)
+				public void removeUserFromCache(String username)
+				
+				Avem de la spring doua implementari ale acestei interfete: 
+					NullUserCache - nu face nici un cache
+					EhCacheBasedUserCache				
+				
+	 -->
+	
+	
+	
+	<!-- pana aici am facut autentificarea utilizatorului
+	urmeaza pasul 2 - autorizarea acestuia: AccessDecisionManager si voteri
+	AccessDecisionManagers:
+		- AffirmativeBased
+		- ConsensusBased
+		- UnanimousBased
+	 -->
+	 
+	 <bean id="accessDecisionManager" class="org.springframework.security.vote.UnanimousBased">
+	 	<property name="decisionVoters">
+	 		<list>
+	 			<ref bean="roleVoter" />
+	 		</list>
+	 	</property>
+	 	<property name="allowIfAllAbstainDecisions" value="false" />
+	 </bean>
+	 <!-- 
+	 RoleVoter only votes when the secured resource has configuration attributes that are prefixed with ROLE_.
+	  -->
+	<bean id="roleVoter" class="org.springframework.security.vote.RoleVoter">
+		<property name="rolePrefix" value="ROLE_" />		
+	</bean>
+	
+	
+	
+	<!-- all set with authentication and authorization managers - let's see how to set the SecurityInterceptor itself-->
+	
+	<!-- I. for webb application the security Interceptor will be a filter
+	There are many filters in this operation, 4 filter are vital for web security:
+	1. integration filter - translates the http parameters to a Authentication object
+		- HttpRequestIntegrationFilter - populates security context with info from web container
+		- HttpSessionContextIntegrationFilter - populates security context with info from HttpSession
+	2. authentication processing filter - does the authentication with data from: basic http, digest http, <form>, certificate
+		- BasicProcessingFilter - browser basic auth
+		- DigestProcessingFilter
+		- AuthenticationProcessingFitler - <form> 
+	3. exception translation filter - translates the AccessDeniedException and AuthenticationExceptions into http pages and codes
+	4. interceptor	
+		- FilterSecurityinterceptor - this is the Interceptor that allows or denies access based on auth and authz
+	
+	to setup the filter you must configure web.xml with a filter
+	1. either FilterToBeanProxy - this filter delegates to a spring defines filter - one filter for one spring filter - not our choice for security
+	<filter>
+		<filter-name>Foo</filter-name>
+		<filter-class>org.springframework.security.util.FilterToBeanProxy</filter-class>
+		<init-param>
+			<param-name>targetClass</param-name>
+			<param-value>com.roadrantz.FooFilter
+			</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Foo</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	2.  proxying multiple filters - this is the choice for security - FilterChainProxy	
+		we use FilterToBeanProxy to delegate to FilterChainProxy spring bean 
+			still editing the web.xml with:
+			
+			<filter>
+				<filter-name>SpringFilter</filter-name>
+				<filter-class>org.springframework.security.util.FilterToBeanProxy</filter-class>
+				<init-param>
+					<param-name>targetClass</param-name>
+					<param-value>org.springframework.security.util.FilterChainProxy</param-value>
+				</init-param>
+			</filter>
+			<filter-mapping>
+				<filter-name>SpringFilter</filter-name>
+				<url-pattern>/*</url-pattern>
+			</filter-mapping>
+	
+	now we are configuring the filter chain with at least: integrator, auth processing, exception and interceptor filters, in that orders	
+	 -->
+	 <bean id="filterChainProxy" class="org.springframework.security.util.FilterChainProxy">
+		<property name="filterInvocationDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/**=httpSessionIntegrationFilter,authenticationProcessingFilter,exceptionTranslationFilter,filterSecurityInterceptor
+			</value>
+		</property>
+	</bean>
+	<!-- 
+	The complete filter chain that Spring can provide, in that order, is:
+	Channel Processing
+	Concurrent Session
+	HTTP Session Integration
+	Authentication Processing
+	Remember-Me Processing
+	Anonymous Processing
+	Logout
+	Exception Translation
+	Security Interceptor
+	 -->
+	 
+	 <!-- because http is stateless, we must remember the auth somehow: like with Sessions -->
+	<bean id="httpSessionIntegrationFilter" class="org.springframework.security.context.HttpSessionContextIntegrationFilter"/>
+	
+	<!-- authentification processing - this filter handles the login request (ex: a post from a form) 
+	- you need to define
+		1. authentification entry point: 
+			- BasicProcessingFilterEntryPoint - prompts user in the browser with a dialog box
+			- AuthenticationProcessingFilterEntryPoint - redirects to a login page
+			- X509ProcessingFilterEntryPoint - user presents a certificate
+		2. login input form/method
+		3. authentification processing filter		
+	-->
+	
+	<!-- basic auth entry point - prompt the user with a dialog box -->
+	<bean id="authenticationEntryPoint-Basic" class="org.springframework.security.ui.basicauth.BasicProcessingFilterEntryPoint">
+		<property name="realmName" value="RoadRantz" />
+	</bean>
+	
+	<bean id="authenticationProcessingFilter-Basic" class="org.springframework.security.ui.basicauth.BasicProcessingFilter">
+		<property name="authenticationManager" ref="authenticationManager"/>
+		<property name="authenticationEntryPoint" ref="authenticationEntryPoint"/>
+	</bean>
+	
+	
+	<!-- Form-based authentication -->
+	<bean id="authenticationEntryPoint"	class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+		<property name="loginFormUrl" value="/login.htm" /> <!-- perhaps a UrlFilenameViewController need to be setup for a simple url to file? see example in upload project -->
+		<property name="forceHttps" value="false" />
+	</bean>
+	<!-- 
+	login page must have:
+	
+	<form method="POST" action="j_acegi_security_check">
+	<b>Username: </b><input type="text" name="j_username"><br>
+	<b>Password: </b><input type="password" name="j_password"><br>
+	<input type="submit" value="Login">
+	</form>
+	
+	the field names expected by AuthenticationProcessingFilter
+	 -->
+	
+	<bean id="authenticationProcessingFilter" class="org.springframework.security.ui.webapp.AuthenticationProcessingFilter">
+		<property name="filterProcessesUrl" value="/j_acegi_security_check" />
+		<property name="authenticationFailureUrl" value="/login.htm?login_error=1" /> <!-- <c:if test="${param['login_error']==1}"><p style="color:#FF0000;" >Login Error</p></c:if> -->
+		<property name="defaultTargetUrl" value="/" /> <!-- This could happen if the user navigates directly to the login screen without first attempting to access a secured resource. -->
+		<property name="authenticationManager" ref="authenticationManager"/>
+	</bean>
+	
+	<!-- this must be set so in case of exception we don't just see a stacktrace but a webpage
+	this will tell spring in case of exception, go back to the entry point -->
+	<bean id="exceptionTranslationFilter"class="org.springframework.security.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
+		<property name="accessDeniedHandler" ref="accessDeniedHandler" />
+	</bean>
+	<!-- page to show on AccessDeniedException -->
+	<bean id="accessDeniedHandler"	class="org.springframework.security.ui.AccessDeniedHandlerImpl">
+		<property name="errorPage" value="/error.htm" />
+	</bean>
+	
+	
+	
+	<!-- the last piece of the puzzle - the security interceptor -->
+	
+	<bean id="filterSecurityInterceptor" class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="objectDefinitionSource"><!-- wich resources are secured and what privileges you need -->
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/editProfile.htm=ROLE_MOTORIST
+			</value>
+		</property>
+	</bean>
+	
+	
+	<!--  not needed but useful sometimes, mut be the first filter -->
+	<bean id="channelProcessingFilter" class="org.springframework.security.securechannel.ChannelProcessingFilter">
+		<property name="filterInvocationDefinitionSource">
+			<value>
+			CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+			PATTERN_TYPE_APACHE_ANT
+			/login.htm=REQUIRES_SECURE_CHANNEL
+			/j_acegi_security_check*=REQUIRES_SECURE_CHANNEL
+			/**=REQUIRES_INSECURE_CHANNEL
+			</value>
+		</property>
+		<property name="channelDecisionManager"	ref="channelDecisionManager" />
+	</bean>
+	
+	<bean id="channelDecisionManager" class="org.springframework.security.securechannel.ChannelDecisionManagerImpl">
+		<property name="channelProcessors">
+			<list>
+				<bean class="org.springframework.security.securechannel.SecureChannelProcessor"/>
+				<bean class="org.springframework.security.securechannel.InsecureChannelProcessor"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 
+	secure content in a jsp
+	
+	<%@ taglib prefix="authz" uri="http://acegisecurity.org/authz" %>
+	
+	<authz:acl> Conditionally renders the tag body if the user has been granted
+	one of a set of specific permissions to a domain object
+	
+	<authz:authentication> Renders information about the user
+	
+	<authz:authorize ifAllGranted="ROLE_MOTORIST,ROLE_VIP" ifAnyGranted="ROLE_MOTORIST,ROLE_VIP" ifNotGranted="ROLE_ANONYMOUS"> Conditionally renders the tag body if the user has been (or has
+	not been) granted certain authorities
+	
+	<authz:authorize ifAnyGranted="ROLE_MOTORIST,ROLE_VIP">
+	Welcome <authz:authentication operation="username"/>
+	</authz:authorize>
+	
+	<a href="j_acegi_logout">Logoff</a>
+	 -->
+	 
+	 
+	 
+	 <!-- FINALLY - Securing method invocation
+	 the easiest way is to set up a aop proxy for the objects you need secured:
+	  -->
+	 <bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<list>
+				<value>securityInterceptor</value>
+			</list>
+		</property>
+		<property name="beanNames">
+			<list>
+				<value>userDetailsService</value>				
+			</list>
+		</property>
+	</bean>
+	 
+	<bean id="securityInterceptor" class="org.springframework.security.intercept.method.MethodSecurityInterceptor">
+		<property name="authenticationManager">
+			<ref bean="authenticationManager"/>
+		</property>
+		<property name="accessDecisionManager">
+			<ref bean="accessDecisionManager"/>
+		</property>
+		<property name="objectDefinitionSource">
+			<value>
+				security.services.UserService.loadUserByUsername*=ROLE_ADMIN				
+			</value>
+		</property>
+	</bean>
+5
+	
+	<!-- a second way in wich i am not interested is with Jakarta Attributes, I will skip it -->
+	
+	
+	<!-- a third way: Annotations: this is not in the manual 2nd edition for spring 
+	http://static.springsource.org/spring-security/site/docs/2.0.x/reference/ns-config.html#ns-method-security
+	for Spring Security 2
+	Adding an annotation to a method (on an class or interface) would then limit the access to that method accordingly
+	@Secured("ROLE_TELLER")
+	
+	--> 
+	<global-method-security secured-annotations="enabled" jsr250-annotations="enabled">
+<!--		<protect-pointcut expression="execution(* com.mycompany.*Service.*(..))" access="ROLE_USER"/>		-->
+	</global-method-security> 
+	
+	<!-- 
+	or
+	<bean id="target" class="com.mycompany.myapp.MyBean">
+	    <intercept-methods>
+	        <protect method="set*" access="ROLE_ADMIN" />
+	        <protect method="get*" access="ROLE_ADMIN,ROLE_USER" />
+	        <protect method="doSomething" access="ROLE_USER" />
+	    </intercept-methods>
+	</bean>  
+	
+	 -->
+	</beans>

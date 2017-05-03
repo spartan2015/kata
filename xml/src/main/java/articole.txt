@@ -1,0 +1,3 @@
+<articole>
+	<carte domeniu="IT">Standarde de interoperabilitate</carte>
+</articole> 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<datasources>
+	<!-- A local datasource - one that does not support two phase commit -->
+	<local-tx-datasource>
+		<jndi-name>helloWorldDS</jndi-name>
+		<connection-url>jdbc:mysql://localhost:3306/test</connection-url>
+		<driver-class>com.mysql.jdbc.Driver</driver-class>
+		<user-name>root</user-name>
+		<password></password>
+	</local-tx-datasource>
+
+
+	<!-- A datasource that does not take part in JTA transactions-->
+	<no-tx-datasource>
+		<jndi-name>GenericNoTxDS</jndi-name>
+		<connection-url>jdbc:mysql://localhost:3306/test</connection-url>
+		<driver-class>com.mysql.jdbc.Driver</driver-class>
+		<user-name>root</user-name>
+		<password></password>
+	</no-tx-datasource>
+
+
+	<!-- Here's an xa example -->
+<!--	<xa-datasource>-->
+<!--		<jndi-name>GenericXADS</jndi-name>-->
+<!--		<xa-datasource-class>[fully qualified name of class implementing-->
+<!--			javax.sql.XADataSource goes here]</xa-datasource-class>-->
+<!--		<xa-datasource-property name="SomeProperty">SomePropertyValue</xa-datasource-property>-->
+<!--		<xa-datasource-property name="SomeOtherProperty">SomeOtherValue</xa-datasource-property>-->
+<!--		<user-name>x</user-name>-->
+<!--		<password>y</password>-->
+<!--	</xa-datasource>-->
+
+	
+</datasources> 

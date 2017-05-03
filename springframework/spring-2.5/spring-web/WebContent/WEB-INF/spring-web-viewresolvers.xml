@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+<!-- 
+InternalResourceViewResolver
+                             Resolves logical view names into View objects that are
+                             rendered using template file resources (such as JSPs
+                             and Velocity templates)
+BeanNameViewResolver                             
+                             Looks up implementations of the View interface as
+                             beans in the Spring context, assuming that the bean
+                             name is the logical view name
+ResourceBundleViewResolver                             
+                             Uses a resource bundle (e.g., a properties file) that maps
+                             logical view names to implementations of the View inter-
+                             face
+XmlViewResolver                             
+                             Resolves View beans from an XML file that is defined
+                             separately from the application context definition files
+
+ -->
+
+<!-- Using template views: JSP, Velocity
+
+When InternalResourceViewResolver is asked to resolve a view, it takes the logi-
+cal view name, prefixes it with /WEB-INF/jsp/, and suffixes it with .jsp to arrive at
+the path of the JSP that will render the output. It then hands that path over to a
+View object that dispatches the request to the JSP.
+
+ -->
+ 
+<bean id="internalResourceViewResolver" class=
+    "org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <property name="prefix" value="/WEB-INF/jsp/" />
+  <property name="suffix" value=".jsp" />
+</bean>
+
+<!-- 
+    By default the View object is an InternalResourceView, which simply dis-
+patches the request to the JSP to perform the actual rendering. But since vehi-
+cleRants.jsp uses JSTL tags, you may choose to replace InternalResourceView
+with JstlView by setting InternalResourceViewResolver’s viewClass property
+as follows:
+-->
+ 
+<bean id="internalResourceviewResolver2" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <property name="viewClass"
+    value="org.springframework.web.servlet.view.JstlView" />
+  <property name="prefix" value="/WEB-INF/jsp/" />
+  <property name="suffix" value=".jsp" />
+  
+</bean>
+<!-- 
+JstlView dispatches the request to a JSP just like InternalResourceView. How-
+ever, it also exposes JSTL-specific request attributes so that you can take advantage
+of JSTL’s internationalization support. - what are those attributes ?
+--> 
+ 
+<!-- Custom View Beans --> 
+<bean id="beanNameviewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<property name="order"><value>2</value></property>
+</bean>
+
+
+<!-- Declaring view beans in a separate XML file -->
+<bean id="xmlFileviewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+  <property name="location">
+    <value>/WEB-INF/views.xml</value>
+  </property>
+  <property name="order"><value>3</value></property>
+</bean>
+
+
+<!-- Resolving views from resource bundles
+
+   By employing properties files, ResourceBundleViewResolver has an advantage
+over the other view resolvers with regard to internationalization. Whereas the
+other view resolvers always resolved a logical view name to a single View imple-
+mentation, ResourceBundleViewResolver could return a different View imple-
+mentation for the same logical view name, based on the user’s Locale.
+
+views_en_US.properties
+views_fr_FR.properties
+ -->
+<bean id="resourceBundleviewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+  <property name="basename" value="views" />
+  <property name="order"><value>4</value></property>
+</bean>
+
+
+<!-- Using multiple view resolvers 
+set <property name="order"><value>4</value></property> on each viewResolber bean
+
+The exception to this rule is InternalResourceViewResolver, which is always the last
+view resolver in the chain.
+-->
+
+ 
+</beans> 

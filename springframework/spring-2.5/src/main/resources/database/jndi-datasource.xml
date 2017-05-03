@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd						
+						http://www.springframework.org/schema/jee
+						http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+						">
+
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="/jdbc/RantzDatasource" />
+		<!-- set to true if we are in a J2EE server environment
+		when this is true then the jndiName is prepended with java:comp/env/ so the complete name will be
+		java:comp/env/jdbc/RantzDatasource
+		 -->
+		<property name="resourceRef" value="true" /> 
+	</bean>
+	
+	<!-- with spring 2 things just got easier: -->
+	<jee:jndi-lookup id="dataSource1" jndi-name="/jdbc/RantzDataSource" resource-ref="true" />
+
+</beans>						

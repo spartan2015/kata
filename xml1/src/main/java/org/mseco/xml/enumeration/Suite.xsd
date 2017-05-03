@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.example.org/Suite" xmlns:tns="http://www.example.org/Suite" elementFormDefault="qualified">
+	
+	<xsd:element type="tns:suite" name="suite" />
+	<xsd:simpleType name="suite">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="SPADES" />
+			<xsd:enumeration value="HEARTS" />
+			<xsd:enumeration value="DIAMONDS" />
+			<xsd:enumeration value="CLUBS" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+</xsd:schema>

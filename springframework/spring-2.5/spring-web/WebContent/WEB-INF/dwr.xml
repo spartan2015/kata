@@ -1,0 +1,69 @@
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
+    "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<dwr>
+  <allow>
+   <!-- ConvertsT rafficInfo from a bean
+   The first thing to notice in listing 16.10 is a <convert> element. DWR is able to
+translate simple Java types (such as String and int) into equivalent types in Java-
+Script, but complex types such as TrafficInfo are a bit more difficult. Therefore,
+we’ve configured a “bean” converter to tell DWR to treat TrafficInfo as a basic
+JavaBean when translating it into a JavaScript type. This simply means that the Jav-
+aScript version of TrafficInfo will have the same properties as the Java version.
+   
+    -->
+    <convert converter="bean" match="dwr.TrafficInfo"/>
+    
+    <!-- export TrafficServiceImpl
+    The main item of interest in listing 16.10 is the <create> element. <create>
+is used to tell DWR to expose a Java class as a remote object in JavaScript. Here
+we’re using a basic new creator, which essentially means that the remote service
+will be created by instantiating the class specified by the class parameter.
+Because we want to be able to access TrafficServiceImpl in JavaScript, we’ve set
+the value of the class parameter to the fully qualified class name. On the Java-
+Script side, the remote object will be known as Traffic, as configured through
+the javascript attribute.
+    
+     -->
+    <create creator="new" javascript="Traffic">
+       <param name="class" value=
+           "dwr.TrafficInfoServiceImpl" />
+       <exclude method="setAppId"/>
+    </create>
+    
+    
+<!-- 
+By default, the spring creator assumes that a Spring application context has been
+loaded using ContextLoaderListener. For example, the following snippet from
+the application’s web.xml loads the Spring context from a file called traffic.xml at
+the root of the application’s classpath:
+   <context-param>
+     <param-name>contextConfigLocation</param-name>
+     <param-value>
+       classpath:traffic.xml
+     </param-value>
+   </context-param>
+   <listener>
+     <listener-class>
+        org.springframework.web.context.ContextLoaderListener
+     </listener-class>
+   </listener>
+Optionally, we can explicitly tell the spring creator the name of a Spring applica-
+tion context file by setting the location parameter:
+   <create creator="spring" javascript="Traffic">
+     <param name="beanName" value="traffic" />
+     <param name="location" value="traffic.xml" />
+     <exclude method="setAppId" />
+   </create>
+When location is set, DWR will load the Spring application context from the file
+specified in the <param> element’s value attribute, relative to the application’s
+classpath.
+
+ -->    
+    <create creator="spring" javascript="Traffic1">
+       <param name="beanName" value="trafficService" />
+       <exclude method="setAppId"/>
+    </create>
+  </allow>
+</dwr>
+

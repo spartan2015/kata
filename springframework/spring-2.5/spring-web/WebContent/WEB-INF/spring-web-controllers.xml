@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+	
+<!-- 
+When implementing the behavior of your Spring MVC application, you extend
+one of Spring’s controller classes.
+
+ThrowayController - a simple way to map requests as command - /doWork.htm - interpreted as a command
+
+Controller
+	UrlFilenameViewController - display static view
+	ParametrizableViewController - display a static view
+	AbstractController
+		MultiActionController - your application has multiple actions that perform similar or related logic
+		BaseCommandController
+			AbstractCommandController
+			AbstractFormController
+				SimpleFormController
+				AbstractWizzardFromController
+
+Command controller can bind parameters to a command object with validation
+Form controller can bind user submitted forms to a command object with validation
+
+		
+ -->	
+	<bean name="/form.htm" class="controllers.FormController">
+		<property name="commandClass" value="commands.CommandExample" />
+		<property name="commandName" value="command" />
+		<property name="formView" value="form" />
+		<property name="successView" value="form" />
+		<property name="validator">
+			<bean class="validators.CommandExampleValidator" />
+		</property>
+	</bean>	
+
+	<bean name="/wizard.htm" class="controllers.WizardController">
+		<property name="commandClass" value="commands.CommandExample" />
+		<property name="commandName" value="command" />
+		<!-- 
+		The first page to be shown in any wizard controller will be the first page in the list
+given to the pages property.
+    To determine which page to go to next, AbstractWizardFormController con-
+sults its getTargetPage() method. This method returns an int, which is an index
+into the zero-based list of pages given to the pages property.
+
+   The default implementation of getTargetPage() determines which page to go
+to next based on a parameter in the request whose name begins with _target and
+ends with a number.
+<form:form>	
+	<input type="submit" value="Next" name="_target2" />
+	<input type="submit" value="Finish" name="_finish" />
+	<input type="submit" value="Cancel" name="_cancel">
+</form:form>
+		
+		 -->		
+		<property name="pages">
+		  <list>
+		    <value>page1</value>
+		    <value>page2</value>
+		    <value>page3</value>
+		    <value>redirect:home.htm</value>
+		  </list>
+</property>
+		<!-- 
+		    Instead of validating the command object all at once, wizard controllers vali-
+date the command object a page at a time. This is done every time that a page
+transition occurs by calling the validatePage() method. The default implemen-
+tation of validatePage() is empty (i.e., no validation), but you can override it to
+do your bidding.
+		
+		 -->
+	</bean>
+</beans>
+

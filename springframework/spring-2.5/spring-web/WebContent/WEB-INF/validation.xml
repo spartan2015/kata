@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC
+    "-//Apache Software Foundation//DTD
+        Commons Validator Rules Configuration 1.1//EN"
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+<form-validation>
+	<formset>
+		<form name="rant">
+			<field property="name" depends="required">
+				<arg0 key="name.error.empty" />
+			</field>
+			<field property="password" depends="required,mask">				
+				<arg0 key="password.error.empty" />				
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9A-Za-z]{2,6}$</var-value>
+				</var>
+			</field>
+
+		</form>
+	</formset>
+</form-validation>
+		
+<!-- 
+     Validation rule                             What it validates
+                     That the field contains a value that is assignable to byte
+byte
+                     That the field contains a String that passes a LUHN check and thus
+creditCard
+                     is a valid credit card number
+                     That the field contains a value that fits a Date format
+date
+                     That the field contains a value that is assignable to double
+double
+                     That the field contains a String that appears to be an email address
+email
+                     That the field contains a value that is assignable to float
+float
+                     That the field contains a value that falls within a range of float values
+floatRange
+                     That the field contains a value that falls within a range of int values
+intRange
+                     That the field contains a value that is assignable to int
+integer
+                     That the field contains a value that is assignable to long
+long
+                     That the field contains a String value that matches a given mask
+mask
+                     That the field has no more than a specified number of characters
+maxlength
+                     That the field has at least a specific number of characters
+minlength
+                     That the field is not empty
+required
+                     That the field is not empty, but only if another criterion is met
+requiredif
+                     That the field contains a value that is assignable to short
+short
+
+
+ -->

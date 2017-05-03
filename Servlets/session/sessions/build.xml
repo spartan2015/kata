@@ -1,0 +1,57 @@
+<project name="hibernate-tutorial" default="compile">
+
+    <property name="sourcedir" value="${basedir}/src"/>
+    <property name="targetdir" value="C:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\sess\WEB-INF\classes"/>
+    <property name="librarydir" value="${basedir}/lib"/>
+
+	<property name="manager.url" value="http://localhost/manager"/> 
+	<property name="manager.username" value="admin"/> 
+	<property name="manager.password" value="apstndp"/> 
+	<property name="app.path" value="/sess"/> 
+
+
+
+    <path id="libraries">
+        <fileset dir="${librarydir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${targetdir}"/>
+        <mkdir dir="${targetdir}"/>
+    </target>
+
+    <target name="compile" depends="clean, copy-resources">
+      <javac srcdir="${sourcedir}"
+             destdir="${targetdir}"
+             classpathref="libraries"/>
+    </target>
+
+    <target name="copy-resources">
+        <copy todir="${targetdir}">
+            <fileset dir="${sourcedir}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+
+
+<target name="reload" depends="compile" description="Reload application on servlet container">
+ 	<reload url="${manager.url}" username="${manager.username}" password="${manager.password}" path="${app.path}"/> 
+</target> 
+
+
+
+<target name="war" depends="compile"> 
+	<war destfile="sess.war" webxml="web.xml">
+		 <lib dir="${librarydir}"> 
+			<exclude name="jsdk*.jar"/> 
+		</lib> 
+		
+		<classes dir="${targetdir}"/> 
+	</war>
+ </target>
+
+
+</project>

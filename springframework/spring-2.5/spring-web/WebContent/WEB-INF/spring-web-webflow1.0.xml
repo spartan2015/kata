@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:flow="http://www.springframework.org/schema/webflow-config"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    				  http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    				  http://www.springframework.org/schema/webflow-config
+    				  http://www.springframework.org/schema/webflow-config/spring-webflow-config-1.0.xsd">
+<!-- 
+All interactions with Spring Web Flow go through Spring Web Flow’s FlowCon-
+troller. FlowController is a Spring MVC controller that acts as a front controller
+for Spring Web Flow applications. However, instead of performing a specific func-
+tion like most Spring MVC controllers, FlowController is responsible for han-
+dling all requests pertaining to a flow.
+
+ -->
+ 
+ <bean id="flowController" class="org.springframework.webflow.executor.mvc.FlowController">
+  <property name="flowExecutor" ref="flowExecutor" />
+</bean>
+ 
+<!--
+you can access the entry point in a flow with:
+
+flow.htm?_flowId=hello-flow
+
+you continue it with:
+
+flow.htm?_flowExecutionKey=_cFD2698DE-CF1F-DF9C-12A2-141D80BDEAE6_kFC8F18D2-0033-8149-D547-C0839BAD4B17
+
+    <bean id="urlMapping"
+    class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+          <props>
+            <prop key="flow.htm">flowController</prop>
+          </props>
+        </property>
+     </bean>
+     
+<bean id="urlMapping"
+       class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+
+ControllerClassNameHandlerMapping may be an appealing choice if your appli-
+cation will be completely flow-based or if your application’s other controllers are
+named appropriately with respect to the URL patterns they’ll be mapped to.
+
+
+   If you’re using Spring 2.0, the easiest way to configure a flow executor is to use
+Spring Web Flow’s custom configuration schema. The first thing you must do is
+add Spring Web Flow’s schema to your Spring application context’s XML file
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:flow="http://www.springframework.org/schema/webflow-config"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    				  http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    				  http://www.springframework.org/schema/webflow-config
+    				  http://www.springframework.org/schema/webflow-config/spring-webflow-config-1.0.xsd">
+     
+-->
+
+<flow:executor id="flowExecutor"
+      registry-ref="flowRegistry" />
+
+<!-- 
+In Spring Web Flow, flow definitions are defined in separate XML files. FlowExec-
+utorFactoryBean uses a flow registry to keep track of all of the flow definitions
+that it may need.
+
+ -->
+
+<flow:registry id="flowRegistry">
+  <flow:location
+      path="/WEB-INF/flows/**/*-flow.xml" />
+</flow:registry>
+
+<!-- 
+    When a flow definition is loaded into the flow registry, it is registered with a
+name that is equal to the filename of the flow definition after chopping off the
+file extension. For example, if a flow definition file is named Pizza-flow.xml, it will
+be registered in the flow registry with the name Pizza-flow. This name will be used
+to refer to the flow when constructing URLs.
+
+
+State type    XML element                           What it’s for
+                            Action states are where the logic of the flow takes place.
+Action     <action-state>
+                            Action states typically store, retrieve, derive, or otherwise
+                            process information to be displayed or processed by subse-
+                            quent states.
+                            Decision states branch the flow in two or more directions.
+Decision   <decision-state>
+                            They examine information within flow scope to make flow
+                            routing decisions.
+                            The end state is the last stop for a flow. Once a flow has
+End        <end-state>
+                            reached end state, the flow is terminated and the user is
+                            sent to a final view.
+                            The start state is the entry point for a flow. A start state
+Start      <start-state>
+                            does not do anything itself and effectively serves as a refer-
+                            ence point to bootstrap a flow.
+                            A subflow state starts a new flow within the context of a flow
+Subflow    <subflow-state>
+                            that is already underway. This makes it possible to create
+                            flow components that can be composed together to make
+                            more complex flows.
+                            A view state pauses the flow and invites the user to partici-
+View       <view-state>
+                            pate in the flow. View states are used to communicate infor-
+                            mation to the user or to prompt them to enter data.
+
+ -->
+
+
+
+	<bean id="lookupCustomerAction" class="flows.pizza.LookupCustomerAction" />
+	<bean id="addNewCustomer" class="flows.pizza.AddNewCustomerAction">
+		<property name="formObjectName" value="customer" />
+		<property name="formObjectClass" value="flows.pizza.Customer" />
+		<property name="formObjectScope" value="REQUEST" />
+	</bean>
+	<bean id="addNewPizza" class="flows.pizza.AddNewPizzaAction">
+		<property name="formObjectName" value="pizza" />
+		<property name="formObjectClass" value="flows.pizza.Pizza" />
+		<property name="formObjectScope" value="REQUEST" />
+	</bean>	
+	<bean id="paymentProcessor" class="flows.pizza.PaymentProcessor" />
+	<bean id="orderService" class="flows.pizza.OrderService" />
+</beans>

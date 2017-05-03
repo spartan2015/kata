@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC
+"-//EXOLAB/Castor Object Mapping DTD Version 1.0//EN"
+"http://castor.exolab.org/mapping.dtd">
+
+<mapping xmlns="http://castor.exolab.org/">
+
+	<class name="springws.EvaluateHandRequest">
+		<map-to  xml="EvaluateHandRequest"  ns-uri="http://mseco/poker" />
+		<field name="hand" collection="array" type="springws.Card" required="true">
+			<bind-xml name="card" node="element" />
+		</field>
+	</class>
+
+	<class name="springws.Card">
+		<map-to xml="card" ns-uri="http://mseco/poker"/>
+		<field name="suit" type="springws.Suit" required="true">
+			<bind-xml name="suit" node="element"  />
+		</field>
+		<field name="face" type="springws.Face"
+			required="true">
+			<bind-xml name="face" node="element" />
+		</field>
+	</class>
+	
+	<class name="springws.EvaluateHandResponse">
+		<map-to xml="EvaluateHandResponse" ns-uri="http://mseco/poker"
+			ns-prefix="tns" />
+			<field name="pokerHand" type="springws.PokerHandType" required="true">
+			<bind-xml name="tns:handName" node="element" QName-prefix="tns"
+				xmlns:tns="http://mseco/poker" />
+		</field>
+	</class>
+	
+</mapping>

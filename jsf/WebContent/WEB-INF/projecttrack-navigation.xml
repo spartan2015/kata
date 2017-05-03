@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+	<navigation-rule>
+		<from-view-id>/projecttrack/login.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success_readwrite</from-outcome>
+			<to-view-id>/projecttrack/authenticated/inbox.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success_readonly</from-outcome>
+			<to-view-id>/projecttrack/authenticated/show_all.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/projecttrack/login.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Toolbar</description>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>inbox</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/inbox.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>show_all</from-outcome>
+			<to-view-id>/projecttrack/authenticated/show_all.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{createProject.create}</from-action>
+			<to-view-id>/projecttrack/projectmanager/create.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/projecttrack/login.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/projecttrack/error.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/projecttrack/projectmanager/inbox.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>approve</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/approve.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reject</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/reject.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>details</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/details.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/projecttrack/authenticated/show_all.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>details</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/details.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/projecttrack/projectmanager/approve.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success_readonly</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/show_all.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success_readwrite</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/inbox.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel_readonly</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/show_all.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel_readwrite</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/inbox.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/approve.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/projecttrack/projectmanager/reject.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success_readonly</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/show_all.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success_readwrite</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/inbox.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel_readonly</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/show_all.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel_readwrite</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/inbox.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/reject.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>/projecttrack/projectmanager/create.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success_readonly</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/show_all.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>success_readwrite</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/inbox.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel_readonly</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/show_all.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel_readwrite</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/inbox.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/create.jsp</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/projecttrack/projectmanager/details.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel_readonly</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/show_all.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel_readwrite</from-outcome>
+			<to-view-id>/projecttrack/projectmanager/inbox.jsp</to-view-id>
+		</navigation-case>				
+	</navigation-rule>
+</faces-config>

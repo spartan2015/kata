@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping
+	package="learning.hibernate.entities.associations.advanced.oneToOneWithIntermediateTable">
+	<class class="Shipment">
+		<id column="shipment_id">
+			<generator class="native"></generator>
+		</id>
+	
+		<!-- hibernate in action pag 288 of pdf -->
+		<!-- The join table has two foreign key columns: SHIPMENT_ID, referencing the pri-
+mary key of the SHIPMENT table; and ITEM_ID, referencing the ITEM table. The
+ITEM_ID column is unique; a particular item can be assigned to exactly one ship-
+ment. Because the primary key of the join table is SHIPMENT_ID, which makes this
+column also unique, you have a guaranteed one-to-one multiplicity between
+Shipment and Item.
+		 -->
+		<join table="item_shipment" optional="true">
+			<key column="shipment_id"></key>
+			<many-to-one name="item" column="item_id" not-null="true"
+				unique="true"></many-to-one>
+		</join>
+
+	</class>
+</hibernate-mapping>

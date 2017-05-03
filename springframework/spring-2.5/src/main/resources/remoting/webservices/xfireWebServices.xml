@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+	<!-- 
+	XFire is an open source web services platform
+	
+	to the project’s pom.xml file:
+	<dependency> 
+		<dependency>
+		<groupId>org.codehaus.xfire</groupId>
+		<artifactId>xfire-spring</artifactId>
+		<version>1.2.6</version>
+		<scope>compile</scope>
+	</dependency>
+	 -->
+	 
+	 <!-- 
+	 Steps:
+	 
+	 1 Configure an XFireExporter bean to export a Spring bean as a web service.
+	 2 Configure a Spring DispatcherServlet to handle incoming HTTP requests.
+	 3 Configure a handler mapping so as to map DispatcherServlet-handled
+	   requests to XFireExporter-exported services
+	  -->
+	 
+	<bean id="citationService.xfire" class="org.codehaus.xfire.spring.remoting.XFireExporter">
+		<property name="serviceFactory"	ref="xfire.serviceFactory" />
+		<property name="xfire" ref="xfire" />
+		<property name="serviceBean" ref="citationService" />
+		<property name="serviceClass" value="remoting.rmi.CitationService" />
+		
+		<!-- 
+		if you want to specify a namespace:
+		<property name="namespace" value="http://www.springinaction.com/citation"/>
+		 -->
+	</bean>
+	<!-- the following import creates the first two ref beans in the preceding declaration -->
+	<import resource="classpath:org/codehaus/xfire/spring/xfire.xml"/>
+	
+	
+	<bean id="citationService" class="remoting.rmi.CitationService" />
+	
+	<!-- 
+	Configure the DispatchServlet in web.xml
+	
+	<servlet>
+		<servlet-name>citation</servlet-name>
+		<servlet-class>
+		org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>citation</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	
+	Then configure the handler mapping:
+	
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/citationService">citationService.xfire</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+ 
+ 	<!-- you can also create webservice with XFire by @Annotations@
+ 	JSR-181
+ 	@WebService
+ 	@WebMethod
+ 	@OneWay
+ 	@WebParam
+ 	@webResult
+ 	@HandlerChain
+ 	@SOAPBinding
+ 	@SOAPMessageHandlers
+ 	
+ 	for this you need this maven dependency
+ 	
+ 	<dependency>
+		<groupId>org.codehaus.xfire</groupId>
+		<artifactId>xfire-jaxws</artifactId>
+		<version>1.2.6</version>
+		<scope>compile</scope>
+	</dependency>
+	
+	
+	Put the annotation
+	
+	@WebService(serviceName="citationService",
+endpointInterface="com.tickettodrive.CitationService")
+
+	Declare a special HandlerMapping: Jsr181HandlerMapping
+ 	-->
+ 	
+ 	<bean id="annotationHandlerMapping" class="org.codehaus.xfire.spring.remoting.Jsr181HandlerMapping">
+		<property name="xfire" ref="xfire" />
+		<property name="webAnnotations">
+			<bean class="org.codehaus.xfire.annotations.jsr181.Jsr181WebAnnotations"/>
+		</property>
+	</bean>
+ 	
+ 	<!-- if not already imported, xifre ref do this:
+ 	<import resource="classpath:org/codehaus/xfire/spring/xfire.xml"/>
+ 	 -->
+</beans>						

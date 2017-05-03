@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 22, 2010 11:24:41 AM by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="learning.hibernate.entities.ImmutableClass" table="IMMUTABLECLASS">
+        <id name="id" type="java.lang.Long" access="field">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+    </class>
+</hibernate-mapping>

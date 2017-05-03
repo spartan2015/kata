@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class class="BillingDetails">
+	
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<discriminator column="NAME"></discriminator>
+				
+		<property name="owner"></property>		
+		
+		<subclass name="BankAccount" table="BankAccount">		
+			<property name="account" />
+		</subclass>
+		
+		<subclass name="CreditCard" table="CreditCard">
+			<join table="creditCard" fetch="select">
+				<key column="creditCardId"></key>
+				<property name="cardNumber" ></property>	
+			</join>			
+		</subclass>		
+		
+	</class>
+</hibernate-mapping>

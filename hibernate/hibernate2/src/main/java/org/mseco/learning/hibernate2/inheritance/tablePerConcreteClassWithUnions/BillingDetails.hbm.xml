@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.inheritance.tablePerConcreteClassWithUnions">
+	<class name="BillingDetails" abstract="true">
+		<id name="id">
+			<generator class="increment" />
+		</id>	
+		<property name="date" />
+		
+		<union-subclass name="CreditCard">
+			<property name="cardNumber" />
+			<property name="expDate" />			
+		</union-subclass>
+		
+		<union-subclass name="BankAccount">
+			<property name="iban" />
+			<property name="currency" />
+		</union-subclass>
+	</class>
+</hibernate-mapping>

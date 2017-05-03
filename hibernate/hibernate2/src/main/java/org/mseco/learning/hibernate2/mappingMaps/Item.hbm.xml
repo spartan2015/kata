@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.mappingMaps">
+	<class name="Item">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<map name="bids">			
+			<key column="Item_id"></key>
+			<map-key type="long" formula="id"></map-key>
+			<one-to-many class="Bid"/>
+		</map>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						http://www.directwebremoting.org/schema/spring-dwr
+     					http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+						
+	
+	
+<!-- 
+I. Basic DWR configuration - No Spring:
+
+
+In its most basic configuration, DWR exports remote Java objects to JavaScript
+through a servlet—DwrServlet to be precise. Therefore, the first thing we’ll need
+to do is add DwrServlet to web.xml using the following <servlet> and <serv-
+let-mapping> entries:
+
+<servlet>
+  <servlet-name>dwr</servlet-name>
+  <servlet-class>
+    org.directwebremoting.servlet.DwrServlet
+  </servlet-class>
+  <init-param>
+     <param-name>debug</param-name>
+     <param-value>true</param-value>
+  </init-param>
+</servlet>
+<servlet-mapping>
+  <servlet-name>dwr</servlet-name>
+  <url-pattern>/dwr/*</url-pattern>
+</servlet-mapping>
+
+
+                                               We’re talking about Ajax and we’d
+prefer to not load a completely new page in the browser. Instead, we’d like for the
+list of traffic incidents to appear on the same page where the search criteria are
+entered. To accomplish that, we’ll need DWR to export the TrafficServiceImpl
+class as a JavaScript object.
+
+
+ Exporting the remote objects to JavaScript
+The principal means of configuring DWR is by adding a file named dwr.xml in the
+WEB-INF directory of the web application. Within dwr.xml we, among other
+things, tell DWR about the Java classes that we want exported to JavaScript.
+
+ -->	
+
+
+<!-- 
+
+    As configured, the DwrServlet will make the TrafficServiceImpl available as
+a remote Ajax object, with the getTrafficInfo() method available to JavaScript
+clients, as shown in figure 16.6.
+    Speaking of the JavaScript client, we’ll need to add a few <script> elements to
+the HTML so that DWR and the exported objects are available to JavaScript. First,
+we’ll need to load the JavaScript that contains the DWR engine:
+   <script type='text/javascript'
+        src='dwr/engine.js'></script>
+Next, we’ll need to load our TrafficServiceImpl class, exported in JavaScript as
+Traffic:
+   <script type='text/javascript'
+        src='dwr/interface/Traffic.js'></script>
+
+
+ I will set it up in the home page, index.htm
+ 
+ 
+ -->
+ 
+ 
+ 
+ 
+<!-- II. Accessing Spring-managed beans DWR -->
+<!-- 
+  
+1. You can use spring creators in DWR—as an alternative to the new creator we
+discussed before, DWR also comes with a spring creator that looks up beans
+that are to be remoted from the Spring application context.
+  
+  
+2. If you’re using Spring 2.0, you can use DWR’s Spring 2.0 configuration
+namespace to declare beans as DWR-remoted.
+-->
+
+<!--  
+
+ 1. Using Spring creators
+ 
+     Using the spring creator isn’t much different from using the new creator. In
+fact, we only need to make a few minor tweaks to the dwr.xml file to make the
+switch from new to spring:
+       The creator attribute needs to be changed from new to spring.
+    ■
+       The class parameter is no longer appropriate. Therefore, we’ll need to
+    ■
+       change the <param> element’s name attribute from class to beanName. The
+       beanName parameter is used to identify the Spring-managed bean to be
+       exported.
+ 
+ 
+  <create creator="spring" javascript="Traffic1">
+       <param name="beanName" value=
+           "trafficService" />
+       <exclude method="setAppId"/>
+    </create>
+-->
+  <bean name="trafficService" class="dwr.TrafficInfoServiceImpl" />
+
+
+
+  
+  
+<!-- 2. Using DWR’s Spring configuration namespace -->
+  
+  <!-- 
+  
+     To use DWR’s configuration in Spring, the first thing we’ll need to do is swap
+out DwrServlet for DwrSpringServlet:
+  <servlet>
+     <servlet-name>dwr</servlet-name>
+     <servlet-class>
+       org.directwebremoting.spring.DwrSpringServlet
+     </servlet-class>
+     <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+  xsi:schemaLocation=
+    "http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+     http://www.directwebremoting.org/schema/spring-dwr
+     http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+</beans>
+  
+  
+  to export a bean with dwr in spring you:
+   -->
+   
+  <bean id="traffic" class="dwr.TrafficInfoServiceImpl">
+	  <dwr:remote javascript="Traffic3">
+	  	<dwr:include method="getTrafficInfo"/>
+	    <dwr:exclude method="setAppId"/>	    
+	  </dwr:remote>  
+  </bean>
+   
+    <dwr:configuration>
+	  <dwr:convert type="bean" class="dwr.TrafficInfo" />
+	</dwr:configuration>
+   
+</beans>

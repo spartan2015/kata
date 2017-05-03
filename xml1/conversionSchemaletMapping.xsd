@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Changes dates and dateTimes to java.util.Date
+
+1. Save it with an .xjb extension to have the binding compiler find it automatically.
+2. put it in the same directory as the .xsd
+
+xjc -d . LibraryBook.xsd -b .
+
+results in:
+
+@XmlElement(required = true, type = String.class)
+@XmlJavaTypeAdapter(Adapter2 .class)
+@XmlSchemaType(name = "date")
+protected Date dueDate;
+
+ -->
+<jaxb:bindings version="2.0"
+  xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  jaxb:extensionBindingPrefixes="xjc">
+  <jaxb:globalBindings mapSimpleTypeDef="false"
+      choiceContentProperty="true">
+  <jaxb:javaType name="java.util.Date" xmlType="xs:date"
+    parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+    printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
+  <jaxb:javaType name="java.util.Date" xmlType="xs:dateTime"
+    parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+    printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
+ </jaxb:globalBindings>
+</jaxb:bindings>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.associations.optionalOneToOneBetweenThreeTables">
+	<class name="Person">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		
+		<join table="assignment" optional="true">
+			<key column="person_id"></key>
+			<many-to-one name="desk" class="Desk" column="desk_id"></many-to-one>
+		</join>
+	</class>
+</hibernate-mapping>	
+	

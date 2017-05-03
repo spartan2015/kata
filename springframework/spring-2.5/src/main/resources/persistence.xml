@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" 4
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 5
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 6.    http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" 7
+	version="1.0">
+
+	<persistence-unit name="motorist" transaction-type="RESOURCE_LOCAL">
+		
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+<!--      	<jta-data-source>java:/DefaultDS</jta-data-source>-->
+		
+		
+		<class>database.beans.Motorist</class>
+
+		<properties>
+			
+			<property name="hibernate.connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</property>
+			<property name="hibernate.connection.url">jdbc:derby:jdbcDemoDB;create=true</property>
+			<property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
+			
+			<property name="hibernate.connection.username"></property>			
+			<property name="hibernate.connection.password"></property>
+						
+			<property name="hibernate.hbm2ddl.auto">update</property>
+			<property name="hibernate.show_sql">true</property>
+			<property name="hibernate.format_sql">true</property>
+		</properties>
+
+	</persistence-unit>
+
+</persistence>

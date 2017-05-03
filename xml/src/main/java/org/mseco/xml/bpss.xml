@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BinaryCollaboration name="New Order">
+	<InitiatingRole name="buyer" />
+	<RespondingRole name="seller" />
+	<BusinessTransactionActivity name="Create Order"
+		businessTransaction="Create Order" fromAuthorizedRole="buyer"
+		toAuthorizedRole="seller">
+		<RequestingBusinessActivity name=""
+			isNonRepudiationRequired="true" timeToAcknowledgeReceipt="P2D"
+			timeToAcKnowledgeAcceptance="P3D">
+			<DocumentEnvelope BusinessDocurnent=" Purchase Order" />
+		</RequestingBusinessActivity>
+		<RespondingBusinessActivity name=""
+			isNonRepudiationRequired="true" timeToAcknowledgeReceipt="P5D">
+			<DocumentEnvelope isPositiveResponse="true"
+				BusinessDocument="PO Acknowledgement">
+			</DocumentEnvelope>
+		</RespondingBusinessActivity>
+	</BusinessTransactionActivity>
+	<BusinessTransactionActivity name="Notify Shipment"
+		businessTransaction="Notify of advance shipment" fromAuthorizedRole="buyer"
+		toAuthorizedRole="seller" />
+	<BusinessTransaction name="delivery notification"
+		timeToPerform="P5D">
+		<Documentation>
+			timeToPerform = Period: 5 days from start of
+			transaction
+		</Documentation>
+		<RequestingBusinessActivity name="SendingNotice">
+			<DocumentEnvelope BusinessDocument name="NoticeNotes" />
+		</RequestingBusinessActivity>
+		<RespondingBusinessActivity name="ReceivingNotice">
+		</RespondingBusinessActivity>
+	</BusinessTransaction>
+</BinaryCollaboration>

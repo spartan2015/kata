@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:suite 
+	xmlns:xsi="http://www.w3c.org/2001/Schema-instance"
+	xmlns:s="http://www.example.org/Suite"
+	xmlns:schemaLocation="http://www.example.org/Suite Suite.xsd"
+>SPADES</s:suite>

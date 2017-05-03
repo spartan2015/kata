@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.associations.optionalOneToManyWithAJoinTable">
+	<class name="Person">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		
+		<set name="addresses" cascade="save-update">
+			<key column="person_id" />
+			<many-to-many class="Address" column="address_id" unique="true"/> <!--  the unique constraint on address_id forces a one-to-many not many to many -->
+		</set>
+	</class>
+</hibernate-mapping>

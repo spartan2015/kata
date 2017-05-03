@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	id="WebApp_ID">
+	<display-name>Our Application Nme</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>WebModule</param-name>
+		<param-value>Hello</param-value>
+	</context-param>
+
+	<servlet>
+		<display-name>GreetingServlet</display-name>
+		<servlet-name>GreetingServlet</servlet-name>
+		<servlet-class>servlets.GreetingServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<display-name>ResponseServlet</display-name>
+		<servlet-name>ResponseServlet</servlet-name>
+		<servlet-class>servlets.ResponseServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GreetingServlet</servlet-name>
+		<url-pattern>/greeting</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ResponseServlet</servlet-name>
+		<url-pattern>/response</url-pattern>
+	</servlet-mapping>
+
+<!-- 	<Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource" -->
+<!-- 		maxActive="100" maxIdle="30" maxWait="10000" username="root" password="1234" -->
+<!-- 		driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/javatest" /> -->
+</web-app>

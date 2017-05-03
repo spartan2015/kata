@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="learning.hibernate.query.leftJoinOutRAGE.entities">
+	<class name="Bid">	
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<property name="value" column="value" />
+		
+		<many-to-one name="Item" column="Item_id"></many-to-one>
+	</class>	
+</hibernate-mapping>

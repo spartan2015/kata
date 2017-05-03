@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.mseco.learning.hibernate2.mappingMaps.ternary">
+	<class name="Category">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		
+		<!-- 
+		   A Category has a Map of Item instances—the key of each map entry is a refer-
+ence to an Item. The value of each map entry is the User who added the Item to
+the Category. This strategy is appropriate if there are no additional columns on
+the join table		
+		 -->
+		<map name="items">
+			<key column="category_id" />
+			<map-key-many-to-many class="Item" column="Item_id"></map-key-many-to-many>
+			<many-to-many class="User" column="User_id" ></many-to-many>
+		</map>
+	</class>
+</hibernate-mapping>	

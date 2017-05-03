@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+
+	<!-- the simples spring web example -->
+
+
+	<!-- 
+We’ve given it a URL pattern of /home.htm. Here the name attribute is serving double duty as both the
+name of the bean and a URL pattern for requests that should be handled by this
+controller. Because the URL pattern has special characters that are not valid in an XML id attribute—specifically, the slash (/) character—the name attribute
+had to be used instead of id.
+
+    When a request comes to DispatcherServlet with a URL that ends with
+/home.htm, DispatcherServlet will dispatch the request to HomePageControl-
+ler for handling. Note, however, that the only reason that the bean’s name
+attribute is used as the URL pattern is because we haven’t configured a handler-
+mapping bean. The default handler mapping used by DispatcherServlet is
+BeanNameUrlHandlerMapping, which uses the base name as the URL pattern.
+
+	
+	 -->
+	 
+	 <!--  w'll use this bean to either choose excel.xls view or just go to InternalResourceViewResolver -->
+	<bean name="/index.htm" class="controllers.AbstractControllerImpl" />
+
+	
+	<bean name="simpleUrlHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" >		
+		<property name="mappings">
+			<props>
+				<prop key="index.htm">/index.htm</prop>
+				<prop key="excel.xls">/index.htm</prop>
+				<prop key="pdf.pdf">/index.htm</prop>
+				<prop key="rss.rss">/index.htm</prop>
+				
+				<prop key="flow.htm">flowController</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!-- Declaring a view resolver -->
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+</bean>
+
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="1048576000" />
+	</bean>
+
+</beans>

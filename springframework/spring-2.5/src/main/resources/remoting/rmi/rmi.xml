@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						">
+	<!-- RMI is Java based -->
+	<!-- Traditional way to expose a RMI object:
+	
+	1 Write the service implementation class with methods that throw java.rmi.RemoteException.
+	2 Create the service interface to extend java.rmi.Remote.
+	3 Run the RMI compiler (rmic) to produce client stub and server skeleton classes.
+	4 Start an RMI registry to host the services.
+	5 Register the service in the RMI registry.
+	
+	or the Spring way:	
+	1. write the interface
+	2. write the implementation class
+	3. configure it as a bean
+	4. export it as RMI with RmiServiceExporter
+	 -->
+	 <bean id="citationService" class="com.tickettodrive.CitationServiceImpl" />
+	 <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="citationService"/>
+		<property name="serviceName" value="CitationService"/>
+		<property name="serviceInterface" value="remoting.rmi.CitationService"/>
+	</bean>
+
+
+	<!--
+		you can check the traditional RMI in TraditionalRMIAccess - very easy,
+		just need to pass an ADDRESS to a rmi finder BUT you can more easily
+		just declare a bean that will retrieve the rmi proxy with:
+	-->
+
+	<bean id="citationServiceProxy" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost/CitationService" />
+		<property name="serviceInterface" value="remoting.rmi.CitationService" />
+	</bean>
+	<!--
+	now you can use the rmi service very easily, innjecting it wherever you need it 
+	 -->
+
+</beans>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Normal schema declaration:
+ 
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.example.org/chameleon" 
+	xmlns:tns="http://www.example.org/chameleon" 
+	elementFormDefault="qualified">
+ -->
+ 
+ <!-- Chameleon schame declaration: has no tns or targetNameSpace -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified">
+<!-- 
+it is not recommended due to low or no support from vendors of web services - it's not standard practice
+
+But you should know that the use of the Chameleon design pattern is heavily debated.
+Chameleon depends on certain areas of the schema specification whose interpretation
+is not strictly agreed upon by vendors. As a primary purpose of SOA is to achieve
+interoperable generic services, be careful signing yourself up for something that is only
+sometimes supported.
+
+
+- it allow reuse with no namespace dependency
+- presuposes the design of the complex type in a no name schema - then, when you design an actual schema you can 
+<include> the chameleon
+-->
+ 
+ 
+<!-- Defined without namespace -->
+<xsd:complexType name="CustomerType">
+    <xsd:sequence>
+       <xsd:element name="name" type="xsd:string"/>
+    </xsd:sequence>
+</xsd:complexType>
+
+<!-- then in another schema you include this one so you can use the types defined here -->
+<xsd:include schemaLocation="CustomerChameleon.xsd"/>
+
+</xsd:schema>
+ 

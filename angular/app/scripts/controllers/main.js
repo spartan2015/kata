@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the kata1App
  */
-angular.module('kata1App')
+angular.module('angular-kata')
   .controller('MainCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

@@ -1,0 +1,24 @@
+ditto
+https://sourceforge.net/projects/ditto-cp/?source=typ_redirect
+obs studio
+
+argouml
+
+intellij
+
+eclipse
+notepad++
+psexplorer
+
+git bash
+putty
+
+
+nodejs 
+aptana - for angular
+yeoman
+
+
+Libs:
+jgrapht
+https://github.com/jgrapht/jgrapht

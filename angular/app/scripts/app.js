@@ -4,12 +4,12 @@
  * @ngdoc overview
  * @name kata1App
  * @description
- * # kata1App
+ * # angular-kata
  *
  * Main module of the application.
  */
 angular
-  .module('kata1App', [
+  .module('angular-kata', [
     'ngAnimate',
     'ngAria',
     'ngCookies',

@@ -1,20 +1,31 @@
 ditto
 https://sourceforge.net/projects/ditto-cp/?source=typ_redirect
-obs studio
 
+eyeleo
+flux
+
+obs studio
 argouml
 
 intellij
-
 eclipse
 notepad++
-psexplorer
+
 
 git bash
+tortoisegit
+winmerge
 putty
+jmeter
 
+psexplorer
 
-nodejs 
+processexplorer
+jls
+
+node js
+pm2: https://github.com/Unitech/pm2
+ 
 aptana - for angular
 yeoman
 
@@ -22,3 +33,6 @@ yeoman
 Libs:
 jgrapht
 https://github.com/jgrapht/jgrapht
+
+
+

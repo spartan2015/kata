@@ -1,5 +1,7 @@
 Maven:
 
+Right click folder - find in path - works where double shift clearly failed me
+
 Double shift: search everywhere
 ctrl+shift+n: go to file
 ctrl+e: recent files

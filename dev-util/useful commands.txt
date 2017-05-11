@@ -1,0 +1,43 @@
+correct path to an executable file
+which 
+whereis
+sudo update-alternatives --config java
+
+alias ls="ls -al"
+
+alias ls3333='netstat -anob | grep 3333 | awk '\''{ print $5 }'\'' | head -n 1'
+
+alias kill3333='ls3333 | xargs kill -s 15'
+unalias kill3333
+
+Defining commands in .bashrc will be available as commands, can take arguments:
+
+lsport(){
+	V = `netstat -anob | grep $1 | awk '{ print $5 }' | head -n 1`
+	tasklist | grep V
+}
+
+killport(){
+	netstat -anob | grep $1 | awk '{ print $5 }' | head -n 1 | xargs taskkill -f -PID 
+}
+
+or with 
+
+xargs kill -s 15
+
+awk
+sed -e 's/.*id=\([0-9]\+\).*/\1/g'
+
+line=$(read -r FIRSTLINE < filename)
+
+
+while read f1 f2 f3 f4 f5 f6 f7 rest
+do
+echo ${f7##id=}
+done <so.txt
+
+while read s; do
+   rhs=${s##*id=}
+   id=${rhs%% *}
+   echo $id # Do what you will with $id here
+done <so.txt

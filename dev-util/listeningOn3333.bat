@@ -1,0 +1,1 @@
+netstat -anob | find "3333"

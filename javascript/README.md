@@ -13,6 +13,8 @@ www.ecma-internationa.org/ecma-262/5.1
 
 wiki.ecmascript.org/doku.php?id=harmony:proposals
 
+http://es6-features.org/#Constants
+
 
 Topics: 
 1. Scope
@@ -285,9 +287,9 @@ for(var i = 0; i < 3; i++){
 }
 	
 Closure is usefull to make modules:
+
 	
-	
-var foo = (function(){
+var foo = (function NamedModule/*we can reference this function from inside the module now*/(){
 	var o = { bar : "bar"};
 	
 	// my local var and function

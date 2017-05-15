@@ -1,0 +1,43 @@
+<h1>Filters:</h1> currency, date, filter, json, limitTo, lowercase, uppercase, number, orderBy
+<table>
+	<tr>
+		<td>currency</td>		
+		<td>amont|currency:"USD$"</td>		
+	</tr>
+	<tr>
+		<td>date</td>
+		<td>startDate|date:'short'</td>
+	</tr>
+	<tr>
+		<td>filter</td>
+		<td>user in users | filter: someModelElement</td>
+	</tr>
+	<tr>
+		<td>json</td>
+		<td>repo|json</td>		
+	</tr>
+	<tr>
+		<td>limitTo</td>
+		<td>user in users|limitTo:10</td>		
+	</tr>
+	<tr>
+		<td>lowercase,uppercase</td>
+		<td>user.name|lowercase</td>
+	</tr>
+	<tr>
+		<td>number</td>
+		<td>user.weight | numer</td>		
+	</tr>
+	<tr>
+		<td>orderBy</td>
+		<td>user in users : filter:someModelElement|orderBy:'name'</td>
+	</tr>
+</table>
+<br/>
+
+<table>
+	<input type="text" ng-model="filterName" />
+	<tr ng-repeat="user in users | filter:filterName">
+		<td>{{user}}</td>		
+	</tr>	
+</table>

@@ -1,23 +1,57 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+
+
+Expressions: {{1/2}}
+<p>Function</p>
+<table>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>	
+</table>
+
+<p>ng-controller</p>
+function($scope){}
+<br/>
+
+<div>{{user.login}}</div>
+
+<img ng-src="images/yeoman.png" />
+
+<img ng-src="{{$user.avatar_url}}" />
+
+<form name="searchUser">
+	<span>{{username}}</span><br/>
+	<input type="search" placeholder="User to find" ng-model="username">
+	<input type="submit" value="Search" ng-click="find(username)" />	
+</form>
+
+<form name="searchUser" ng-submit="find(username)">
+	<span>{{username}}</span><br/>
+	<input type="search" required placeholder="User to find" ng-model="username" value="odetocode" />
+	<input type="submit" value="Search" ng-click="find(username)" />	
+</form>
+
+<div ng-include="'views/filters.html'"></div>
+
+<div>
+	<h3>{{username}}</h3>
+	<img ng-src="http://www.gravatar.com/avatar/{{user.gravatar_id}}" />
+	
 </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
 
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
-</div>
+<h1>ng-include</h1>
+<div ng-include="'views/userDetails.html'"></div>
+
+
+<h1>Directives</h1>
+<table>
+	
+	<tr ng-repeat="directive in  directives">
+		<td>{{directive}}</td>		
+	</tr>	
+</table>
+
+<h1>countdown service</h1>
+<div ng-click="startCountdown()">: {{countdown}}</div>

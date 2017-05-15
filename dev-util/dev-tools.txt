@@ -28,11 +28,12 @@ pm2: https://github.com/Unitech/pm2
  
 aptana - for angular
 yeoman
-
+http://plnkr.co/
 
 Libs:
 jgrapht
 https://github.com/jgrapht/jgrapht
 
 
-
+java benchmarking harness
+http://openjdk.java.net/projects/code-tools/jmh/

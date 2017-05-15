@@ -25,3 +25,8 @@ Run `gulp` for building and `gulp serve` for preview.
 ## Testing
 
 Running `gulp test` will run the unit tests with karma.
+
+
+Rules of angular:
+
+directive names to html tags: namedDirective -> named-directive - SAME FOR ATTRIBUTES

@@ -31,6 +31,14 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when("/repo/:username/:reponame",{
+      	templateUrl : "views/repo.html",
+      	controller : "RepoController"
+      })
+      .when("/directives",{
+      	templateUrl : "views/directives.html",
+      	controller : "DirectivesController"
+      })
       .otherwise({
         redirectTo: '/'
       });

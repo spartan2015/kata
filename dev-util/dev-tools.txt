@@ -37,3 +37,10 @@ https://github.com/jgrapht/jgrapht
 
 java benchmarking harness
 http://openjdk.java.net/projects/code-tools/jmh/
+
+
+Angular:
+https://app.pluralsight.com/library/courses/advanced-javascript/table-of-contents
+https://app.pluralsight.com/library/courses/angular-best-practices/table-of-contents
+toastr - notifications windows
+batarang - chrome plugin dev angular

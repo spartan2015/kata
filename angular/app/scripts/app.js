@@ -19,7 +19,7 @@ angular
     'ngSanitize',
     'ngTouch'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider,$locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -39,7 +39,14 @@ angular
       	templateUrl : "views/directives.html",
       	controller : "DirectivesController"
       })
+      .when("/treenode",{
+      	templateUrl : "views/treenode.html",
+      	controller : "treenodeController"
+      })
       .otherwise({
         redirectTo: '/'
       });
+      
+      $locationProvider.hashPrefix('');
   });
+

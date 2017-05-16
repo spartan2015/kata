@@ -25,7 +25,7 @@ function(GitHub, $scope, $http,$interval) {
 		});		
 	};
 
-	$scope.directives = ["ng-app", "ng-controller", "ng-class", "ng-disabled", "ng-if", "ng-keypress", "ng-mouseleave", "ng-repeat", "ng-bind", "ng-click", "ng-focus", "ng-include", "ng-keyup", "ng-mousemove", "ng-style", "ng-blur", "ng-copy", "ng-hide", "ng-init", "ng-model", "ng-mouseover", "ng-switch", "ng-change", "ng-dblclick", "ng-href", "ng-keydown", "ng-mouseenter", "ng-paste", "ng-transclude"];
+	$scope.directives = ["ngCloak","ngBind","WaitingImage","ng-app", "ng-controller", "ng-class", "ng-disabled", "ng-if", "ng-keypress", "ng-mouseleave", "ng-repeat", "ng-bind", "ng-click", "ng-focus", "ng-include", "ng-keyup", "ng-mousemove", "ng-style", "ng-blur", "ng-copy", "ng-hide", "ng-init", "ng-model", "ng-mouseover", "ng-switch", "ng-change", "ng-dblclick", "ng-href", "ng-keydown", "ng-mouseenter", "ng-paste", "ng-transclude"];
 
 	$scope.countdown = 5;
 	$scope.startCountdown = function() {

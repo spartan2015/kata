@@ -5,5 +5,6 @@ angular.module("angular-kata").directive("withTemplate",function(){
 		restrict : 'E',
 		replace : true,
 		template : '<div>Templated</div>'
+		//templateUrl : "withTemplate.html"
 	}; 
 });

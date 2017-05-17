@@ -7,27 +7,22 @@ angular.module("angular-kata").controller("treenodeController", function($scope)
 angular.module("angular-kata").directive("treenode", function() {
 	return {
 		restrict : "E",
-		template : "<div ng-click='add()'><span>{{val}}.{{increment}}</span></div>",
+		template : "<div ng-click='add()'><span>{{val}}</span></div>",
 		//controller: "treenodeController",
 		scope: {
-			val : "=",
-			increment : "="
+			val : "@",	
 		},
 		link : function($scope, element){
 			$scope.element = element;
 		},
 		controller : function($scope, $compile) {
-			$scope.increment = $scope.increment + 1;
-			$scope.val = $scope.val || 1;
-			
-			$scope.next = function(){ return $scope.val + 1;};
-			
-			$scope.currentVal = function(){
-				return $scope.val+'.'+$scope.increment;
-			};
+			$scope.val = $scope.val;
+			$scope.nextInc = 0; 
 			
 			$scope.add = function addNode(){
-				var el = $compile("<treenode val=\"currentVal()\" increment=\"next()\" />" )( $scope );
+				$scope.nextInc++;
+				$scope.asStr = $scope.val + "." +$scope.nextInc;
+				var el = $compile("<treenode val=\""+$scope.asStr+"\" />" )( $scope );
         		$scope.element.append( el );	
 			};
 		}

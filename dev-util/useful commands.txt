@@ -3,7 +3,6 @@ which
 whereis
 sudo update-alternatives --config java
 
-alias ls="ls -al"
 
 alias ls3333='netstat -anob | grep 3333 | awk '\''{ print $5 }'\'' | head -n 1'
 
@@ -14,12 +13,15 @@ Defining commands in .bashrc will be available as commands, can take arguments:
 
 lsport(){
 	V = `netstat -anob | grep $1 | awk '{ print $5 }' | head -n 1`
-	tasklist | grep V
+	tasklist | grep $V
 }
 
 killport(){
 	netstat -anob | grep $1 | awk '{ print $5 }' | head -n 1 | xargs taskkill -f -PID 
 }
+
+alias ls="ls -al"
+
 
 or with 
 

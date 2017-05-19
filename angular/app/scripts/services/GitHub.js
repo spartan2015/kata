@@ -9,7 +9,7 @@ angular.module("angular-kata").factory("GitHub",["$http",function($http){
 	};
 	
 	var getRepos = function(repos_url){
-		$http.get(repos_url).then(function(response) {
+		return $http.get(repos_url).then(function(response) {
 				return response.data;
 			});
 	};

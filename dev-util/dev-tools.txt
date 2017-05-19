@@ -18,17 +18,8 @@ winmerge
 putty
 jmeter
 
-psexplorer
-
 processexplorer
 jls
-
-node js
-pm2: https://github.com/Unitech/pm2
- 
-aptana - for angular
-yeoman
-http://plnkr.co/
 
 Libs:
 jgrapht
@@ -39,8 +30,15 @@ java benchmarking harness
 http://openjdk.java.net/projects/code-tools/jmh/
 
 
+aptana - for angular
+yeoman
+http://plnkr.co/
+node js
+pm2: https://github.com/Unitech/pm2
+https://lodash.com/docs/4.17.4
 Angular:
 https://app.pluralsight.com/library/courses/advanced-javascript/table-of-contents
 https://app.pluralsight.com/library/courses/angular-best-practices/table-of-contents
+https://weblogs.asp.net/dwahlin/creating-custom-angularjs-directives-part-2-isolate-scope
 toastr - notifications windows
-batarang - chrome plugin dev angular
+batarang - chrome plugin dev angular - works 10.9 - npm install && gulp package - then load as unpacked in chrome

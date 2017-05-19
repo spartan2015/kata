@@ -1,34 +1,58 @@
+<div ng-controller="genericController">
+	<form>
+		<input type="text" readonly="true" ng-model="item.name"/>
+		<div>{{item.name}}</div>		
+		<select ng-model="item" ng-options="item.name for item in items | orderBy:'name'" ng-change="onSelect(item)"/>
+		<input type="text" ng-model="item.name" ng-pattern="/^\d+$/" />
 
+		<input type="submit" />
+	</form>
+
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
 
 Expressions: {{1/2}}
-<p>Function</p>
+<p>
+	Function
+</p>
 <table>
 	<tr>
 		<td></td>
 		<td></td>
-	</tr>	
+	</tr>
 </table>
 
-<p>ng-controller</p>
+<p>
+	ng-controller
+</p>
 function($scope){}
 <br/>
 
-<div>{{user.login}}</div>
+<div>
+	{{user.login}}
+</div>
 
 <img ng-src="images/yeoman.png" />
 
 <img ng-src="{{$user.avatar_url}}" />
 
 <form name="searchUser">
-	<span>{{username}}</span><br/>
+	<span>{{username}}</span>
+	<br/>
 	<input type="search" placeholder="User to find" ng-model="username">
-	<input type="submit" value="Search" ng-click="find(username)" />	
+	<input type="submit" value="Search" ng-click="find(username)" />
+
 </form>
 
 <form name="searchUser" ng-submit="find(username)">
-	<span>{{username}}</span><br/>
+	<span>{{username}}</span>
+	<br/>
 	<input type="search" required placeholder="User to find" ng-model="username" value="odetocode" />
-	<input type="submit" value="Search" ng-click="find(username)" />	
+	<input type="submit" value="Search" ng-click="find(username)" />
 </form>
 
 <div ng-include="'views/filters.html'"></div>
@@ -36,22 +60,21 @@ function($scope){}
 <div>
 	<h3>{{username}}</h3>
 	<img ng-src="http://www.gravatar.com/avatar/{{user.gravatar_id}}" />
-	
+
 </div>
-
-
 
 <h1>ng-include</h1>
 <div ng-include="'views/userDetails.html'"></div>
 
-
 <h1>Directives</h1>
 <table>
-	
+
 	<tr ng-repeat="directive in  directives">
-		<td>{{directive}}</td>		
-	</tr>	
+		<td>{{directive}}</td>
+	</tr>
 </table>
 
 <h1>countdown service</h1>
-<div ng-click="startCountdown()">: {{countdown}}</div>
+<div ng-click="startCountdown()">
+	: {{countdown}}
+</div>

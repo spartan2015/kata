@@ -21,7 +21,7 @@ jmeter
 processexplorer
 jls
 
-Libs:
+[Libs]
 jgrapht
 https://github.com/jgrapht/jgrapht
 
@@ -29,7 +29,7 @@ https://github.com/jgrapht/jgrapht
 java benchmarking harness
 http://openjdk.java.net/projects/code-tools/jmh/
 
-
+[javascript]
 aptana - for angular
 yeoman
 http://plnkr.co/
@@ -42,3 +42,7 @@ https://app.pluralsight.com/library/courses/angular-best-practices/table-of-cont
 https://weblogs.asp.net/dwahlin/creating-custom-angularjs-directives-part-2-isolate-scope
 toastr - notifications windows
 batarang - chrome plugin dev angular - works 10.9 - npm install && gulp package - then load as unpacked in chrome
+
+[cloud ide]
+https://codenvy.com/
+https://c9.io

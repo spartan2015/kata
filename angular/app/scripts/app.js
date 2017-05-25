@@ -38,13 +38,6 @@ angular.module('angular-kata').controller("genericController", function($scope) 
 	angular.forEach([1, 2, 3, 4], function(e) {
 		console.log(e);
 	});
-
-	//
-	$scope.$on("ev1", function(e, data) {
-		console.log(data);
-	});
-	$scope.$broadcast("ev1", "Hello Event World");
-	//
 	
 	 $scope.items = [{name: "1"},{name: "2"}];
 	 $scope.item = {name: "1"};
@@ -52,36 +45,6 @@ angular.module('angular-kata').controller("genericController", function($scope) 
 	 	console.log(item);
 	 	
 	 };
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
+	
 });
 

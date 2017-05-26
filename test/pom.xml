@@ -61,7 +61,7 @@
           <version>3.5.1</version>
           <configuration>
           	<source>1.8</source>
-          	<compile>1.8</compile>
+          	<target>1.8</target>
           </configuration>
         </plugin>
         <plugin>

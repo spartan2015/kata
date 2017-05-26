@@ -2,7 +2,7 @@ package strings.algo;
 
 public class DefaultStringAlphabet implements Alphabet{
 
-	char 
+
 	
 	public DefaultStringAlphabet(String str){
 		

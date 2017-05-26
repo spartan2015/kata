@@ -21,7 +21,7 @@ public class MaxPQTest {
 		});
 	}
 }
-
+/*
 class MaxPQ<Key extends Comparable<Key>> {
 
 	private Object[] store;
@@ -111,4 +111,6 @@ class MaxPQ<Key extends Comparable<Key>> {
 		store[i] = store[j];
 		store[j] = tmp;
 	}
+
 }
+*/

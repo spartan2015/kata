@@ -8,11 +8,13 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import static java.util.stream.Collectors.summarizingInt;
+
 public class GroupingJava7 {
 	static class Coffee {
 		int size;
 		String type;
-		long price;
+		int price;
 
 		public int getSize() {
 			return size;
@@ -30,11 +32,11 @@ public class GroupingJava7 {
 			this.type = type;
 		}
 
-		public long getPrice() {
+		public int getPrice() {
 			return price;
 		}
 
-		public void setPrice(long price) {
+		public void setPrice(int price) {
 			this.price = price;
 		}
 
@@ -56,7 +58,7 @@ public class GroupingJava7 {
 			List<Coffee> atThisPrice = coffeeByPrice.get(coffee.getPrice());
 			if (atThisPrice == null) {
 				atThisPrice = new ArrayList<>();
-				coffeeByPrice.put(coffee.getPrice(), atThisPrice);
+				coffeeByPrice.put((long)coffee.getPrice(), atThisPrice);
 			}
 			atThisPrice.add(coffee);
 		}

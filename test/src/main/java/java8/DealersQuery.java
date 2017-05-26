@@ -32,7 +32,7 @@ public class DealersQuery {
 		for(Dealer dealer : dealers){			
 		}
 		
-		dealers.parallelStream().map .collect(Collectors.toList());
+		dealers.parallelStream().collect(Collectors.toList());
 		
 	}
 	

@@ -37,7 +37,7 @@ public class Test1 {
 			result[i] = balance(expresions[i], maxReplacements[i]);
 		}
 		
-		 
+		 return result;
 	}
 	
 	/**

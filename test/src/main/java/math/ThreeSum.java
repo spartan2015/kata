@@ -1,5 +1,10 @@
 package math;
 
+import algos.BinarySearch;
+import algos2.BinarySearch2;
+
+import java.util.Arrays;
+
 public class ThreeSum {
 	public static int count(int[] a) { // Count triples that sum to 0.
 		int N = a.length;
@@ -19,14 +24,14 @@ public class ThreeSum {
 		return cnt;
 	}
 
-	public static int countFast(int[] a) { // Count triples that sum to 0.
-		Arrays.sort(a);
-		int N = a.length;
+	public static int countFast(int[] array) { // Count triples that sum to 0.
+		Arrays.sort(array);
+		int N = array.length;
 		int cnt = 0;
 		// ~N^2*logN
 		for (int i = 0; i < N; i++)
 			for (int j = i + 1; j < N; j++)
-				if (BinarySearch.rank(-a[i] - a[j], a) > j)
+				if (new BinarySearch2().binarySearch(array, -array[i] - array[j]) > j)
 					cnt++;
 		return cnt;
 	}

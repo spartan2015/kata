@@ -18,18 +18,29 @@ public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
 
 	@Override
 	public void put(Key key, Value value) {
+		Node<Key, Value> parent = null;
 		Node<Key, Value> currentNode = root;
 		boolean found = false;
 		while (currentNode != null) {
 			if (currentNode.key.equals(key)) {
 				found = true;
-				currentNode.value = value;
+				if (value == null) { // deleting
+					if (currentNode == root){
+						root = currentNode.next;
+					}else{
+						parent.next = currentNode.next;
+					}
+					size--;
+				}else {
+					currentNode.value = value;
+				}
 				break;
 			}
+			parent = currentNode;
 			currentNode = currentNode.next;
 		}
 
-		if (!found) {
+		if (!found && value !=null) {
 			Node<Key, Value> newNode = new Node<Key, Value>(key, value);
 			size++;
 			if (root != null) {

@@ -1,1 +1,0 @@
-select beautyString("uNited sTates")

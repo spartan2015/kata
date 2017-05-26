@@ -1,7 +1,9 @@
-package apractice2.priorityqueues;
+package priorityqueues;
 
 import java.util.Stack;
 
+import priorityqueues.BinaryHeapPriorityQueue;
+import priorityqueues.PQ;
 import scala.math.BigDecimal;
 import sedgewick.StdIn;
 import sedgewick.StdOut;

@@ -1,8 +1,8 @@
-package apractice2.priorityqueues;
+package priorityqueues;
 
 import java.util.Comparator;
 
-public class BinaryHeapPriorityQueue<T extends Comparable<T>> implements PQ<T> {
+public class BinaryHeapPriorityQueue<T extends Comparable<T>> implements apractice2.priorityqueues.PQ<T> {
 	private Object[] data;
 	private int size;
 	private Comparator<T> comparator;

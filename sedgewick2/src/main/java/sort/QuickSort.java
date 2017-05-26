@@ -1,4 +1,4 @@
-package apractice2.sort;
+package sort;
 
 import static org.junit.Assert.assertTrue;
 

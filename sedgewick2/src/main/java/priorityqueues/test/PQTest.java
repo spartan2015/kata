@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import apractice2.priorityqueues.BinaryHeapPriorityQueue;
+import priorityqueues.BinaryHeapPriorityQueue;
 
 public class PQTest {
 	@Test

@@ -1,4 +1,4 @@
-package apractice2.priorityqueues.search;
+package priorityqueues.search;
 
 public interface ST<Key,Value> {
 	void put(Key key, Value value);

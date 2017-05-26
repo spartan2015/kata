@@ -1,4 +1,4 @@
-package apractice2.priorityqueues.search;
+package priorityqueues.search;
 
 public interface OrderedST<Key extends Comparable<Key>,Value> {
 	void put(Key key, Value value);

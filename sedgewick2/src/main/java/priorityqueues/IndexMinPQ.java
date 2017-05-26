@@ -1,4 +1,4 @@
-package apractice2.priorityqueues;
+package priorityqueues;
 
 /******************************************************************************
  *  Compilation:  javac IndexMinPQ.java

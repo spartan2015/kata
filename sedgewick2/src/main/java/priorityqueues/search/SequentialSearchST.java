@@ -1,6 +1,6 @@
-package apractice2.priorityqueues.search;
+package priorityqueues.search;
 
-public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
+public class SequentialSearchST<Key, Value> implements apractice2.priorityqueues.search.ST<Key, Value> {
 
 	static class Node<Key, Value> {
 		Key key;

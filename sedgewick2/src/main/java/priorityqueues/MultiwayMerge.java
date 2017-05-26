@@ -1,4 +1,4 @@
-package apractice2.priorityqueues;
+package priorityqueues;
 
 import sedgewick.In;
 import sedgewick.StdOut;

@@ -1,4 +1,4 @@
-package apractice2.priorityqueues;
+package priorityqueues;
 
 public interface PQ<T extends Comparable<T>> {
 	void insert(T element);

@@ -1,4 +1,4 @@
-Maven:
+[Maven]
 
 Right click folder - find in path - works where double shift clearly failed me
 
@@ -33,10 +33,12 @@ Ctrl+I: implement methods
 ctrl+shift+f9: rebuild (current class)
 ctrl+shit f10: run all tests
 
-Debug:
+[Debug]
 
 F9: resume
 
 Ctrl+Alt+T: selected code surround with
 
 Ctrl+Space: autocomplete
+
+Ctrl+B or Ctrl+click: navigate to declaration

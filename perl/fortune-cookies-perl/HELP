@@ -1,0 +1,49 @@
+		    The Fortune-Mod: Perl Edition 1.1
+			    (c) Oreolek 2007
+			   Help on the program
+The program is a analog of fortune-mod,cool C++ game for Unix systems.
+If you ask me what this program is supposed to do...well.. it prints a random
+adage.I must mention that I wrote only this program - all the cookies have been
+borrowed from the original one.
+So,what's the difference between my program and the classical?
+My program is written in Perl,so it doesn't matter what kind of a machine do
+you have.What really matters is do you have the Perl interpreter or not.
+[If you don't (don't worry - it happens),you can always download the ActivePerl
+one from http://www.activeperl.com or search the Internet for a minimal 
+set (without the libraries).I haven't tested my program on another
+interpreter because I don't know any other interpreter.]
+The interpreted language is a great portability - you won't even need to
+compile my program. And this is the 100% BugFree(tm) technology. :-)
+So,this program must work.The classical one successfully compiled on my
+machine, but it refused to give me even a note.So I decided to rewrite a
+substitution for it.
+There is only one difference which exists in the Linux fortune and doesn't in 
+mine - this is percentage.I haven't worked about any percentage 
+settings at all.So mine program is random,and its randomness is 
+uncontrolled.
+
+Mine program takes ALL files in the ./data directory.You are free to 
+construct your own database in this directory.
+
+Well,that's all with the complaining,I'll give you the help.
+
+				THE HELP
+
+Without any arguments,it prints a random funny message.It can be a 
+quote,an aphorism,a joke - truly random.The arguments for my version 
+are (the note 'no wisdom' means it prints no fortunes):
+
+-b	NEW:clears the screen and then prints the truth
+-v	prints program version only;no wisdom,just version
+-f	prints the list of available fortune packs,no wisdom
+-n	NEW:sets the number of cookies to be printed.Very,very useful!
+-c	Prints the name of the file from which the cookie was read.
+-w	Program will print the truth, wait for a while and only then close
+itself.The time for waiting calculates from the lines of a cookie.As the manual of original fortune says:
+This is useful if it is executed as part of the logout procedure  to  guarantee  that the message can be read before the screen is cleared.
+
+I know the original C++ fortune can do more,but t's another program.I hope to include these features in version 1.2.
+If the argument isn't working,try to put a space after it.I just made all of the arguments as options,not the flags,so the last argument can be missed.I'll fix it later.
+Bye!Have a nice day!And be wise!
+
+This program follows the principles of Tao.

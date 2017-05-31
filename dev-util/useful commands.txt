@@ -11,14 +11,21 @@ unalias kill3333
 
 Defining commands in .bashrc will be available as commands, can take arguments:
 
+echo "Available commands:"
+
+echo "lsport"
 lsport(){
 	V = `netstat -anob | grep $1 | awk '{ print $5 }' | head -n 1`
 	tasklist | grep $V
 }
 
+echo "killport"
 killport(){
 	netstat -anob | grep $1 | awk '{ print $5 }' | head -n 1 | xargs taskkill -f -PID 
 }
+
+alias fortune="cd /C/Users/vairimia/Downloads/fortune-cookies-perl && exec perl fortune.pl | cowsay"
+fortune
 
 alias ls="ls -al"
 

@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import org.apache.commons.math3.primes.SmallPrimes;
 import org.apache.commons.math3.util.FastMath;
 import org.junit.Test;
 
@@ -69,12 +68,6 @@ public class RangeModularQueries {
 
     /** The last number in PRIMES. */
     public static final int PRIMES_LAST = PRIMES[PRIMES.length - 1];
-
-    /**
-     * Hide utility class.
-     */
-    private SmallPrimes() {
-    }
 
     /**
      * Extract small factors.
@@ -194,10 +187,7 @@ public class RangeModularQueries {
 		Scanner in = new Scanner(System.in);
 		int n = in.nextInt();
 		int q = in.nextInt();
-		
-		
-		
-		
+
 		List<Integer> primesUpTo10k = trialDivision(10_000);
 		TreeMap<Integer,Integer> primeToIndex = new TreeMap<>();
 		int index = 0;
@@ -217,7 +207,7 @@ public class RangeModularQueries {
 			for (int prime : primesUpTo10k) {
 				short mod = (short)(value%prime);
 				if (a_i==0){
-					vector[a_i][index]=mod;
+					//vector[a_i][index]=mod;
 					
 				}else{
 					vector[a_i][index][mod]=(short) (1 + vector[a_i-1][index][mod]) ;
@@ -243,7 +233,7 @@ public class RangeModularQueries {
 				// x needs to be decomposed ?
 			}
 			
-			return vector[right][primeResult] - vector[left-1][primeResult]; 
+			//return vector[right][primeResult] - vector[left-1][primeResult];
 		}
 	}
 

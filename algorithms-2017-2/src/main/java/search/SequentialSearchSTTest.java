@@ -1,4 +1,4 @@
-package priorityqueues.search;
+package search;
 
 import static org.junit.Assert.*;
 

@@ -5,20 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 /**
- * said this was just a warm up question - 
- * 
- * I did expected only one coding challenge
- * 
- * first solution did not work - should test that - looked ok to me...not sure what did not work for him... 
- * he said what if I could print in one walk through - and I tried a few things - some did not work. - then he said bfs would - 
- * 
- * 
- * struggled to come up with bfs - that is not true - he proposed it I wrote it immediatelly
- * 
- * My take: well -  never take an interview at that hour
- *  
- *
- * @author vasil
  *
  */
 public class Fb {
@@ -32,13 +18,13 @@ public class Fb {
 
 	This means we can arrange a tree into levels based on how many steps it takes to reach the root, for example:
 
-	      N0                  <— Level 1
+	      N0                  <ï¿½ Level 1
 	     /    \
-	   N1      N2                <— Level 2
+	   N1      N2                <ï¿½ Level 2
 	    |      |  \
-	   N3     N4   N5            < —Level 3
+	   N3     N4   N5            < ï¿½Level 3
 	           |
-	          N6                 < — Level 4
+	          N6                 < ï¿½ Level 4
 
 	The goal of this function is to traverse the tree and print the id value of each Node in order of which level the Node is on, with an extra newline indicating level breaks.
 
@@ -50,7 +36,7 @@ public class Fb {
 	*/
 	  
 	class Node{
-	  Node[] children = new Node[R];
+	  Node[] children;
 	  int id;
 	}
 
@@ -58,11 +44,11 @@ public class Fb {
 	    List<List> collector = new ArrayList<>();
 	    
 	    collectInfo(root, 0, collector);
-	    
+	    /*
 	    for(int i = 0; i < list.size(); i++){
 	      System.out.println(list.get(i));
 	    }
-	  
+	  */
 	}
 
 	public void collectInfo(Node node, int level, List<List> collector){
@@ -72,15 +58,16 @@ public class Fb {
 	    collector.add(new ArrayList());
 	  }
 	  collector.get(level).add(node.id);
-	  
+	  /*
 	  for(int i =0; i< children.length; i++){
 	    Node child = children[i];
-	    printByLevels(child, level+1, collector);
+		  collectInfo(child, level+1, collector);
 	  }
+	  */
 	}
 
 
-	public void printTreeByLevel(Node root){
+	public void printTreeByLevel2(Node root){
 	  Queue<Node> q = new LinkedList();
 	  q.offer(root);
 	  while(!q.isEmpty()){

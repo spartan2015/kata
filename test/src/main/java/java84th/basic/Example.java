@@ -175,7 +175,7 @@ public class Example {
 
 		printApples(null, a -> "Apple");
 		printApples(null, a -> "Hello");
-		printApples(null, Apple::getWeight);
+		//printApples(null, Apple::getWeight);
 
 	}
 

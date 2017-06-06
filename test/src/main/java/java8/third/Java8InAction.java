@@ -91,25 +91,7 @@ public class Java8InAction {
 		List l = ls.get();
 
 		// constructor with parameters
-		class Pie {
-			int weight;
-			int height;
-			String color;
 
-			Pie(int w) {
-				weight = w;
-			}
-
-			Pie(int w, int h) {
-				weight = w;
-				height = h;
-			}
-
-			Pie(int w, int h, String color) {
-				weight = w;
-				height = h;
-			}
-		}
 		Function<Integer, Pie> pieConstructor = Pie::new;
 		Pie pie = pieConstructor.apply(10);
 
@@ -121,6 +103,26 @@ public class Java8InAction {
 		TriFunction<Integer, Integer, String, Pie> triPie = Pie::new;
 		triPie.apply(1, 2, "red");
 
+	}
+
+	static class Pie {
+		int weight;
+		int height;
+		String color;
+
+		Pie(Integer w) {
+			weight = w;
+		}
+
+		Pie(Integer w, Integer h) {
+			weight = w;
+			height = h;
+		}
+
+		Pie(Integer w, Integer h, String color) {
+			weight = w;
+			height = h;
+		}
 	}
 
 	interface TriFunction<T1, T2, T3, R> {

@@ -1,5 +1,8 @@
 package performanceanalysis;
 
+import math.ThreeSum;
+import sedgewick.StdRandom;
+
 /**
  * simple tool to estimate the factor of growth of computation time as N doubles
  * 

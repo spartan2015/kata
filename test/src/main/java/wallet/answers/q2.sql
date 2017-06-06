@@ -1,3 +1,7 @@
+Write a function to capitalize the first letter of a word in a given string;
+Example: initcap(UNITED states Of AmERIca ) = United States Of America
+
+
 CREATE FUNCTION beautyString (inputString VARCHAR(255)) RETURNS VARCHAR(255) DETERMINISTIC
 BEGIN
 	declare len, i int default 0;

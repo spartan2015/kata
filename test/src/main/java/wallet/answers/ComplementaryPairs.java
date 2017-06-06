@@ -9,7 +9,9 @@ import java.util.List;
 
 import org.bouncycastle.util.Arrays;
 import org.junit.Test;
-
+/*
+Write an efficient algorithm to find K-complementary pairs in a given array of integers. Given Array A, pair (i, j) is K- complementary if K = A[i] + A[j];
+*/
 public class ComplementaryPairs {
 
 	@Test

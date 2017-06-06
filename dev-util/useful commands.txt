@@ -13,6 +13,11 @@ Defining commands in .bashrc will be available as commands, can take arguments:
 
 echo "Available commands:"
 
+CURRENT_DIR=`pwd`
+#at the end
+cd $CURRENT_DIR
+
+
 echo "lsport"
 lsport(){
 	V = `netstat -anob | grep $1 | awk '{ print $5 }' | head -n 1`

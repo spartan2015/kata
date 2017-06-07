@@ -1,6 +1,6 @@
 package priorityqueues.search;
 
-public class SequentialSearchST<Key, Value> implements apractice2.priorityqueues.search.ST<Key, Value> {
+public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
 
 	static class Node<Key, Value> {
 		Key key;
@@ -84,14 +84,7 @@ public class SequentialSearchST<Key, Value> implements apractice2.priorityqueues
 
 	@Override
 	public boolean contains(Key key) {
-		Node<Key, Value> currentNode = root;
-		while (currentNode != null) {
-			if (currentNode.key.equals(key)) {
-				return true;
-			}
-			currentNode = currentNode.next;
-		}
-		return false;
+		return get(key)!=null;
 	}
 
 	@Override

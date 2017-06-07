@@ -1,3 +1,4 @@
+//https://api.jquery.com/category/deferred-object/
 function asyncEvent() {
   var dfd = jQuery.Deferred();
 

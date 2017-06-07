@@ -8,9 +8,9 @@ angular.module("angular-kata").directive("bindingIntoScope", function() {
     restrict : 'E',
     replace : true,
     scope: {
-      a : "=",
+      a : "=", // FUNCTIONS ALSO - PASSED BY REFERENCE LIKE THIS
       b : "@",
-      c : "&"
+      c : "&"  // hmmm...provides a way to execute an expression in the context of the parent scope...
     },
     link : function(scope) {
 

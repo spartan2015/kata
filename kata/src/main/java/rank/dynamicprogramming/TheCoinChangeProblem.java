@@ -41,30 +41,25 @@ public class TheCoinChangeProblem {
         Arrays.setAll(solutions, i -> -1);
         solutions[0] = 0;
         for(int i = 1; i <= n; i++){
-            solutions[i] = findSolution(i, i, new ArrayList());
+            solutions[i] = findSolution(i, i);
         }
         return solutions[n];
     }
 
-    private static int findSolution(int start, int n, List soFar) {
+    private static int findSolution(int start, int n) {
         if (n == 0){
-            System.out.println(soFar);
-            lists[start]=soFar;
+
             return 1;
         }
 
         if (solutions[n] != -1) {
-            soFar.addAll(lists[n]);
-            System.out.println(soFar);
-            return 1;
+            return solutions[n];
         }
 
         int sum = 0;
         for(int coin : coins){
             if (n - coin >=0){
-                List newVariant = new ArrayList(soFar);
-                newVariant.add(coin);
-                sum += findSolution(n, n - coin, newVariant);
+                sum += findSolution(n, n - coin);
             }
         }
         return sum;

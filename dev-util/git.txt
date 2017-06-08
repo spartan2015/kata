@@ -1,0 +1,7 @@
+[aliases]
+	co = checkout
+	ci = commit
+	cim = commit -m 'next' & push origin master
+	acim = add . & commit -m 'next' & push origin master
+	st = status
+	br = branch

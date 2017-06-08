@@ -1,4 +1,4 @@
-# kata1
+# angular kata
 
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.16.0.
@@ -30,3 +30,5 @@ Running `gulp test` will run the unit tests with karma.
 Rules of angular:
 
 directive names to html tags: namedDirective -> named-directive - SAME FOR ATTRIBUTES
+
+

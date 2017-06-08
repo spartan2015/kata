@@ -1,0 +1,3 @@
+ Install-Module BurnToast
+ New-bruntoastnotification
+ New-burntoastnotification -Text "Syst & Deploy notification", 'The BurnToast notification is awesome' -applogo "<yourimagepath>"

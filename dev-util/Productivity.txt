@@ -1,0 +1,7 @@
+Scripting:
+- automating
+- simplifying - simple scripts - point and click if need be
+	shortcuts commands - to bash
+
+Watch for repetitive commands like starting a server - killing a server - do a shortcut	- make one click command
+still to find some way to execute alias bash from windows shortcut like I  do with commands	

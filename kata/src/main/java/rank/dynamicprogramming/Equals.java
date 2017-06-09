@@ -2,6 +2,7 @@ package rank.dynamicprogramming;
 
 import org.junit.Test;
 
+import javax.xml.transform.sax.SAXSource;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -53,6 +54,7 @@ public class Equals {
     @Test
     public void t2() {
         compute(new int[]{520, 862, 10, 956, 498, 956, 991, 542, 523, 664, 378, 194, 76, 90, 753, 868, 837, 830, 932, 814, 616, 78, 103, 882, 452, 397, 899, 488, 149, 108, 723, 22, 323, 733, 330, 821, 41, 322, 715, 917, 986, 93, 111, 63, 535, 864, 931, 372, 47, 215, 539, 15, 294, 642, 897, 98, 391, 796, 939, 540, 257, 662, 562, 580, 747, 893, 401, 789, 215, 468, 58, 553, 561, 169, 616, 448, 385, 900, 173, 432, 115, 712});
+
         assertEquals(Integer.valueOf(8198), Integer.valueOf(minSteps));
     }
     
@@ -78,49 +80,62 @@ public class Equals {
     // computation has a state - the targets state and current count
     //
     public static void compute(int[] target) {
+        Arrays.sort(target);
         Queue<ComputationStep> queue = new LinkedList<>();
-        queue.add(new ComputationStep(queue, target, 1));
+        queue.add(new ComputationStep(queue, target, 1, target.length-1));
         while (!queue.isEmpty()) {
+            //System.out.println(queue.size());
             queue.remove().compute();
         }
     }
 
     static class ComputationStep {
-        int[] coins = new int[]{1, 2, 5};
+        int[] coins = new int[]{5,2,1};
         int[] target;
         Queue<ComputationStep> queue;
         int computationStep;
-
-        public ComputationStep(Queue queue, int[] target, int computationStep) {
+        int maxIndex;
+        public ComputationStep(Queue queue, int[] target, int computationStep, int maxIndex) {
             this.queue = queue;
             this.target = target;
             this.computationStep = computationStep;
+            this.maxIndex = maxIndex;
+            //System.out.println(computationStep);
+
         }
 
         public void compute() {
             if (computationStep > minSteps){
                 return;
             }
+
             for (int coin : coins) {
+                // do leaps - find the minimum - drop by multiples of 5 -  between min and max - and add computation step leasp - increasing by multiple factor
+
+                int min = Integer.MAX_VALUE;
                 int max = 0;
                 int maxIndex = 0;
                 for (int i = 0; i < target.length; i++) {
+                    min = Math.min(min, target[i]);
                     if (target[i] > max) {
                         max = target[i];
                         maxIndex = i;
                     }
                 }
+
                 int[] newTarget = Arrays.copyOf(target, target.length);
+                int leap = 1; // works for t1
+                //int leap = (max-min) / coin; // doest not work at all for the [t1]
                 for (int colleague = 0; colleague < target.length; colleague++) {
                     if (colleague != maxIndex) {
-                        newTarget[colleague] += coin;
+                        newTarget[colleague] += coin * leap;
                     }
                 }
                 //System.out.println(Arrays.toString(newTarget));
                 if (allEqual(newTarget)){
                     minSteps = Math.min(minSteps, computationStep);
                 }else{
-                    queue.add(new ComputationStep(queue, newTarget, computationStep+1));
+                    queue.add(new ComputationStep(queue, newTarget, computationStep+leap, maxIndex));
                 }
             }
         }

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created on 6/7/2017.
  */
-public class TheCoinChangeProblemOrderedCoins {
+public class TheCoinChangeProblem2 {
 
     @Test
     public void t1(){
@@ -51,10 +51,12 @@ public class TheCoinChangeProblemOrderedCoins {
             return 1;
         }
 
+
         if (solutions[n] != -1) {
             System.out.println(soFar + " solution from n="+n);
             return solutions[n];
         }
+
 
         int sum = 0;
         for(int i = index; i< coins.length; i++){

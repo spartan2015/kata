@@ -6,8 +6,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import sedgewick.StdRandom;
-
 public class Quick3Way {
 	@Test
 	public void test() {
@@ -54,7 +52,7 @@ large numbers of duplicate keys.
 	 * @param ar
 	 */
 	public static void sort(Comparable[] ar) {
-		StdRandom.shuffle(ar); // N
+		//StdRandom.shuffle(ar); // N
 		System.out.println(Arrays.toString(ar));
 		int lo = 0;
 		int hi = ar.length - 1;

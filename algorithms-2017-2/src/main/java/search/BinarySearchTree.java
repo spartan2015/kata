@@ -1,16 +1,26 @@
 package search;
 
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created on 6/13/2017.
+ *
+ *
+ BST search cost for random keys to be
+ about 39 percent higher than that for binary search.
+
+ * Search hits in a BST built from N random keys require ~ 2 ln N
+ (about 1.39 lg N) compares, on the average.
+
+ Insertions and search misses in a BST built from N random keys
+ require ~ 2 ln N (about 1.39 lg N) compares, on the average.
  */
 public class BinarySearchTree<Key extends Comparable<Key>, Value> implements OrderedST<Key,Value> {
  Node<Key,Value> root;
     static class Node<Key extends Comparable<Key>, Value>{
         Key key;
         Value value;
-        int N;
+        int N = 1;
         Node<Key,Value> left,right;
         public Node(Key key,Value value){
             this.key = key;
@@ -28,27 +38,41 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
         Node<Key,Value> node = root;
         if (root == null){
             root = new Node(key,value);
+            root.N = 1;
         }else {
+            Stack<Node> chain = new Stack<>();
+            boolean updateSize = false;
             while (node != null){
+                chain.push(node);
                 int cmp = key.compareTo(node.key);
                 if (cmp == 0){
                     node.value = value;
-                    return;
+                    break;
                 }else if (cmp < 0){
                     if (node.left == null){
                         node.left = new Node(key,value);
+                        updateSize = true;
+                        break;
                     }else {
                         node = node.left;
                     }
                 }else{
                     if (node.right == null){
                         node.right = new Node(key,value);
+                        updateSize = true;
+                        break;
                     }else {
                         node = node.right;
                     }
                 }
             }
+            if (updateSize) {
+                while (!chain.isEmpty()) {
+                    chain.pop().N = size(node.left) + size(node.right) + 1;
+                }
+            }
         }
+
     }
 
     public void putRecursive(Key key, Value value) {
@@ -67,6 +91,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
         }else{
             node.right = putRecursive(node.right, key, value);
         }
+        node.N = size(node.left) + size(node.right) + 1;
         return node;
     }
 

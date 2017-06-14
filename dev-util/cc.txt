@@ -1,0 +1,76 @@
+After
+relax and enjoy the process
+nobody is expecting anything of you
+it is ok to make bugs, relax
+take breaks
+get to know the team
+learn to tools: IDE, etc.
+learn the project
+learn the process
+really take time to learn
+ask questions
+be patient
+know what you like - think long term (>10years) - start thinking now.
+train for long term
+your best bet is on what you like and you are gifted at - you will notice that straight away and there will be no doubt
+
+
+Long Term
+deeper dive into datastructures and algorithms
+use tools like hackerrank
+deeper dive into the language and framworks you currently use
+you will never know everything and that is ok
+be curios but know unused knowledge is useless. don't learn things just because they are hype
+faculties and courses that waiste your time with courses that most probably you will never use
+in practice you will use very few things from a faculty, and most of the time very different things than theory
+
+design patterns
+read code - practice your craft daily - your job may help you develop or it may not
+
+learn on the job, on the problem - the best way it works - have a problem or task to solve - way better than going through all the project code aimlesly
+
+
+[interview]
+record interview, for later review and learning
+
+go where you feel appreciated, needed, feel the energy of the environment and your future team
+go where the enthusiasm, emotions are high, challenge is feels great
+
+non standard
+amazement of how different they are
+not western style
+focus on frameworks
+waisting time with days and hours tests
+
+a company that won't releveal the deal until the very last phase
+
+even companies that will take 2-3 days of your life - for no good reason, don't pay more than the average
+
+the economics of working for popular compnies - more work, less pay, more expectactions of you - obscure or startup usually pay better
+
+
+the commute - matters - take 2 months per year out of your life spent on road
+
+the myth that the test will reveal and you will be paid with skill...that is a myth
+
+chasing "new" technologies
+
+Log - Reflection
+
+Productivity tools
+
+Make dev life fun - eat together, fun cows, challengs - rankings
+
+use public git repo - to share stuff
+
+use cloud env - like cloud 9
+
+have a plural sight subscription
+
+read a relevant magazine for your field - JavaMagazine
+
+Knowing when to leave the company:
+do you feel safe?
+do you feel you are learning and growing ?
+do you feel stressed? - keep a journal - can you manage it ? what options do you realistically have
+impact of emotional pain - so toxic - sooner is better

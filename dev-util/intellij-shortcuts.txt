@@ -1,6 +1,7 @@
 [View]
 Ctrl+Shift+S: -split vertically
 
+Ctrl+Al+Shift +S - project structure
 
 [Navigate code]
 
@@ -29,6 +30,8 @@ Ctrl+W and Ctrl+Shift+W
 
 
 [Edit]
+
+Ctrl+Alt+Up/Down Arrow - move a line of code
 
 Ctrl + F12 - Navigate structure - popup of methods and vars like ctrl+o in eclipse
 

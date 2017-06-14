@@ -2,6 +2,30 @@ Scripting:
 - automating
 - simplifying - simple scripts - point and click if need be
 	shortcuts commands - to bash
+Works fantastically for repetitive tasks
 
 Watch for repetitive commands like starting a server - killing a server - do a shortcut	- make one click command
 still to find some way to execute alias bash from windows shortcut like I  do with commands	
+
+Examples:
+
+Using notepad++:
+- to record and play macros
+- execute regular expressions that can do transformations from one format to another
+
+Using bash scripting to find files and execute commands on them: archive them, build a report, delete them, append a header/footer, find a word in specific files
+
+- git aliases that quickly add changed files, commit them and push them to remote if needed
+- creating shortcuts/aliases for repetitive commands like:
+- packaging and starting an appllication
+- finding who is listening on a port
+- stopping an application that is listening on a port
+
+Good practice to have your own DomainSpecificCommands (DSC) that quickly do the steps required to be productive
+Documenting this DSC
+
+power of silence - having no distractions - single focus on a single task
+
+
+
+

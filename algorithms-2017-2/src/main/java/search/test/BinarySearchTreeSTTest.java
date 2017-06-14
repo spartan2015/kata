@@ -19,6 +19,10 @@ public class BinarySearchTreeSTTest {
 
         bst.put(8,8);
 
+
+        assertEquals(Integer.valueOf(5), bst.min());
+        assertEquals(Integer.valueOf(8), bst.max());
+
         assertEquals(Integer.valueOf(8), bst.get(8));
 
         bst.put(7,7);
@@ -27,7 +31,24 @@ public class BinarySearchTreeSTTest {
 
         bst.put(4,4);
 
+        assertEquals(Integer.valueOf(4), bst.min());
+        assertEquals(Integer.valueOf(8), bst.max());
+
         assertEquals(Integer.valueOf(4), bst.get(4));
+
+        bst.put(1,1);
+        bst.put(100,100);
+
+        assertEquals(Integer.valueOf(5), bst.floor(6));
+        assertEquals(Integer.valueOf(1), bst.floor(1));
+        assertEquals(Integer.valueOf(1), bst.floor(2));
+        assertEquals(Integer.valueOf(4), bst.floor(4));
+        assertEquals(Integer.valueOf(5), bst.floor(5));
+
+        assertEquals(Integer.valueOf(7), bst.ceiling(6));
+
+        assertEquals(Integer.valueOf(1), bst.min());
+        assertEquals(Integer.valueOf(100), bst.max());
     }
 
     @Test

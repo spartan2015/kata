@@ -151,22 +151,56 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
 
     @Override
     public Key min() {
-        return null;
+        if (root == null) return null;
+        Node<Key,Value> node = root;
+        while(node.left!=null){node = node.left;};
+        return node.key;
     }
 
     @Override
     public Key max() {
-        return null;
+        if (root == null) return null;
+        Node<Key,Value> node = root;
+        while(node.right!=null){node = node.right;};
+        return node.key;
     }
 
     @Override
     public Key floor(Key key) {
-        return null;
+        if (root == null) return null;
+        Node<Key,Value> node = root;
+        Node<Key,Value> previous = null;
+        while(node!=null){
+            int cmp =  key.compareTo(node.key);
+            if (cmp == 0){
+                return node.key;
+            }else if (cmp < 0){
+                node = node.left;
+            }else{
+                previous = node;
+                node = node.right;
+            }
+        }
+        return previous != null && previous.key.compareTo(key)<=0 ? previous.key : null;
     }
 
     @Override
     public Key ceiling(Key key) {
-        return null;
+        if (root == null) return null;
+        Node<Key,Value> node = root;
+        Node<Key,Value> previous = null;
+        while(node!=null){
+            int cmp =  key.compareTo(node.key);
+            if (cmp == 0){
+                return node.key;
+            }else if (cmp < 0){
+                previous = node;
+                node = node.left;
+            }else{
+                node = node.right;
+            }
+        }
+        return previous != null && previous.key.compareTo(key)>=0 ? previous.key : null;
     }
 
     @Override

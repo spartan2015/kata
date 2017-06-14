@@ -1,44 +1,71 @@
-[Maven]
+[View]
+Ctrl+Shift+S: -split vertically
+
+Ctrl+Al+Shift +S - project structure
+
+[Navigate code]
 
 Right click folder - find in path - works where double shift clearly failed me
 
 Double shift: search everywhere
-ctrl+shift+n: go to file
-ctrl+e: recent files
-
-Alt+Insert: for dep management - while in pom.xml: 
-
-Ctrl+Shift+S: -split vertically
-
 
 Ctrl+H: Navigate | Type Hierarchy 
+
+Ctrl+N: navigate search class
+
+Ctrl+Shift+N: navigate search resource
+
+Alt+F7: find references/usages of a method, class, etc
+
+Ctrl+Q: quickly see documentation
+
+Ctrl+B or Ctrl+click: navigate to declaration
+
+ctrl+e: recent files
+
+[Search code]
+Ctrl + F - find 
+Ctrl + R = replace
+Ctrl+W and Ctrl+Shift+W
+
+
+[Edit]
+
+Ctrl+Alt+Up/Down Arrow - move a line of code
+
+Ctrl + F12 - Navigate structure - popup of methods and vars like ctrl+o in eclipse
+
+Ctrl + O - select methods to override or implement
+
+Ctrl+Shift + Alt + T - show list of available refactorings
+
+Ctrl+Shift+Enter - smart completion
+
+Ctrl+Shift + V | F | M | C - extract var, method, field, constant
+
+Ctrl+I: implement methods
+
+Ctrl+Space: autocomplete
 
 Shift+F6: refactor rename
 
 Ctrl + Y: delete line
 
+Alt+Insert: for dep management - while in pom.xml: 
 
-Ctrl+N: navigate search class
 
-Alt+F7: find references/usages of a method, class, etc
-
-Ctrl+Q: quickly see documentation
-Ctrl+B: jump to declaration
-
-Ctrl: ctrl-o eclipse
-
-Shift+F6: refactor rename
-Ctrl+I: implement methods
+[Build]
 
 ctrl+shift+f9: rebuild (current class)
+
+
+[Run]
 ctrl+shit f10: run all tests
+
 
 [Debug]
 
 F9: resume
 
-Ctrl+Alt+T: selected code surround with
+Ctrl+Alt+T: selected code surround with try catch
 
-Ctrl+Space: autocomplete
-
-Ctrl+B or Ctrl+click: navigate to declaration

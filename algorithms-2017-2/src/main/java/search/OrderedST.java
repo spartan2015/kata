@@ -18,9 +18,9 @@ public interface OrderedST<Key extends Comparable<Key>, Value> extends Iterable<
 
     Key max();
 
-    Key floor();
+    Key floor(Key key);
 
-    Key ceiling();
+    Key ceiling(Key key);
 
     int rank(Key key);
 

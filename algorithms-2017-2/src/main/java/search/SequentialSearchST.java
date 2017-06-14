@@ -1,4 +1,4 @@
-package priorityqueues.search;
+package search;
 
 import java.util.Iterator;
 
@@ -60,7 +60,7 @@ public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
 		}
 
 		if (!found && value !=null) {
-			Node<Key, Value> newNode = new Node<Key, Value>(key, value);
+			root = new Node<Key, Value>(key, value, root);
 			size++;
 		}
 	}

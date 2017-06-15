@@ -49,6 +49,8 @@ public class BinarySearchTreeSTTest {
 
         assertEquals(Integer.valueOf(1), bst.min());
         assertEquals(Integer.valueOf(100), bst.max());
+
+        assertEquals(Integer.valueOf(3),(Integer) bst.rank(7));
     }
 
     @Test

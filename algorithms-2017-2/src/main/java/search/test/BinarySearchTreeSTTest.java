@@ -4,6 +4,7 @@ import org.junit.Test;
 import search.BinarySearchTree;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created on 6/13/2017.
@@ -72,5 +73,24 @@ public class BinarySearchTreeSTTest {
         bst.putRecursive(4,4);
 
         assertEquals(Integer.valueOf(4), bst.getRecursive(4));
+    }
+
+    @Test
+    public void testDelete(){
+        BinarySearchTree<Integer,Integer> bst = new BinarySearchTree<>();
+
+        bst.put(4,4);
+        bst.put(2,2);
+            bst.put(3,3);
+        bst.put(1,1);
+
+        bst.put(7,7);
+        bst.put(6,6);
+        bst.put(8,8);
+
+        //bst.delete(1);
+        bst.deleteMin();
+        bst.deleteMin();
+
     }
 }

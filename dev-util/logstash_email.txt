@@ -1,0 +1,61 @@
+input {
+	file {
+		path => "/opt/iucca/var/*/logs/*.trace"		
+		codec => plain {
+            charset => "ISO-8859-15"
+        }
+        stat_interval => 10
+        discover_interval => 30		
+		
+		sincedb_path => "/opt/iucca/logstash/conf/sincedb_email"		
+	}
+}	
+	
+filter {
+		
+	multiline {
+		patterns_dir => "/opt/iucca/logstash/patterns"
+		pattern => "^%{IUCCATIMESTAMP}"
+		negate => true
+		what => "previous"
+	}
+	
+	grok {
+			patterns_dir => "/opt/iucca/logstash/patterns"
+			match => [ 
+			"message", "%{IUCCATIMESTAMP:timestamp} - (?<sessionId>[A-Za-z0-9_-]+) - %{WORD:threadId} - %{WORD:severity} - %{WORD:msgSource} - %{GREEDYDATA:userMessage}",
+			"message", "%{IUCCATIMESTAMP:timestamp} - %{NUMBER:whatId} - %{WORD:severity} - (?<class>[A-Za-z0-9_\.-]+) - %{GREEDYDATA:userMessage}",
+			"message", "%{IUCCATIMESTAMP:timestamp} - %{WORD:severity} - (?<sessionId>[A-Za-z0-9_-]+) - %{WORD:userId} - %{GREEDYDATA:userMessage}",
+			"message", "%{SYSLOGBASE}",
+			"message", "%{COMMONAPACHELOG}",
+			"message", "%{COMBINEDAPACHELOG}",			
+			"message","%{IUCCATIMESTAMP:timestamp} \[%{WORD:field1}\] %{WORD:field2} \[%{WORD:thread}\] %{GREEDYDATA:userMessage}",
+			"message","%{IUCCATIMESTAMP:timestamp} %{GREEDYDATA:userMessage}",
+			"message", "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day} %{TIME:time} %{GREEDYDATA:userMessage}",
+			"message", "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day} %{GREEDYDATA:userMessage}",
+			"message", "%{YEAR:year}-%{MONTHNUM:month}-%{GREEDYDATA:userMessage}",
+			"message", "%{YEAR:year}-%{GREEDYDATA:userMessage}"						
+			]
+	}
+
+	date {
+		match => [ "timestamp", "YYYY/MM/dd - HH:mm:ss:SSS" ]
+	}
+}
+
+output {
+	stdout {}
+	if "ERR" in [message]  {
+	file {
+	   path => "/opt/iucca/inst/213/webapp/iucca/error.txt"
+	   codec => line { format => "%{message}"}
+	 }
+		email {
+            from => "logstash_alert@company.local"
+            subject => "logstash alert"
+            to => "vasile.irimia@fortech.ro"
+            via => "smtp"
+            body => "Here is the event line that occured: %{@message}"
+		}		
+	}
+}

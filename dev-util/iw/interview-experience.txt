@@ -1,0 +1,116 @@
+Interview Experience:
+
+Lessons:
+- never say who the other companies that you are interviewing with are, or their number.
+- never mention anything about the salary, not even an interval - they 99% offer the bottom of the interval... all the companies you are inteviewing with. How will you choose then?
+
+- there seems to be a national database beeing commonly used by the recruiters that gather info about. I've seen people at interviews giving me innuedoes and smircks not only about things at my previous company but about things I previous interviews I just had - do I see an illegal cartel/mafia like organization ?
+- amazed at how different they do the interview and the tests - no standardized tests - like you see at american companies - which emphasize computer science fundamentals - here they are mostly focused on way to specific frameworks and languages, niche products that they think all should know but every company used different tools. One company insisted on hibernate tool even if I did not used hibernate for extrmely fine grained operations, caching, etc in years...weird
+- some 
+- most do not bother with Computer Science Fundamentals - this mostly lack in Romania, Gameloft was the notable exception, but even there the barely scratched the surface
+- a lot of them do not follow a predictable recruiting process
+- most do not adapt their process to the candidate
+- all ask the salary expectation question and all offer initially the lowest salary in that range, though all would negociate above it, if you would care to ask
+- most of the compnies I interviewed with showed little appreciation and respect in regard to my experience. I felt like after 12 years of programming I was tested to see if I am worthy of having a job. Also those who claim that they test in order to match the salary - a lot of the testing was basic, 
+
+Luxoft:
+- arrogance and disrespect. They were trying hard to ask me questions from outside my expertise but related - like business analysis
+- one of the pm said he does not want to hire my because I don't have banking experience after he did not like my question about the values and culture of the team which pissed him off apparently
+
+Computaris:
+- gave me 20 years absolute test - about applests and java 1.2 and unix tests
+- asked question - what are realtime and batch processing tools (e.g haddop vs kafka (the new jms like implementation)).
+- even though I was a trainer at the previous company and a public speaker presenter - they conluded remarkably that I do not speak enough to be a software architect: remarkable stupidity.
+- was shocked to find out that a girl managed to climb the corporate ladder from graduating school to head of software delivery (top in the company) in 1 year. So with less than 1 year of software engineering experience/project management experience. The company was very proud to promote woman only in their management. But I wouldn't be selected as candidate for an architect position after 12 years of corporate experience, including in managing people. Yeah, wondering why the top management is stupid. Would you want to work for someone with 1 year of experience at the top of the company ?
+
+Erricson:
+- rude regional hr - speaking with contempt and disrespect, negative mindset, the manager I had the technical interview seemed to the exact opposite
+- the only that insisted that they must have a reference from a previous colleague, gee
+- salary offer was exactly at the national average, did not offer anyhthing more
+- interview - not on computer science fundamentals - but they were testing to see if I know specific solutions they implemented
+- did not asked my about my experience but wanted to know if I match their experience - 
+
+Oracle:
+- a lot of worries about the budget - they also mention that the average national salary (that you would get at any outsource) is a bit over their budget
+- they ask a lot - and pay under average - my impression after interviewing with them - poor interview competence - over promise - under-delivery - a mark of incompetence in my opinion - also arrogance there - gee - there are better companies - better conditions - better projects - better pay - wtf Oracle
+
+Amazon:
+- remarkable arrogant and stupid hr recruiters - concluded that I don't know what a hashmap is after few basic questions - what is a hashmap - key - value holding data structure - using a hashing function on the key to determine where it goes and how to retrieve it - with ideal constant time for an ideal hashing function - Her conclusion: I obviouly have no ideea what a hashmap is. Omg!
+- they clearly show arrogance and contempt towards people - shitty leadership - highly unrecommended
+- payment barely meets national averages - why stress yourself there? The knowledge ? Sure interesting, but underpaid. If you are trully interested in CS you cand do that anywhere else just the same.
+- they demand a hell of a lot - they offer nothing more than the next outsources (money wise) - they hire arrogant and disrespectful people - welcome to the extreme competition jungle - true hienas
+
+Stefanini:
+- classic outsourcing
+- huge focus on hibernate, on some odd little details, the tech person had no ideea what he was doing, clearly a poor interviewer
+- they did not come back with an offer
+- nice offices in a new office building
+
+Thales Romania
+- classic outsourcing
+- office does not look sharp, but shows carelessness
+- nice projects
+- bad reputation - showed
+- interview - just about experience - not much technical
+
+Cgk 
+- 4 massages per week (15mi) - great offices - great location.
+Unicredit 
+- weird vibe of desperation + after that not even making an offer. Desperate to show that they are not at the bottom of the list in developers priority
+- they send people to ING office to work - only cash in the profit
+- most of the questions here were: what is an antipattern to mocking, what is agile, what is the differenece between incremental and interative - I was interviewing for a senior java developer position and he was asking questions that are irrelevant to the position.
+
+
+Gameloft 
+- offer suprinsingly under the market salaries (10% under outsourcing companies)
+- awesome big data opportunities
+- found some software engineers - but with level under amazon/facebook type of compnies - good news - same salaries - less work - more pay - gameloft wins over amazon
+- great offices
+ 
+Rinf 
+- great offices, great pay for an oursourcing company, better than gameloft
+- more than 8 hours home test - build an app + 3 interviews - one with hr, one technical with Romania tech, another technical with foreign lead - 
+- the UK lead showed contempt and dislike with no good reason. Seemed to enjoy mocking people. Bad first impression.
+
+Nobel:
+- messy offices - they show carelessness
+- have big data opportunities
+- people there did not seems that smart
+- quick to arrange the first interviews, hard to decide if they even make an offer
+- 4h home test - build an app
+
+Bitdefender:
+- 1 day of testing on their premises 
+
+Kepler-Romsoft
+- omg offices - look like some underfunded school, people eating at their desk in the reception area, spinach, they are old and fat - bad first impression
+- they send peopple to Erricson which oursource for other companies
+- they had no ideea about the project, nor did they cared to find out more
+- low offer- 25% under market price
+
+AdsWizz:
+- poor security - open wide office doors
+- careless office - cables hanging all over
+- french manager
+- nice big data opportunities and work there
+- poor interview skills
+- seemed far from a professional company
+- promised to make an offer but did not care to even answer the reminder email, yeah, unprofessional.
+
+Consulting Connect
+- outsource - send people to their client - this case Akka - which partners with other companies
+- at least I did not had to waite days on technical testing
+- technically they seemed amateurs - the guys in France which were outsourcing for another Client - so it would be like Till the final client I would go through 3 outsources - all seemed a very low maturity professionally
+
+Akka Romania:
+- locking their conference door
+- could not exit their premisses without a card
+- a lot of focus on security, more than I have ever seen before
+- offices did looked ok.
+- did interview alone from their conference room directly with the France team for wich they outsource.
+
+Mysis
+- original testing: logic, iq, kind
+- also a technical interview on java
+- looked professional
+- nice offices

@@ -1,0 +1,10 @@
+code-coverage
+tdd
+
+design patterns - creational at least
+ioc design pattern
+
+
+testing principle aaa -arrange  act assert
+
+test mock - use map

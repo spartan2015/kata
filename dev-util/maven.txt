@@ -1,0 +1,169 @@
+- move _build to src/main/resources
+
+- modules - parent relationship
+
+- placing config files where they need to be - in their folder
+
+- filtering resources - if needed - xmls of repo and the config files - configuring the build filtering
+
+<build>
+<filters>
+<filter>src/main/filters/default.properties</filter>
+</filters>
+<resources>
+<resource>
+<directory>src/main/resources</directory>
+<filtering>true</filtering>
+</resource>
+</resources>
+</build>
+
+- configure the build pluging - 
+<build>
+...
+<plugins>
+<plugin>
+<artifactId>maven-compiler-plugin</artifactId>
+<configuration>
+<source>1.5</source>
+<target>1.5</target>
+</configuration>
+</plugin>
+</plugins>
+...
+</build>
+
+
+<build>
+...
+<sourceDirectory>src/java</sourceDirectory>
+<outputDirectory>classes</outputDirectory>
+...
+</build>
+
+
+<build>
+...
+<testSourceDirectory>src-test</testSourceDirectory>
+<testOutputDirectory>classes-test</testOutputDirectory>
+...
+</build>
+
+
+<profiles>
+<profile>
+<id>production</id>
+<activation> v1
+<jdk>1.6</jdk>
+</activation>
+<build>
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</  -
+groupId>
+<artifactId>maven-compiler-plugin</  -
+artifactId>
+<configuration>
+<debug>false</debug> 
+<optimize>true</optimize>
+</configuration>
+</plugin>
+</plugins>
+</build>
+</profile>
+</profiles>
+
+mvn help:describe -Dplugin=[help - plugin prefix or groupId:artifactId:version] -Dmojo=compile -Dfull
+mvn help:describe -Dplugin=org.apache.maven.plugins:maven-compiler-plugin
+-Ddetail
+
+
+<plugin>
+<artifactId>maven-resources-plugin</artifactId>
+<executions>
+<execution>
+<id>default-resources</id>
+<configuration>
+<includeEmptyDirs>false</includeEmptyDirs>
+</configuration>
+</execution>
+<execution>
+<id>default-testResources</id>
+<configuration>
+<includeEmptyDirs>true</includeEmptyDirs>
+</configuration>
+</execution>
+</executions>
+</plugin>
+
+It makes no sense to have Iucca as a war project that is deployable. Recommended to split the web resources into a separate bundle - so a separate project - should split from Iucca - Iucca main should be a jar dependency for the other projects. Also the bundle should be a dependecy. Binaries should not be mixed with. 
+
+page 136 of manual:
+
+<assembly>
+...
+<dependencySets>
+<dependencySet>
+<scope>provided</scope>
+<outputDirectory>lib/${project.artifactId}</outputDirectory>
+</dependencySet>
+<dependencySet>
+<scope>runtime</scope>
+<outputDirectory>
+webapps/${webContextName}/WEB-INF/lib
+</outputDirectory>
+<excludes>
+<exclude>*:zip</exclude>
+</excludes>
+</dependencySet>
+<dependencySet>
+<scope>runtime</scope>
+<outputDirectory>
+webapps/${webContextName}/resources
+</outputDirectory>
+<includes>
+<include>*:zip</include>
+</includes>
+<unpack>true</unpack>
+<unpackOptions>
+<excludes>
+<exclude>**/LICENSE*</exclude>
+</excludes>
+</unpackOptions>
+</dependencySet>
+</dependencySets>
+...
+</assembly>
+
+- assembly support: fileMode and DirectoryMode configuration options - directroy mode are to be used only when dependencies are unpacked (my question before , or after they are added to the package - my guess before)
+
+- resource dependencies, practically zip files, would be unpacked into our web application
+
+
+Maven implicit variables:
+project.* (org.apache.maven.model.Model)
+env.*
+project.groupId
+project.version 
+project.artifactId
+project.name and project.description
+project.build.sourceDirectory
+project.build.scriptSourceDirectory
+project.build.testSourceDirectory
+project.build.outputDirectory
+project.build.testOutputDirectory
+project.build.directory
+use ${user.home} instead of ${env.HOME} More system properties at 162
+
+<profile>
+<id>some-profile</id>
+<properties>
+<arbitrary.property>This is some text</arbitrary.property>
+</properties>
+</profile>
+
+
+Resource Filtering - searches for ${ and } and replaces them 
+
+
+

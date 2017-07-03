@@ -1,0 +1,206 @@
+equitty ubs 
+
+PMI - project manager interview
+
+decide with client - 
+
+cv, feedback tehnic, feedback pmi
+
+business value, 
+
+responsabilities
+
+tehnical lead
+
+mentoring, coaching, supervizing,
+quality, 
+road ahead - 
+
+looking ahead
+
+sonar, 
+
+- productivitate
+- 
+
+relatia cu ceilalti colegi - 
+
+junior, technical lead, 
+
+coaching, mentoring, 
+people management - 
+
+junior, middle, senior - 
+calitate pe care il apreciez.
+defect pe care il observati.
+calitate - refactoring - code - 
+soft skill - 
+
+directia mare - tehnical vs people management ?
+Leadership skill - 1 coaching
+Leadership skills - 
+Proiectele din Clondike
+
+echipa sa creasca 18-20 pers - 
+q
+
+lcruam pt IT al UBS, equative derivatives
+3 proiecte mari
+
+
+aplicatie stoc - negociere intre sales si trader a unor noi produse
+face parte din parte de upstream, 
+generating newfinancial instruments
+all go in the clondike  - lifecycle management - 
+triggere, creating a new instrument, cnaceling them,
+web based app:
+java 7 si java 8 la nivel de microservicii
+framework - spring 
+persistenta hibernate, jpa
+maven, ide, intellij
+calitate teste - cucumber - fitul
+produs invalid vs expirat - 
+microservicii - 
+clojure - scala
+oracle
+jmd,
+spring mvc
+easy mock mockito
+front end - nu se pune mare accent, tot business logicul e server side
+jquery, javascript, ajax, depinde de cerinte
+team city - crucible, jira
+documenting: confluence, conections - 
+Clojure
+
+echipa e compusa din 10 pers, crestem imediat la 13, o sa ajungem in 3 luni la 18-20
+proiect global - uk londra, kiev, us, 
+
+Cultura
+sanatate organizationala
+valori
+
+product - owner - furnizare. 
+agile scrum
+product owner proxy - business requirements analyst, 
+
+proiect matur, strategic, se dezvolta tot timpul, 50-60% business requirements
+avem 20-25% - spec vin din partea unor organizatii diferite fata de banca - 
+adauga documente suplimentare la orice instrument financiar
+implementare de microservici
+migrare intru-un stack
+
+- how 
+Culture ???
+
+cat de veche este echipa curenta - 3 ani de zile, 
+junior care a venit ok,
+
+cum le place sa lucreze, sa colaboreze
+
+echipa unita - 
+lucrurile le discuta impreuna
+isi petrec timp impreuna de la mers la masa la sala de recreere impreuna
+board game-uri, ies impreuna,
+- toti merg in aceiasi directie - 
+persoanele sunt - varsta strans intre 28 - 31 de ani
+demo cine vrea sa intre si unde vrea sa intre
+
+Echipa unita: 
+- focus pe calitate, livrare la timp
+- sa adunam business logic - ii ajuta pe toti membrii echipei
+- tragem toti in aceiasi directie
+mix de knowledge si responsabilitati
+persoana in roluri de scrum master - rotatie 
+obiective? 
+
+membrii echipei - obiectiv ?
+performance appraisail anual
+obiective, evaluari intermediare,
+career path, doreste sa ajunga in anumite exemple
+- crestem capacitatea
+- nu vad people enthusiasm
+- acoperim partea de business bine
+- cresterea si recunoastere unor pers ca busines req anal
+- scrumaster rotation
+- crestera capacitatii 
+- mix de skiluri, java developeri, cautam
+senior, technical leads, QA, business requirements analysts
+- split al echipei - 2 echipe undeva 8-9 fiecare, 1 tech, 1 scrum master,
+ acoperim business si tehnica - echipe autonome,
+- fiecare membru sa joace un rol foarte important
+
+- conchidem
+managerial
+
+- obiective - 
+cum facem noi lucrurile pentru autonomie
+fiecare trebuie sa 
+echipa sa decida pentru ea - sunt confident ca se pot intampla lucrurile acestea..
+mix 
+
+- poate la inceput de drum
+- perspective bune
+- in directia 
+
+genul asta de pers le avem in echipa
+interviurile pentru candidatii in cadrul echipei sa aibe loc de caatre cineva din cadrul echipei
+evaluam pentru proiectele 
+
+Ce calitati cautati must it have, beside the technical knowledge:
+Ce calitati apreciaza
+
+Din p.d.v. al motivatiei - e ceva interesant ?
+
+
+lucrurile sunt noi, 1 saptamana si jumatate
+momentul in care am plecat in aceasta directie
+discutiile intre membrii echipei
+avem catchup callurile - discutam aspecte de zi cu zi care impacteaza echipa
+care e urmatoare 
+
+format format - atacam ce ar fi ok pentru echipa.
+principiul round table - trecem de la o pers la alta, feedback, recomandari,
+vedem prop si contra- next action - review ?
+
+administrative - ianurie - realistic
+
+din p d v al luxoft beneficii 
+alte
+
+din p d v al bugetului din zona delivery avem program de leadership - leadership academy - 6-7 luni 2 zile in fiecare luna, care pot fi aplicate in echipa
+sustinem certificari - java 8
+resurse din p d v soft skill - de la online, safari, coursera, pluralsight, investment banking, luxoft.
+trianinguri interesante - 
+investment banking - 
+clientul nostru este dezvoltatorul - sa faca lucruri interesante din p.d.v. tehnic.
+
+
+Long talk, talks tooo much, 
+not people oriented - managment orientet - abstract oriented... competent but boy- are you managing people or processes ?
+
+vorba multa, graba multa
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

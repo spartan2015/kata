@@ -1,0 +1,2 @@
+#create local video from dvd - not really needed since I can copy local the dvd contents and play it
+ffmpeg -i "concat:VTS_01_0.VOB|VTS_01_1.VOB|VTS_01_2.VOB" -map 0:v -map 0:a d:\john.mp4

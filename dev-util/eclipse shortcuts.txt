@@ -1,0 +1,7 @@
+eclipse shortcuts:
+
+ctrl . and ctrl shift .  - navigate throug code
+ctrl + shit + [ - open side window - like compare to view 2 pieces of code
+ctrl+l - list available keys
+
+Then use Ctrl+Shift+Y or Ctrl+Shift+X - convert between uppercase and lowercase

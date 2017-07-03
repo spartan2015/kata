@@ -1,4 +1,18 @@
-After
+[to be decided]
+how well you are in harmony with the company, the team, the group - somtimes company wide rules are not found in the team...
+
+
+[Selling bid]
+highly paid
+productive
+joyfull
+take the guessing out of the equation
+
+
+[Choose where you work]
+
+
+[Starting your new job]
 relax and enjoy the process
 nobody is expecting anything of you
 it is ok to make bugs, relax
@@ -15,7 +29,12 @@ train for long term
 your best bet is on what you like and you are gifted at - you will notice that straight away and there will be no doubt
 
 
-Long Term
+[What to learn]
+
+[What the role requires of you]
+yes that is the knowledge you need to achieve your daily tasks effectively, painlessly, easiest
+
+[Core Programming Disciplines]
 deeper dive into datastructures and algorithms
 use tools like hackerrank
 deeper dive into the language and framworks you currently use
@@ -24,13 +43,21 @@ be curios but know unused knowledge is useless. don't learn things just because 
 faculties and courses that waiste your time with courses that most probably you will never use
 in practice you will use very few things from a faculty, and most of the time very different things than theory
 
-design patterns
-read code - practice your craft daily - your job may help you develop or it may not
-
+[Design Patterns]
 learn on the job, on the problem - the best way it works - have a problem or task to solve - way better than going through all the project code aimlesly
+
+[How to learn]
+read code - practice your craft daily - your job may help you develop or it may not
+write code - from the fundamental algorithms that are well knw, design patterns
+take your time and repeat
+
 
 
 [interview]
+go to all the interviews
+take notes
+find out what they need of you - knowledges, skill, group and prioritize - you can't learn everything
+
 record interview, for later review and learning
 
 go where you feel appreciated, needed, feel the energy of the environment and your future team
@@ -55,9 +82,17 @@ the myth that the test will reveal and you will be paid with skill...that is a m
 
 chasing "new" technologies
 
+
+[Doing the work]
+quite matters - why you need single focus, very few objectives
+
 Log - Reflection
 
-Productivity tools
+
+Learn and use Productivity tools
+
+
+
 
 Make dev life fun - eat together, fun cows, challengs - rankings
 
@@ -69,8 +104,11 @@ have a plural sight subscription
 
 read a relevant magazine for your field - JavaMagazine
 
-Knowing when to leave the company:
+
+[Knowing when to leave the company]
 do you feel safe?
 do you feel you are learning and growing ?
 do you feel stressed? - keep a journal - can you manage it ? what options do you realistically have
 impact of emotional pain - so toxic - sooner is better
+
+

@@ -1,0 +1,65 @@
+sen java dev
+
+initial impresion
+present company
+
+cashare 2008 - disruptive company - fintech - on the market 9 yeasr-
+provide loans through persons - from private and from company 
+
+score system 
+put loan request online
+investors invest into the loan
+
+part diversification - loaner can have up to 20 investors
+
+other platforms: mintos bondura
+
+coded on php since beginning - main part is still on php
+plan to migrate to php - java
+open development office - subsidiary
+maybe from germany - 
+
+legal setup - freelancers, other company, working contract - other.
+
+looking from long term 
+
+speed, quality
+
+great new financial services
+
+php platform 
+
+already have a guy - microservices - more microservices - eliminate php 
+doing bug fixes in php and migrating to java
+refactoring existing code, implement new project
+
+Question:
+project management, tools - enteprise architect
+
+Develop locally
+Merge code to a dev branch which is deployed to remote dev server - where test and review can happen
+
+Spring framework, maven, hibernate
+don't have our own hard - infrastructure is provided.
+
+php5 mostly 
+
+reverse - 
+
+Jira - coding parts
+Azana for business
+
+db layer - ok - 
+
+One more thing - Scrum approach
+
+slack communication
+
+3 people at beginning of feb - 4-5 people in the next few weeks
+
+25 days of holiday - 40-42h per week, 
+
+propose come back tommorrow - 
+
+normally we start directly with - do a short test maybe - we believe that through the interview we get good matches.
+monthly setup for the first 3 month - 

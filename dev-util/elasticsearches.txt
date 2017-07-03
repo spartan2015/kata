@@ -1,0 +1,14 @@
+curl -XGET 'http://localhost:8123/twitter/tweet/_search?routing=kimchy' -d '{
+    "query": {
+        "bool" : {
+            "must" : {
+                "query_string" : {
+                    "query" : "*"
+                }
+            },
+            "filter" : {
+                "term" : { "message" : "err" }
+            }
+        }
+    }
+}

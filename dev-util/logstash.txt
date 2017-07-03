@@ -1,0 +1,20 @@
+#elastic search
+#make sure the config is right: port and node name - logstash uses these to put data
+#start elastic search - logstash will connect to it to put data
+C:\logstash\elasticsearch-1.7.1\bin\elasticsearch
+#optional start kibana - connects to elastic search to give you a UI to view data, query data
+# make sure config is correct- tcp ip port to elastic search
+C:\logstash\kibana-4.1.1-windows\bin\kibana
+#now logstash
+# make sure config is done properly - this takes some work
+# to help you with message parsing using grok: use this site: http://grokconstructor.appspot.com/do/match#result
+C:\logstash\logstash-1.5.4\bin\logstash -f C:\logstash\logstash.config
+
+# test logstash config file
+C:\logstash\logstash-1.5.4\bin\logstash --checkconfig -f C:\logstash\logstash.config
+
+#To erase everything in elasticsearch: - make sure port is right - this can be configured in elastic search conf
+curl -XDELETE 'http://localhost:8123/_all' 
+
+kibana search examples
+userMessage: info = field "userMessage" contains string "info"

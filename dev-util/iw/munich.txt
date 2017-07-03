@@ -1,0 +1,27 @@
+munich
+ost bahnhof
+
+team - both hardware and software.
+
+complicated system - mobile, andoird, web application
+backedn - communication with the hardware
+
+just start commercial version:
+
+how big is the team ? Dev team - 8 devs - 6 onsite, 2 remote - 
+20 people - 
+Right now we do ok. - not ideal - we want people on site.
+
+senior backend person  and senior front end are wanted
+
+supporting the rest api - end user app - other functionality- payments, third party as well as the handling of comm with mach
+
+startup - fast pace - small tema focus on the product
+
+downside - there can be an extra demand
+last minute fire fighting - can be more challenging
+don't necessarly identify with the job- don't want the same intensity
+
+Profesionally sort: english mostly - but german ().
+
+travel to Munich...

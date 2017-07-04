@@ -1,3 +1,15 @@
 for(p in $0) console.log(p + " " + $0[p]);
 
 angular.element($0).scope()
+
+
+
+angular.module('mb-libs.services')
+    .service('Common', ['$rootScope', '$http', '$q',
+
+service = q.defer();
+
+
+$.ajax(ajaxCall); // async - will update the promise
+
+return service.promise;

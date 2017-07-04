@@ -1,4 +1,7 @@
 [View]
+
+Ctrl+Tab - switch between open windows
+
 Ctrl+Shift+S: -split vertically
 
 Ctrl+Al+Shift +S - project structure
@@ -31,11 +34,17 @@ Ctrl+W and Ctrl+Shift+W
 
 [Edit]
 
+Ctrl+Shift+Space - Smart autocomplete
+
+Ctrl+Alt+F7 - show usages
+
 Ctrl+Alt+Up/Down Arrow - move a line of code
 
 Ctrl + F12 - Navigate structure - popup of methods and vars like ctrl+o in eclipse
 
 Ctrl + O - select methods to override or implement
+
+Ctrl+Alt+T - surround code with
 
 Ctrl+Shift + Alt + T - show list of available refactorings
 

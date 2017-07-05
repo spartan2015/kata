@@ -1,4 +1,7 @@
 [View]
+Compare 2 files: in project structure select multiple files with Ctrl held, right click - select compare
+
+Ctrl + F12 - Navigate structure - popup of methods and vars like ctrl+o in eclipse
 
 Ctrl+Tab - switch between open windows
 
@@ -39,8 +42,6 @@ Ctrl+Shift+Space - Smart autocomplete
 Ctrl+Alt+F7 - show usages
 
 Ctrl+Alt+Up/Down Arrow - move a line of code
-
-Ctrl + F12 - Navigate structure - popup of methods and vars like ctrl+o in eclipse
 
 Ctrl + O - select methods to override or implement
 

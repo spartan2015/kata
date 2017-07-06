@@ -1,10 +1,11 @@
-package hackerRank;
+package rank;
 
 import java.util.IntSummaryStatistics;
 import java.util.Scanner;
 import java.util.function.IntConsumer;
 
 import org.junit.Test;
+import utils.ReadingUtils;
 
 public class MatrixUtils {
 	@Test

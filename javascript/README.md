@@ -58,8 +58,8 @@ foo(2); //can't do that - why ? // can't send params damn
 // hidding stuff in anon function scope
 (function bar(n){console.log(n);})()
 
-
-
+// execting a function in same line
+(function(){console.log("a");}())
 
 // catch is blocked scope
 try{

@@ -1,4 +1,4 @@
-package hackerRank;
+package utils;
 
 import java.util.PrimitiveIterator;
 import java.util.Scanner;

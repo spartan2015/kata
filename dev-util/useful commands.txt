@@ -17,6 +17,9 @@ CURRENT_DIR=`pwd`
 #at the end
 cd $CURRENT_DIR
 
+echo "git-sync"
+alias git-sync="git add . && git commit -m 'next' && git push origin master"
+
 
 echo "lsport"
 lsport(){

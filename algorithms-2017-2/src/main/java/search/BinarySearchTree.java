@@ -18,7 +18,46 @@ import java.util.*;
 public class BinarySearchTree<Key extends Comparable<Key>, Value> implements OrderedST<Key, Value> {
     public Node<Key, Value> root;
 
-    static class Node<Key extends Comparable<Key>, Value> {
+    public BinarySearchTree(){}
+    public BinarySearchTree(Comparable[] ar){
+        class ProcessingUnit {
+            int lo;
+            int hi;
+            Node<Key,Value> parent;
+            boolean left;
+
+            public ProcessingUnit(int lo, int hi, Node<Key, Value> parent, boolean left) {
+                this.lo = lo;
+                this.hi = hi;
+                this.parent = parent;
+                this.left = left;
+            }
+        }
+        LinkedList<ProcessingUnit> queue = new LinkedList<>();
+        queue.add(new ProcessingUnit(0, ar.length-1, null, true));
+        while(!queue.isEmpty()){
+            ProcessingUnit pu = queue.poll();
+            int mid = (pu.lo + pu.hi)/2;
+            Node<Key, Value> newNode = new Node(ar[mid],ar[mid]);
+            if (root == null){
+                root = newNode;
+            }else{
+                if (pu.left){
+                    pu.parent.left = newNode;
+                }else{
+                    pu.parent.right = newNode;
+                }
+            }
+            if (mid-1 - pu.lo >= 0){
+                queue.add(new ProcessingUnit(pu.lo, mid-1, newNode,true));
+            }
+            if (pu.hi - (mid+1) >=0){
+                queue.add(new ProcessingUnit(mid+1, pu.hi, newNode,false));
+            }
+        }
+    }
+
+    public static class Node<Key extends Comparable<Key>, Value> {
         Key key;
         Value value;
         int N = 1;
@@ -76,6 +115,18 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
         }
     }
 
+    public void deleteMinRe(){
+        if (root == null) return;
+        root = deleteMinRe(root);
+    }
+
+    private Node<Key,Value> deleteMinRe(Node<Key, Value> x) {
+        if (x.left == null) return x.right;
+        x.left = deleteMinRe(x.left);
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
+    }
+
     @Override
     public void deleteMin() {
         if (root == null) return;
@@ -99,6 +150,18 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
         }
     }
 
+    public void deleteMaxRe(){
+        if (root == null) return;
+        root = deleteMaxRe(root);
+    }
+
+    private Node<Key,Value> deleteMaxRe(Node<Key, Value> x) {
+        if (x.right == null) return x.left;
+        x.right = deleteMaxRe(x.right);
+        x.N =  size(x.left) + size(x.right) + 1;
+        return x;
+    }
+
     @Override
     public void deleteMax() {
         if (root == null) return;
@@ -120,56 +183,34 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
         }
     }
 
-    public void putRecursive(Key key, Value value) {
-        root = putRecursive(root, key, value);
+    public void deleteRe(Key key) {
+        root = deleteRe(root, key);
     }
 
-    private Node<Key, Value> putRecursive(Node<Key, Value> node, Key key, Value value) {
-        if (node == null) {
-            return new Node(key, value);
+    private  Node<Key,Value> deleteRe(Node<Key, Value> x, Key key) {
+        if (x == null) return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0){
+            x.left = deleteRe(x.left,key);
+        }else if (cmp > 0){
+            x.right = deleteRe(x.right, key);
+        }else{
+            //single child cases
+            if (x.right == null) return x.left;
+            if (x.left == null) return x.right;
+            //both children present case
+            Node t = x;
+            x = min(t.right);
+            x.right = deleteMinRe(t.right);
+            x.left = t.left;
         }
-        int cmp = key.compareTo(node.key);
-        if (cmp == 0) {
-            node.value = value;
-        } else if (cmp < 0) {
-            node.left = putRecursive(node.left, key, value);
-        } else {
-            node.right = putRecursive(node.right, key, value);
-        }
-        node.N = size(node.left) + size(node.right) + 1;
-        return node;
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
     }
 
-    public Value getRecursive(Key key) {
-        return getRecursive(root, key);
-    }
-
-    private Value getRecursive(Node<Key, Value> node, Key key) {
-        if (node == null) return null;
-        int cmp = key.compareTo(node.key);
-        if (cmp == 0) {
-            return node.value;
-        } else if (cmp < 0) {
-            return getRecursive(node.left, key);
-        } else {
-            return getRecursive(node.right, key);
-        }
-    }
-
-    @Override
-    public Value get(Key key) {
-        Node<Key, Value> node = root;
-        while (node != null) {
-            int cmp = key.compareTo(node.key);
-            if (cmp == 0) {
-                return node.value;
-            } else if (cmp < 0) {
-                node = node.left;
-            } else if (cmp > 0) {
-                node = node.right;
-            }
-        }
-        return null;
+    private Node<Key,Value> min(Node x) {
+        if (x.left == null) return x;
+        else return min(x.left);
     }
 
     @Override
@@ -253,6 +294,60 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
             }
         }
     }
+
+    public void putRecursive(Key key, Value value) {
+        root = putRecursive(root, key, value);
+    }
+
+    private Node<Key, Value> putRecursive(Node<Key, Value> node, Key key, Value value) {
+        if (node == null) {
+            return new Node(key, value);
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp == 0) {
+            node.value = value;
+        } else if (cmp < 0) {
+            node.left = putRecursive(node.left, key, value);
+        } else {
+            node.right = putRecursive(node.right, key, value);
+        }
+        node.N = size(node.left) + size(node.right) + 1;
+        return node;
+    }
+
+    public Value getRecursive(Key key) {
+        return getRecursive(root, key);
+    }
+
+    private Value getRecursive(Node<Key, Value> node, Key key) {
+        if (node == null) return null;
+        int cmp = key.compareTo(node.key);
+        if (cmp == 0) {
+            return node.value;
+        } else if (cmp < 0) {
+            return getRecursive(node.left, key);
+        } else {
+            return getRecursive(node.right, key);
+        }
+    }
+
+    @Override
+    public Value get(Key key) {
+        Node<Key, Value> node = root;
+        while (node != null) {
+            int cmp = key.compareTo(node.key);
+            if (cmp == 0) {
+                return node.value;
+            } else if (cmp < 0) {
+                node = node.left;
+            } else if (cmp > 0) {
+                node = node.right;
+            }
+        }
+        return null;
+    }
+
+
 
     @Override
     public boolean contains(Key key) {
@@ -390,6 +485,45 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
     @Override
     public Iterable<Key> keys(Key lo, Key hi) {
         return null;
+    }
+
+    public Iterable<Key> inOrderTraversal(){
+        List<Key> list = new ArrayList();
+        inOrderTraversal(root,list);
+        return list;
+    }
+
+    private void inOrderTraversal(Node<Key, Value> node, List<Key> list) {
+        if (node == null) return;
+        inOrderTraversal(node.left,list);
+        list.add(node.key);
+        inOrderTraversal(node.right,list);
+    }
+
+    public Iterable<Key> preOrderTraversal(){
+        List<Key> list = new ArrayList();
+        preOrderTraversal(root,list);
+        return list;
+    }
+
+    private void preOrderTraversal(Node<Key, Value> node, List<Key> list) {
+        if (node == null) return;
+        list.add(node.key);
+        inOrderTraversal(node.left,list);
+        inOrderTraversal(node.right,list);
+    }
+
+    public Iterable<Key> postOrderTraversal(){
+        List<Key> list = new ArrayList();
+        postOrderTraversal(root,list);
+        return list;
+    }
+
+    private void postOrderTraversal(Node<Key, Value> node, List<Key> list) {
+        if (node == null) return;
+        inOrderTraversal(node.left,list);
+        inOrderTraversal(node.right,list);
+        list.add(node.key);
     }
 
     @Override

@@ -484,13 +484,67 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
 
     @Override
     public Iterable<Key> keys(Key lo, Key hi) {
-        return null;
+        List<Key> list = new ArrayList();
+        getInOrderKeysTraversal(root, lo, hi, list);
+        return list;
+    }
+
+    public Iterable<Key> keysNR(Key lo, Key hi) {
+        List<Key> list = new ArrayList();
+        getInOrderKeysNonRecursive(root, lo, hi, list);
+        return list;
+    }
+
+    private void getInOrderKeysTraversal(Node<Key, Value> current, Key lo, Key hi, List<Key> list) {
+        if (current == null) return;
+        getInOrderKeysTraversal(current.left,lo, hi, list);
+        if (current.key.compareTo(lo)>=0 && current.key.compareTo(hi)<=0){
+            list.add(current.key);
+        }
+        getInOrderKeysTraversal(current.right,lo, hi, list);
+    }
+
+    private void getInOrderKeysNonRecursive(Node<Key, Value> current, Key lo, Key hi, List<Key> list) {
+        if (current == null) return;
+        LinkedList<Node<Key,Value>> stack = new LinkedList();
+        addNodesInOrder(current, stack);
+        while(!stack.isEmpty()){
+            Node<Key,Value> node = stack.pop();
+            if (node.key.compareTo(lo)>=0 && node.key.compareTo(hi)<=0){
+                list.add(node.key);
+            }
+            addNodesInOrder(node.right,stack);
+        }
     }
 
     public Iterable<Key> inOrderTraversal(){
         List<Key> list = new ArrayList();
         inOrderTraversal(root,list);
         return list;
+    }
+
+    public Iterable<Key> inOrderTraversalNonRecursive(){
+        List<Key> list = new ArrayList();
+        inOrderTraversalNonRecursive(root,list);
+        return list;
+    }
+
+    private void inOrderTraversalNonRecursive(Node<Key, Value> current, List<Key> list) {
+        if (root==null) return;
+        LinkedList<Node<Key,Value>> stack = new LinkedList();
+        addNodesInOrder(current, stack);
+        while(!stack.isEmpty()){
+            Node<Key,Value> node = stack.pop();
+            list.add(node.key);
+            addNodesInOrder(node.right, stack);
+        }
+    }
+
+    private void addNodesInOrder(Node<Key, Value> current, LinkedList<Node<Key, Value>> stack) {
+        while(current != null){
+            stack.push(current);
+            current = current.left;
+        }
     }
 
     private void inOrderTraversal(Node<Key, Value> node, List<Key> list) {

@@ -121,4 +121,38 @@ public class BinarySearchTreeSTTest {
         assertNull(getFieldValue(bst, "root.left"));
         assertNull(getFieldValue(bst, "root.right"));
     }
+
+    @Test
+    public void traversal(){
+        BinarySearchTree<Integer, Integer> bst = new BinarySearchTree<>(new Integer[]{1,2,3});
+        assertEquals("[1, 2, 3]",bst.inOrderTraversal().toString());
+    }
+
+    @Test
+    public void preOrderTraversal(){
+        BinarySearchTree<Integer, Integer> bst = new BinarySearchTree<>(new Integer[]{1,2,3});
+        System.out.println(bst.preOrderTraversal());
+        assertEquals("[2, 1, 3]",bst.preOrderTraversal().toString());
+    }
+
+    @Test
+    public void postOrderTraversal(){
+        BinarySearchTree<Integer, Integer> bst = new BinarySearchTree<>(new Integer[]{1,2,3});
+        assertEquals("[1, 3, 2]",bst.postOrderTraversal().toString());
+    }
+
+    @Test
+    public void inOrderTraversalNonRecursive(){
+        BinarySearchTree<Integer, Integer> bst = new BinarySearchTree<>(new Integer[]{1,2,3,4,5,6,7});
+        assertEquals("[1, 2, 3, 4, 5, 6, 7]",bst.inOrderTraversalNonRecursive().toString());
+    }
+    @Test
+    public void keyInRangeNR(){
+        BinarySearchTree<Integer, Integer> bst = new BinarySearchTree<>(new Integer[]{1,2,3,4,5,6,7});
+        assertEquals("[3, 4, 5]",bst.keysNR(3,5).toString());
+        assertEquals("[1, 2]",bst.keysNR(1,2).toString());
+        assertEquals("[6, 7]",bst.keysNR(6,7).toString());
+    }
+
+
 }

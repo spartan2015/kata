@@ -489,6 +489,21 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
         return list;
     }
 
+    public Iterable<Key> keysRecursive(Key lo, Key hi) {
+        List<Key> list = new ArrayList<>();
+        keyRecursive(root, lo, hi, list);
+        return list;
+    }
+
+    private void keyRecursive(Node<Key, Value> node, Key lo, Key hi, List<Key> list) {
+        if (node == null) return;
+        int cmplo = lo.compareTo(node.key);
+        int cmphi = hi.compareTo(node.key);
+        if (cmplo < 0) keyRecursive(node.left, lo, hi, list);
+        if (cmplo >=0 && cmphi <= 0) list.add(node.key);
+        if (cmphi > 0) keyRecursive(node.right, lo, hi, list);
+    }
+
     public Iterable<Key> keysNR(Key lo, Key hi) {
         List<Key> list = new ArrayList();
         getInOrderKeysNonRecursive(root, lo, hi, list);
@@ -507,13 +522,19 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Ord
     private void getInOrderKeysNonRecursive(Node<Key, Value> current, Key lo, Key hi, List<Key> list) {
         if (current == null) return;
         LinkedList<Node<Key,Value>> stack = new LinkedList();
-        addNodesInOrder(current, stack);
+        addNodesInOrder(current, stack, lo, hi);
         while(!stack.isEmpty()){
             Node<Key,Value> node = stack.pop();
             if (node.key.compareTo(lo)>=0 && node.key.compareTo(hi)<=0){
                 list.add(node.key);
             }
-            addNodesInOrder(node.right,stack);
+            addNodesInOrder(node.right,stack, lo, hi);
+        }
+    }
+    private void addNodesInOrder(Node<Key, Value> current, LinkedList<Node<Key, Value>> stack, Key lo, Key hi) {
+        while(current != null){
+            stack.push(current);
+            current = current.left;
         }
     }
 

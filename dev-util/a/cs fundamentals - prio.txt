@@ -1,3 +1,13 @@
+https://www.amazon.com/Software-Craftsman-Professionalism-Pragmatism-Robert/dp/0134052501/ref=sr_1_3?s=books&ie=UTF8&qid=1499434043&sr=1-3&keywords=clean+architecture
+https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/0135974445/ref=sr_1_16?s=books&ie=UTF8&qid=1499434107&sr=1-16&keywords=clean+architecture
+
+Cracking the Tech Career: Insider Advice on Landing a Job at Google, Microsoft, Apple, or any Top Tech Company
+Programming Interviews Exposed: Secrets to Landing Your Next Job
+https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/ref=pd_sim_14_1?_encoding=UTF8&pd_rd_i=0984782850&pd_rd_r=P6D9PJYAT2T0YXXEAWW2&pd_rd_w=fJqlZ&pd_rd_wg=YaBSK&psc=1&refRID=P6D9PJYAT2T0YXXEAWW2
+https://www.amazon.com/Programming-Pearls-2nd-Jon-Bentley/dp/0201657880/ref=pd_sim_14_4?_encoding=UTF8&pd_rd_i=0201657880&pd_rd_r=P6D9PJYAT2T0YXXEAWW2&pd_rd_w=fJqlZ&pd_rd_wg=YaBSK&psc=1&refRID=P6D9PJYAT2T0YXXEAWW2
+https://www.amazon.com/Ace-Programming-Interview-Questions-Answers/dp/111851856X/ref=pd_sim_14_6?_encoding=UTF8&pd_rd_i=111851856X&pd_rd_r=P6D9PJYAT2T0YXXEAWW2&pd_rd_w=fJqlZ&pd_rd_wg=YaBSK&psc=1&refRID=P6D9PJYAT2T0YXXEAWW2
+https://www.amazon.com/Elements-Programming-Interviews-Insiders-Guide/dp/1479274836/ref=pd_sim_14_2?_encoding=UTF8&pd_rd_i=1479274836&pd_rd_r=P6D9PJYAT2T0YXXEAWW2&pd_rd_w=fJqlZ&pd_rd_wg=YaBSK&psc=1&refRID=P6D9PJYAT2T0YXXEAWW2
+
 https://www.codewars.com/
 https://nobugsproject.com/
 

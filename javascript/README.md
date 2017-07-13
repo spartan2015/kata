@@ -57,7 +57,7 @@ foo(2); //can't do that - why ? // can't send params damn
 
 // hidding stuff in anon function scope
 (function bar(n){console.log(n);})()
-
+VS - these are the 2 options worth considering for inline declaration and execution
 // execting a function in same line
 (function(){console.log("a");}())
 

@@ -15,3 +15,19 @@ angular.module('angular-kata')
       'Karma'
     ];
   });
+
+
+angular.module('angular-kata')
+  .directive('queryBuilder', ['$q',
+    function ($q) {
+      return {
+        template: '<div>Hello Query</div>',
+        restrict: 'E',
+        controllerAs: 'vm',
+        link : function($scope, element, attr){
+
+        }
+      }
+    }]);
+
+

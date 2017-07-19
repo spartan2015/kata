@@ -1,3 +1,15 @@
+Multiline strings in js:
+
+          return '\
+<select name="' + name + '_1"> \
+  <option value="-1">-</option> \
+  <option value="A">A</option> \
+  <option value="B">B</option> \
+  <option value="C">C</option> \
+</select> \
+<select name="' + name + '_2" style="display:none;"></select>';
+
+
 JavaScript is a prototypal inheritance language. That means that objects can inherit
 properties directly from other objects. The language is class-free.
 

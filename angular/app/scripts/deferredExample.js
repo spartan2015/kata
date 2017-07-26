@@ -1,3 +1,21 @@
+function asyncGreet(name) {
+  var deferred = $q.defer();
+
+  setTimeout(function() {
+    deferred.notify('About to greet ' + name + '.');
+
+    if (okToGreet(name)) {
+      deferred.resolve('Hello, ' + name + '!');
+    } else {
+      deferred.reject('Greeting ' + name + ' is not allowed.');
+    }
+  }, 1000);
+
+  return deferred.promise;
+}
+
+
+
 //https://api.jquery.com/category/deferred-object/
 function asyncEvent() {
   var dfd = jQuery.Deferred();

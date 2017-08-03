@@ -85,4 +85,5 @@ public class ModifiedKaprekarNumbers {
     public void t2(){
         assertTrue(isKaprekar(297));
     }
+
 }

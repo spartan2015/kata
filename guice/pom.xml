@@ -13,6 +13,24 @@
             <artifactId>guice</artifactId>
             <version>4.1.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-assistedinject</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.trmsys.osgi.wrap</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11.0_1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.trmsys.osgi.wrap</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11.0_1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 

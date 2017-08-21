@@ -1,6 +1,17 @@
 [to be decided]
 how well you are in harmony with the company, the team, the group - somtimes company wide rules are not found in the team...
 
+common beginner mistakes: wrong focus - instead of learning they do without analyzing, organizing and asking for peer review. they think that bugs is something bad
+- thinking that they can intimidate their lead, replace him through all kind of bizzare methods...unrealistic..usually a lead has much more experience than them. Instead of creating bad relation learn what it means to be a good lead, how to sell yourself and then be open to opportunities in other projects teams and go for them. What we find out that this need to be the boss is usually misguided and appears to people that really shouldn't be one, especialy not a junior.
+- but is a normal process of learning - it is quite normal to not do it right the first time, second time or third time. Instead they should focus on finding a solution, then asking for feedback, focus on learning what they don't get and then execute. Work with a more experienced developer.
+
+- not beeing a professionaly: learning how to do the job, the best practicse like TDD, agile, learning the importance of communication, good analysis, good designs, learning, testing, relearning, refining, rethinking, peer review. They usually jump into a first implementation and then they don't refine it. 
+- they don't make time to learn and relearn the business, the project, the coding style, the framework and jump to implementation
+- horrible work habbits - no pause, screen pause, eye exercises, posture
+- horrible communication skills, dressing style
+- not beeing on time
+
+
 choosing your peer group, the people you surround yourself with, your friends.Early warning signs people outside the social norm. Lucu story. Dad story.
 
 susteinability: food, snacks, movement, bathroom, eyeleo, flux, sleep, energy management

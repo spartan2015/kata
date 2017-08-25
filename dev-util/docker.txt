@@ -1,0 +1,6 @@
+
+C:\Users\~\.docker\machine\machines\default
+
+conf.json
+
+ "insecure-registries" : ["x.om:443"]

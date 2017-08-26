@@ -4,3 +4,25 @@ C:\Users\~\.docker\machine\machines\default
 conf.json
 
  "insecure-registries" : ["x.om:443"]
+
+
+start.sh
+winpty docker login  https://registry.
+
+cert prob 
+https://stackoverflow.com/questions/31205438/docker-on-windows-boot2docker-certificate-signed-by-unknown-authority-error
+
+MINGW64:$ docker-machine ssh default
+
+docker@default:~$ sudo -s
+root@default:/home/docker# mkdir /var/lib/boot2docker/certs
+root@default:/home/docker# cp /c/Users/my.username/certs/*.pem /var/lib/boot2docker/certs
+
+touch /var/lib/boot2docker/bootlocal.sh && chmod +x /var/lib/boot2docker/bootlocal.sh
+vi /var/lib/boot2docker/bootlocal.sh
+
+#!/bin/sh
+
+mkdir -p /etc/docker/certs.d && cp certs/certificate.pem /etc/docker/certs.d
+
+docker-machine restart default

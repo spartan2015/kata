@@ -1,0 +1,128 @@
+#Authorization flow:
+
+1.
+http://192.168.99.100:8080/uaa/oauth/authorize?client_id=testapp&response_type=code&redirect_uri=localhost&scope=email_access&state=session_id
+
+#user sees the uaa login screen - inputs user and password - optional step in next page - can choose what scopes he authorizes then Clicks Authorize - browser redirect to the specified with the code:
+
+the outh server gives you the code by redirect: http://localhost/?code=JJGwRkBz6F&state
+
+
+2. exchange auth code with token with a post (the page that receives this can do this - or it can be a backend call):
+
+
+http://192.168.99.100:8080/uaa/oauth/token
+
+POST /token HTTP/1.1
+Host: openid.c2id.com
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+
+grant_type=authorization_code
+ &code=SplxlOBeZQQYbYS6WxSbIA
+ &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
+
+2. browser will be redirected with token:
+
+{
+    "access_token": "thelongtokenhere",
+    "token_type": "bearer",
+    "refresh_token": "thelongtokenhere",
+    "expires_in": 43199,
+    "scope": "role-user",
+    "jti": "1038891c8f5a458b997ea10aacbebf03"
+}
+
+3. Use token to access protected resource:
+
+GET /api/uaa-access/user HTTP/1.1
+Host: http://localhost:8181
+Authorization: Bearer thelongtokenhere
+
+
+#grant_type password - you get the token with one call
+
+POST /uaa/oauth/token
+Host: 192.168.99.100:8080
+username=user&password=user&client_id=testapp&grant_type=password
+
+you get:
+
+{
+    "access_token": "thelongtokenhere",
+    "token_type": "bearer",
+    "refresh_token": "thelongtokenhere",
+    "expires_in": 43199,
+    "scope": "role-user",
+    "jti": "1038891c8f5a458b997ea10aacbebf03"
+}
+
+you can use token to access protected resource 
+
+openid jwt token decode:
+
+https://jwt.io/
+
+
+UAA config example (uaa.yml):
+
+jwt:
+  token:
+    verification-key: secret
+    signing-key: secret
+
+
+scim:
+  groups:
+    zones.read: Read identity zones
+    zones.write: Create and update identity zones
+    idps.read: Retrieve identity providers
+    idps.write: Create and update identity providers
+    clients.admin: Create, modify and delete OAuth clients
+    clients.write: Create and modify OAuth clients
+    clients.read: Read information about OAuth clients
+    clients.secret: Change the password of an OAuth client
+    scim.write: Create, modify and delete SCIM entities, i.e. users and groups
+    scim.read: Read all SCIM entities, i.e. users and groups
+    scim.create: Create users
+    scim.userids: Read user IDs and retrieve users by ID
+    scim.zones: Control a user's ability to manage a zone
+    scim.invite: Send invitations to users
+    password.write: Change your password
+    oauth.approval: Manage approved scopes
+    oauth.login: Authenticate users outside of the UAA
+    openid: Access profile information, i.e. email, first and last name, and phone number
+    groups.update: Update group information and memberships
+    uaa.user: Act as a user in the UAA
+    uaa.resource: Serve resources protected by the UAA
+    uaa.admin: Act as an administrator throughout the UAA
+    uaa.none: Forbid acting as a user
+    uaa.offline_token: Allow offline access
+  users:
+    - user|user|user@test.org|Paul|Smith|uaa.user,role-user
+    - admin|admin|manager@test.org|Paul|Smith|uaa.admin,role-admin
+
+oauth:
+  clients:
+    testapp:
+      authorized-grant-types: password,authorization_code,refresh_token
+      scope: cloud_controller.read,cloud_controller.write,password.write,openid,role-user,role-admin
+      authorities: uaa.user,uaa.admin,role-user,role-admin
+      id: testapp
+      secret: appclientsecret
+      resource-ids: none
+      redirect-uri: http://localhost/login/callback
+
+
+This settings file is loaded by env var:
+
+CLOUD_FOUNDRY_CONFIG_PATH=/tmp/config
+
+
+The webapp looks for Yaml content in the following locations (later entries override earlier ones) when it starts up.
+
+classpath:uaa.yml
+file:${CLOUD_FOUNDRY_CONFIG_PATH}/uaa.yml
+file:${UAA_CONFIG_FILE}
+${UAA_CONFIG_URL}
+System.getEnv('UAA_CONFIG_YAML') -> environment variable, if set must contain valid Yaml

@@ -37,6 +37,8 @@ Ctrl+W and Ctrl+Shift+W
 
 [Edit]
 
+Ctrl+Alt+L - re-format CODE
+
 Ctrl+Shift+Space - Smart autocomplete
 
 Ctrl+Alt+F7 - show usages

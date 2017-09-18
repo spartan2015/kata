@@ -1,6 +1,16 @@
 package rank.implementation;
 
-import java.util.Scanner;
+import com.sun.org.apache.xpath.internal.SourceTree;
+import org.junit.Test;
+import sun.misc.IOUtils;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created on 7/11/2017.
@@ -28,54 +38,109 @@ import java.util.Scanner;
  * 0 <= Mct <= Math.pow(10,9) - billions of balls but under integer type
  */
 public class OrganizingContainersofBalls {
+
+    static class BallType implements Comparable<BallType> {
+        int n;
+        int count;
+
+        public BallType(int n, int count) {
+            this.n = n;
+            this.count = count;
+        }
+
+        @Override
+        public int compareTo(BallType o) {
+            if (this.count > o.count) {
+                return 1;
+            } else if (this.count == o.count) {
+                return 0;
+            } else {
+                return -1;
+            }
+        }
+    }
+
+    @Test
+    public void t1() {
+        assertEquals("Possible", isPossible(new Scanner("1 1 1 1"), 2));
+        assertEquals("Impossible", isPossible(new Scanner("0 2 1 1"), 2));
+    }
+
+    @Test
+    public void t2() throws Exception {
+        assertEquals(
+                new BufferedReader(new InputStreamReader(this.getClass()
+                        .getResourceAsStream("OrganizingContainersofBalls.expected.txt")))
+                        .lines()
+                        .collect(Collectors.joining("\n")),
+                testCasesPossible(new Scanner(this.getClass()
+                        .getResourceAsStream("OrganizingContainersofBalls.txt"))));
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        System.out.println(
+                testCasesPossible(in));
+        ;
+    }
+
+    private static String testCasesPossible(Scanner in) {
         int q = in.nextInt();
+        StringBuilder sb = new StringBuilder();
         for (int a0 = 0; a0 < q; a0++) {
             int n = in.nextInt();
-            int[][] M = new int[n][n];
-            for (int M_i = 0; M_i < n; M_i++) {
-                for (int M_j = 0; M_j < n; M_j++) {
-                    M[M_i][M_j] = in.nextInt();
-                }
-            }
-            // your code goes here
-            // interesting one ball type can remain - once
-            //boolean[][] marked = new boolean[n][];
-            // in each container [col] we can have only one row with value > 0
-            // - rest of the balls have to be exchanged
-            // but after the exchange -
-            // all exchanges - all containers must have only one type
-            // when is this possible ? first container contains 1 ball of each type 1 1 1 -
-            // one you chose one ball type for container 1 - the others can't must recevei each one ball - so the thing they receive must be a their choice - so container 1 can choose either row 1 or row 2 to have values - once he made the choise he must exchange his other - and see if he can find prober locatio - also not that row col 0 0 becomes
-            // and a swap is possible only if the receiver contains the chosen ball of the giver - so the give has to be able to get rid of his balls
-            // so the number of balls he must give must be equal with the number of balls of the chosen type he must receive - swap
-            // also the chosen col becomes frozen - and moves forward - so if col 1 contains any ball of type chose prev
-            // can t swap with previous cause prev has no balls to swap
-            int[] chosen = new int[n];
-            boolean possible = true;
-            l1:
-            for (int col = 0; col < n; col++) {
-                int impossible = 0;
-                for (int row = 0; row < n; row++) {
-                    if ( M[row][col] != M[col][row]) {
-                        //marked[row][col] = true;
-                       // marked[col][row] = true;
-                        impossible++;
-                    }
-                }
-                if (impossible > 1){
-                    possible = false;
-                    break l1;
-                }
-            }
-            if (possible) {
-                System.out.println("Possible");
-            }else{
-                System.out.println("Impossible");
+            sb.append(isPossible(in, n) + "\n");
+        }
+        return sb.toString();
+    }
+
+    private static String isPossible(Scanner in, int n) {
+        Map<Integer, Map<Integer, Integer>> containersMap = new HashMap<>();
+        for (int M_i = 0; M_i < n; M_i++) {
+            HashMap currentContainer = new HashMap();
+            containersMap.put(M_i, currentContainer);
+            for (int M_j = 0; M_j < n; M_j++) {
+                currentContainer.put(M_j, in.nextInt());
             }
         }
 
-    }
 
+        // is possible if the exchange is possible - if the number of balls you need to get rid of < number of balls you decide to keep
+        // what about do all other containers combined have more balls you need to keep than you need to get rid off ?
+        // not important what you keep - keep
+        for (int col = 0; col < n; col++) {
+            Map<Integer, Integer> values = containersMap.get(col);
+            if (values.size() == 1){
+                continue;
+            }
+            boolean possible = false;
+            for (Map.Entry<Integer, Integer> keep : values.entrySet()) {
+                int exchangeables = 0;
+                for (Map.Entry<Integer, Integer> ridOf : values.entrySet()) {
+                    if (ridOf.getKey() != keep.getKey()) {
+                        int countKeepersInOther = 0;
+                        for (int g = 0; g < n; g++) {
+                            if (g != col) {
+                                Integer count = containersMap.get(g).get(keep.getKey());
+                                if (count != null) {
+                                    countKeepersInOther += count;
+                                }
+                            }
+                        }
+                        if (countKeepersInOther >= ridOf.getValue()) {
+                            exchangeables++;
+                        }
+                    }
+                }
+                if (exchangeables == values.size()-1){
+                    possible = true;
+                    break;
+                }
+            }
+            if (!possible) {
+                return "Impossible";
+            }
+        }
+        return "Possible";
+    }
 }

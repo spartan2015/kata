@@ -8,22 +8,24 @@ import java.util.stream.IntStream;
 import java.util.stream.StreamSupport;
 
 public class ReadingUtils {
+
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		
-		//IntStream is = streamInts(in, in.nextInt());
-		
-		//int[] ar = readArr(in, in.nextInt());
-		sum();
+		System.out.println(perform(in, out->{
+
+		}));
 	}
-	
-	public static void sum(){
-		Scanner in = new Scanner(System.in);
-		IntStream is = streamInts(in, in.nextInt());
-		long sum = is.mapToLong(i->i).sum();
-		System.out.println(sum);
+
+	interface Algo{
+		void solve(StringBuilder out);
 	}
-	
+
+	private static String perform(Scanner in, Algo algo) {
+		StringBuilder out = new StringBuilder();
+		algo.solve(out);
+		return out.toString();
+	}
+
 	public static int[] readArr(Scanner in, int n) {
 		int[] ar = new int[n];
 		for (int i = 0; n - i != 0; i++) {
@@ -69,5 +71,21 @@ public class ReadingUtils {
 				return in.nextInt();
 			}
 		}, 1), false);
+	}
+
+	public static void main2(String[] args) {
+		Scanner in = new Scanner(System.in);
+
+		//IntStream is = streamInts(in, in.nextInt());
+
+		//int[] ar = readArr(in, in.nextInt());
+		sum();
+	}
+
+	public static void sum(){
+		Scanner in = new Scanner(System.in);
+		IntStream is = streamInts(in, in.nextInt());
+		long sum = is.mapToLong(i->i).sum();
+		System.out.println(sum);
 	}
 }

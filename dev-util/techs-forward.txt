@@ -1,0 +1,13 @@
+looking at modern architectures
+spread wide - scale horizontal not vertical
+https://octopus.com/
+kubernetes - containers - docker
+spark
+microservices
+
+azure cert
+
+spring cloud
+cloud foundry
+
+dcos - swarm - kubernetes = container orchestration - all supported by azure

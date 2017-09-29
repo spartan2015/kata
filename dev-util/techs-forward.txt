@@ -11,3 +11,6 @@ spring cloud
 cloud foundry
 
 dcos - swarm - kubernetes = container orchestration - all supported by azure
+
+
+SLAM tools; FlexeraFlexNet, HP SAM, Snow, SysTrack, IBM BigFix, Qualis

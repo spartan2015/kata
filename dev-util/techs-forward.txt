@@ -12,7 +12,16 @@ cloud foundry
 
 dcos - swarm - kubernetes = container orchestration - all supported by azure
 
+http://microservices.io/patterns/microservice-chassis.html
+
 
 SLAM tools; FlexeraFlexNet, HP SAM, Snow, SysTrack, IBM BigFix, Qualis
 
+Look at principal:
+
+Spring Cloud and Netflix OSS
+Kafka, Spark, etc
+CloudFoundry, Terraform
+Docker containers, Kubernetes
+Chef, Puppet or Ansible 
 

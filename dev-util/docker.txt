@@ -1,3 +1,4 @@
+docker-machine.exe create box --virtualbox-disk-size "40000"
 
 C:\Users\~\.docker\machine\machines\default
 

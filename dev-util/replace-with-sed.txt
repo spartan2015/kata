@@ -1,0 +1,3 @@
+# in place replace of all files
+
+find . -name 'pom.xml' | xargs sed -i 's/<__c-maven-plugin\.version__>[^<]\+<\/__c-maven-plugin\.version__>/<__c-maven-plugin\.version__>$releaseversion<\/__c-maven-plugin\.version__>/g'

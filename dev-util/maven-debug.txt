@@ -1,0 +1,10 @@
+mvnDebug then remote debug on 8000 with tests in
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-surefire-plugin</artifactId>
+<version>2.14</version>
+<configuration>
+    <forkMode>never</forkMode>
+</configuration>
+</plugin>

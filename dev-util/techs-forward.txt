@@ -24,4 +24,6 @@ Kafka, Spark, etc
 CloudFoundry, Terraform
 Docker containers, Kubernetes
 Chef, Puppet or Ansible 
-
+opentracing
+http://microservices.io
+https://github.com/OAI/OpenAPI-Specification

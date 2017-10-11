@@ -1,3 +1,11 @@
+echo "dock-vs = Docker box status"
+alias dock-vs="cd 'C:\Program Files\Docker Toolbox' && docker-machine.exe env box && docker-machine.exe stop box && docker-machine.exe start box"
+
+echo "dock = Docker terminal"
+alias dock="cd 'C:\Program Files\Docker Toolbox' && docker-machine.exe env box && docker-machine.exe ssh box"
+
+
+
 docker-machine.exe create box --virtualbox-disk-size "40000"
 
 C:\Users\~\.docker\machine\machines\default

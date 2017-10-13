@@ -26,5 +26,8 @@ Docker containers, Kubernetes
 Chef, Puppet or Ansible 
 opentracing
 http://microservices.io
+https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md
+
+
 https://github.com/OAI/OpenAPI-Specification
 https://github.com/miguellgt/books/blob/master/dev-ops/kubernetes/mastering-kubernetes.pdf

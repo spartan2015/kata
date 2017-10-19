@@ -19,7 +19,9 @@ SLAM tools; FlexeraFlexNet, HP SAM, Snow, SysTrack, IBM BigFix, Qualis
 
 Look at principal:
 
+
 Spring Cloud and Netflix OSS
+spring-cloud-kubernetes
 Kafka, Spark, etc
 CloudFoundry, Terraform
 Docker containers, Kubernetes
@@ -31,3 +33,16 @@ https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md
 
 https://github.com/OAI/OpenAPI-Specification
 https://github.com/miguellgt/books/blob/master/dev-ops/kubernetes/mastering-kubernetes.pdf
+
+
+Spring Cloud Fundamentals by Dustin Schultz
+Introduction to Node.js by Paul O'Fallon
+AngularJS: Get Started by Scott Allen
+AngularJS Best Practices by Joe Eames
+Advanced JavaScript by Kyle Simpson
+
+Pivotal Cloud Foundry Developer by Pivotal Software, Inc.
+
+Getting Started with Ansible on Windows by JP Toto
+Hands-on Ansible by Aaron Paxson
+Continuous Delivery Using Docker And Ansible by Justin Menga

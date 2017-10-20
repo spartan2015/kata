@@ -13,6 +13,9 @@ Ctrl+Al+Shift +S - project structure
 
 Right click folder - find in path - works where double shift clearly failed me
 
+Ctrl+Shift+F - find
+Ctrl+Shift+R - Replace
+
 Double shift: search everywhere
 
 Ctrl+H: Navigate | Type Hierarchy 

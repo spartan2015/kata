@@ -11,3 +11,4 @@ gitsyncho /c/dev/my-git/kata
 gitsyncho /c/dev/my-git/nodejs
 gitsyncho /c/dev/my-git/kube
 gitsyncho /c/dev/my-git/ansible
+gitsyncho /c/dev/my-git/springcloud

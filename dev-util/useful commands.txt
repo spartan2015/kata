@@ -1,3 +1,9 @@
+echo "k=kubectl"
+alias k=kubectl
+echo "mk=minikube"
+alias mk=minikube
+
+
 correct path to an executable file
 which 
 whereis

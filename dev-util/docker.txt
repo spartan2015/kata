@@ -6,7 +6,7 @@ alias dock="cd 'C:\Program Files\Docker Toolbox' && docker-machine.exe env box &
 
 
 
-docker-machine.exe create box --virtualbox-disk-size "40000"
+docker-machine.exe create box --virtualbox-disk-size "40000" 
 
 C:\Users\~\.docker\machine\machines\default
 
@@ -45,6 +45,9 @@ docker run -i -t 546dd3a716b2 /bin/bash
 
 # -p 8080:8080 
 # -v /c/Users/uaa/:/uaa-config 
+
+CACHED VOLUMES:
+-v /c/Users/uaa/:cached:/uaa-config
 
 type exit to exit and save
 

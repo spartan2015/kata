@@ -7,7 +7,7 @@ gitsyncho(){
 	git commit -m 'next' && git push origin master	
 }
 
-for D in `find /c/dev/my-git -type d`
+for D in /c/dev/my-git/*
 do
 	echo "$D synch begun"
     gitsyncho $D

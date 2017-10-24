@@ -7,8 +7,8 @@ gitsyncho(){
 	git commit -m 'next' && git push origin master	
 }
 
-gitsyncho /c/dev/my-git/kata
-gitsyncho /c/dev/my-git/nodejs
-gitsyncho /c/dev/my-git/kube
-gitsyncho /c/dev/my-git/ansible
-gitsyncho /c/dev/my-git/springcloud
+for D in `find /c/dev/my-git -type d`
+do
+	echo "$D synch begun"
+    gitsyncho $D
+done

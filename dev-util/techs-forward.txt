@@ -46,3 +46,5 @@ Pivotal Cloud Foundry Developer by Pivotal Software, Inc.
 Getting Started with Ansible on Windows by JP Toto
 Hands-on Ansible by Aaron Paxson
 Continuous Delivery Using Docker And Ansible by Justin Menga
+
+https://www.manning.com/books/microservice-patterns

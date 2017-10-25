@@ -14,7 +14,6 @@ dcos - swarm - kubernetes = container orchestration - all supported by azure
 
 http://microservices.io/patterns/microservice-chassis.html
 
-
 SLAM tools; FlexeraFlexNet, HP SAM, Snow, SysTrack, IBM BigFix, Qualis
 
 Look at principal:
@@ -48,3 +47,16 @@ Hands-on Ansible by Aaron Paxson
 Continuous Delivery Using Docker And Ansible by Justin Menga
 
 https://www.manning.com/books/microservice-patterns
+
+https://javaspecialists.teachable.com/courses/enrolled/225263
+
+Enterprise Java Microservices
+Serverless Architecture on AWS
+Building Evolutionary Architectures
+
+Testing Java Microservices - Manning
+
+Continuous Delivery in Java
+
+telepresence - kubernetes
+

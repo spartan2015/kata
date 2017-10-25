@@ -1,0 +1,5 @@
+mockito, assertj
+rest-assured
+hoverfly
+arquillian + cube
+pact (with arquillina algeron) - contract testing - broker between services - caned responses

@@ -1,4 +1,6 @@
 [View]
+Ctrl+Alt+Shift+Insert - create a scratch file (temp file for testing)
+
 Compare 2 files: in project structure select multiple files with Ctrl held, right click - select compare
 
 Ctrl + F12 - Navigate structure - popup of methods and vars like ctrl+o in eclipse

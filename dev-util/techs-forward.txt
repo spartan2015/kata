@@ -58,5 +58,7 @@ Testing Java Microservices - Manning
 
 Continuous Delivery in Java
 
+https://openliberty.io/
+
 telepresence - kubernetes
 

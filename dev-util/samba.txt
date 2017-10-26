@@ -1,0 +1,4 @@
+yum install samba-client
+cd where you have the files on linux machine
+smbclient -U someuser%somepassword //10.0.1.250/Home
+put fileincurrentfoldertowindows

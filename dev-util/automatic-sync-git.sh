@@ -5,6 +5,7 @@ gitsyncho(){
 	git config user.email doc.mseco@gmail.com
 	git add .
 	git commit -m 'next' && git push origin master	
+	git push origin master
 }
 
 for D in /C/Users/vairimia/Desktop/my-git/*

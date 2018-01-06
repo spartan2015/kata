@@ -7,6 +7,8 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * /challenges/crush
@@ -62,5 +64,15 @@ public class ArrayManipulation {
                 "1 2 100\n" +
                 "2 5 100\n" +
                 "3 4 100")));
+    }
+
+    @Test
+    public void testWeCanOnlyGetValidRanges(){
+        TreeMap map = new TreeMap();
+        map.put(encodeRangeAsLong(0,10),0);
+        for(int i = 0; i <= 10; i++){
+            assertNotNull(i+" value failed",map.subMap(encodeRangeAsLong(i, 0)));
+            assertNull(map.get(encodeRangeAsLong(11+i, 11+i)));
+        }
     }
 }

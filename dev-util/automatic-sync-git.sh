@@ -5,6 +5,8 @@ gitsyncho(){
 	git config user.email doc.mseco@gmail.com
 	git add .
 	git commit -m 'next' && git push origin master	
+	git fetch
+	git rebase
 	git push origin master
 }
 

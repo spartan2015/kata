@@ -7,7 +7,7 @@ gitsyncho(){
 	git commit -m 'next' && git push origin master	
 }
 
-for D in /c/dev/my-git/*
+for D in /C/Users/vairimia/Desktop/my-git/*
 do
 	echo "$D synch begun"
     gitsyncho $D

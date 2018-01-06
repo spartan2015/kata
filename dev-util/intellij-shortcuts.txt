@@ -1,4 +1,11 @@
 [View]
+Terminal buffer:
+Cmd+shift+A   Then type 'registry'
+It was the first entry
+Thanks for the answers.
+terminal.buffer.max.lines.count
+
+
 Ctrl+Alt+Shift+Insert - create a scratch file (temp file for testing)
 
 Compare 2 files: in project structure select multiple files with Ctrl held, right click - select compare
@@ -12,6 +19,8 @@ Ctrl+Shift+S: -split vertically
 Ctrl+Al+Shift +S - project structure
 
 [Navigate code]
+
+Ctrl + Alt + B - navigate to implementation
 
 Right click folder - find in path - works where double shift clearly failed me
 
@@ -41,6 +50,8 @@ Ctrl+W and Ctrl+Shift+W
 
 
 [Edit]
+
+Ctrl+Shift+U - toggle case: upper,lower
 
 Ctrl+Alt+L - re-format CODE
 

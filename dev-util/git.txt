@@ -10,3 +10,6 @@
 	acim = add . & commit -m 'next' & push origin master
 	st = status
 	br = branch
+
+
+git remote set-url origin ssh://git@scm-git-eur.misys.global.ad:7999/maftp/platform-refapp.git

@@ -1,0 +1,5 @@
+echo "mdp=mvn dependency:tree"
+alias mdp="mvn dependency:tree"
+
+echo "mrp=Maven resolve plugins"
+alias mrp="mvn dependency:resolve-plugins"

@@ -1,0 +1,1 @@
+http://maven.apache.org/plugins/maven-help-plugin/examples/describe-configuration.html

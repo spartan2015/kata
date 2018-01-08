@@ -3,6 +3,7 @@ package ian2018.search;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class BinarySearchTreeTest {
     @Test
@@ -12,31 +13,162 @@ public class BinarySearchTreeTest {
         st.put(6,6);
         assertEquals(Integer.valueOf(6), st.root.key);
         assertEquals(Integer.valueOf(1), Integer.valueOf(st.root.size));
+        assertEquals(Integer.valueOf(6), st.get(6));
+        assertEquals(Integer.valueOf(6), st.getRecursive(6));
+        assertEquals(Integer.valueOf(6), st.min());
+        assertEquals(Integer.valueOf(6), st.minRecursive());
+        assertEquals(Integer.valueOf(6), st.max());
+        assertEquals(Integer.valueOf(6), st.maxRecursive());
+
+        assertEquals(Integer.valueOf(6), st.floor(6));
+        assertEquals(Integer.valueOf(6), st.floorIterative(6));
+        assertNull(st.floor(5));
+        assertNull(st.floorIterative(5));
+
+        assertEquals(Integer.valueOf(6), st.ceiling(6));
+        assertEquals(Integer.valueOf(6), st.ceilingIterative(6));
+        assertNull(st.ceiling(7));
+        assertNull(st.ceilingIterative(7));
+
         st.put(4,4);
         assertEquals(Integer.valueOf(4), st.root.left.key);
         assertEquals(Integer.valueOf(2), Integer.valueOf(st.root.size));
         assertEquals(Integer.valueOf(1), Integer.valueOf(st.root.left.size));
+
+        assertEquals(Integer.valueOf(4), st.get(4));
+        assertEquals(Integer.valueOf(4), st.getRecursive(4));
+
+        assertEquals(Integer.valueOf(4), st.min());
+        assertEquals(Integer.valueOf(4), st.minRecursive());
+        assertEquals(Integer.valueOf(6), st.max());
+        assertEquals(Integer.valueOf(6), st.maxRecursive());
+
+        assertEquals(Integer.valueOf(4), st.floor(5));
+        assertEquals(Integer.valueOf(4), st.floorIterative(5));
+        assertNull(st.floor(3));
+        assertNull(st.floorIterative(3));
+
+        assertEquals(Integer.valueOf(4), st.ceiling(4));
+        assertEquals(Integer.valueOf(4), st.ceilingIterative(4));
+        assertEquals(Integer.valueOf(6), st.ceiling(5));
+        assertEquals(Integer.valueOf(6), st.ceilingIterative(5));
+        assertNull(st.ceiling(7));
+        assertNull(st.ceilingIterative(7));
+
         st.put(5,5);
         assertEquals(Integer.valueOf(5), st.root.left.right.key);
         assertEquals(Integer.valueOf(3), Integer.valueOf(st.root.size));
         assertEquals(Integer.valueOf(2), Integer.valueOf(st.root.left.size));
+        assertEquals(Integer.valueOf(5), st.get(5));
+        assertEquals(Integer.valueOf(5), st.getRecursive(5));
+        assertEquals(Integer.valueOf(4), st.min());
+        assertEquals(Integer.valueOf(4), st.minRecursive());
+        assertEquals(Integer.valueOf(6), st.max());
+        assertEquals(Integer.valueOf(6), st.maxRecursive());
+
+        assertEquals(Integer.valueOf(5), st.floor(5));
+        assertEquals(Integer.valueOf(5), st.floorIterative(5));
+        assertNull(st.floor(3));
+        assertNull(st.floorIterative(3));
+
+        assertEquals(Integer.valueOf(5), st.ceiling(5));
+        assertEquals(Integer.valueOf(5), st.ceilingIterative(5));
+        assertEquals(Integer.valueOf(6), st.ceiling(6));
+        assertEquals(Integer.valueOf(6), st.ceilingIterative(6));
+        assertNull(st.ceiling(7));
+        assertNull(st.ceilingIterative(7));
+
         st.put(3,3);
         assertEquals(Integer.valueOf(3), st.root.left.left.key);
         assertEquals(Integer.valueOf(4), Integer.valueOf(st.root.size));
         assertEquals(Integer.valueOf(3), Integer.valueOf(st.root.left.size));
+        assertEquals(Integer.valueOf(3), st.get(3));
+        assertEquals(Integer.valueOf(3), st.getRecursive(3));
+        assertEquals(Integer.valueOf(3), st.min());
+        assertEquals(Integer.valueOf(3), st.minRecursive());
+        assertEquals(Integer.valueOf(6), st.max());
+        assertEquals(Integer.valueOf(6), st.maxRecursive());
+
+        assertEquals(Integer.valueOf(3), st.floor(3));
+        assertEquals(Integer.valueOf(3), st.floorIterative(3));
+        assertNull(st.floor(2));
+        assertNull(st.floorIterative(2));
+
+        assertEquals(Integer.valueOf(3), st.ceiling(3));
+        assertEquals(Integer.valueOf(3), st.ceilingIterative(3));
+        assertEquals(Integer.valueOf(6), st.ceiling(6));
+        assertEquals(Integer.valueOf(6), st.ceilingIterative(6));
+        assertNull(st.ceiling(7));
+        assertNull(st.ceilingIterative(7));
 
         st.put(8,8);
+        assertEquals(Integer.valueOf(8), st.get(8));
+        assertEquals(Integer.valueOf(8), st.getRecursive(8));
         assertEquals(Integer.valueOf(8), st.root.right.key);
         assertEquals(Integer.valueOf(5), Integer.valueOf(st.root.size));
         assertEquals(Integer.valueOf(1), Integer.valueOf(st.root.right.size));
+        assertEquals(Integer.valueOf(3), st.min());
+        assertEquals(Integer.valueOf(3), st.minRecursive());
+        assertEquals(Integer.valueOf(8), st.max());
+        assertEquals(Integer.valueOf(8), st.maxRecursive());
+
+        assertEquals(Integer.valueOf(8), st.floor(8));
+        assertEquals(Integer.valueOf(8), st.floorIterative(8));
+        assertNull(st.floor(2));
+        assertNull(st.floorIterative(2));
+
+        assertEquals(Integer.valueOf(8), st.ceiling(8));
+        assertEquals(Integer.valueOf(8), st.ceilingIterative(8));
+        assertEquals(Integer.valueOf(8), st.ceiling(7));
+        assertEquals(Integer.valueOf(8), st.ceilingIterative(7));
+        assertNull(st.ceiling(10));
+        assertNull(st.ceilingIterative(10));
+
         st.put(7,7);
+        assertEquals(Integer.valueOf(7), st.get(7));
+        assertEquals(Integer.valueOf(7), st.getRecursive(7));
         assertEquals(Integer.valueOf(7), st.root.right.left.key);
         assertEquals(Integer.valueOf(6), Integer.valueOf(st.root.size));
         assertEquals(Integer.valueOf(2), Integer.valueOf(st.root.right.size));
+        assertEquals(Integer.valueOf(3), st.min());
+        assertEquals(Integer.valueOf(3), st.minRecursive());
+        assertEquals(Integer.valueOf(8), st.max());
+        assertEquals(Integer.valueOf(8), st.maxRecursive());
+
+        assertEquals(Integer.valueOf(7), st.floor(7));
+        assertEquals(Integer.valueOf(7), st.floorIterative(7));
+        assertNull(st.floor(2));
+        assertNull(st.floorIterative(2));
+
+        assertEquals(Integer.valueOf(7), st.ceiling(7));
+        assertEquals(Integer.valueOf(7), st.ceilingIterative(7));
+        assertEquals(Integer.valueOf(8), st.ceiling(8));
+        assertEquals(Integer.valueOf(8), st.ceilingIterative(8));
+        assertNull(st.ceiling(10));
+        assertNull(st.ceilingIterative(10));
+
         st.put(9,9);
+        assertEquals(Integer.valueOf(9), st.get(9));
+        assertEquals(Integer.valueOf(9), st.getRecursive(9));
         assertEquals(Integer.valueOf(9), st.root.right.right.key);
         assertEquals(Integer.valueOf(7), Integer.valueOf(st.root.size));
         assertEquals(Integer.valueOf(3), Integer.valueOf(st.root.right.size));
+        assertEquals(Integer.valueOf(3), st.min());
+        assertEquals(Integer.valueOf(3), st.minRecursive());
+        assertEquals(Integer.valueOf(9), st.max());
+        assertEquals(Integer.valueOf(9), st.maxRecursive());
+
+        assertEquals(Integer.valueOf(9), st.floor(9));
+        assertEquals(Integer.valueOf(9), st.floorIterative(9));
+        assertNull(st.floor(2));
+        assertNull(st.floorIterative(2));
+
+        assertEquals(Integer.valueOf(9), st.ceiling(9));
+        assertEquals(Integer.valueOf(9), st.ceilingIterative(9));
+        assertEquals(Integer.valueOf(8), st.ceiling(8));
+        assertEquals(Integer.valueOf(8), st.ceilingIterative(8));
+        assertNull(st.ceiling(10));
+        assertNull(st.ceilingIterative(10));
     }
 
     @Test

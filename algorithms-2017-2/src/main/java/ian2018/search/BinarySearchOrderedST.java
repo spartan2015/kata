@@ -1,5 +1,8 @@
 package ian2018.search;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created on 1/5/2018.
  */
@@ -89,12 +92,12 @@ public class BinarySearchOrderedST<Key extends Comparable<Key>, Value> extends A
 
     @Override
     public Key min() {
-        return null;
+        return keys[0];
     }
 
     @Override
     public Key max() {
-        return null;
+        return !isEmpty() ? keys[size-1] : null;
     }
 
     @Override
@@ -110,13 +113,7 @@ public class BinarySearchOrderedST<Key extends Comparable<Key>, Value> extends A
     @Override
     public Key ceiling(Key key) {
         int rank = rank(key);
-        if (rank < size && theSame(keys[rank],key) ){
-            return keys[rank];
-        }else if (rank<size){
-            return keys[rank];
-        }else{
-            return null;
-        }
+        return keys[rank];
     }
 
     @Override
@@ -150,6 +147,15 @@ public class BinarySearchOrderedST<Key extends Comparable<Key>, Value> extends A
 
     @Override
     public Iterable<Key> keys(Key lo, Key hi) {
-        return null;
+        List<Key> list = new LinkedList<>();
+        int start  =rank(lo);
+        int end = rank(hi);
+        for(int i = start; i < end; i++){
+            list.add(keys[i]);
+        }
+        if (theSame(keys[end], hi)){
+            list.add(keys[end]);
+        }
+        return list;
     }
 }

@@ -2,9 +2,9 @@ package ian2018.search;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import java.util.Iterator;
+
+import static org.junit.Assert.*;
 
 /**
  * Created on 1/5/2018.
@@ -58,5 +58,19 @@ public class BinarySearchOrderedSTTest {
         assertEquals(Integer.valueOf(5), st.ceiling(4));
         assertEquals(Integer.valueOf(5), st.ceiling(5));
         assertNull(st.ceiling(6));
+    }
+
+    @Test
+    public void testKeysIterator(){
+        BinarySearchOrderedST<Integer, Integer> st = new BinarySearchOrderedST<>();
+        st.put(1,1);
+        st.put(3,3);
+        st.put(5,5);
+
+        Iterable<Integer> range = st.keys(1,4);
+        Iterator<Integer> iterator = range.iterator();
+        assertEquals(Integer.valueOf(1), iterator.next());
+        assertEquals(Integer.valueOf(3), iterator.next());
+        assertFalse(iterator.hasNext());
     }
 }

@@ -212,4 +212,73 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             this.value = value;
         }
     }
+
+    public Key select(int k){
+        return select(root, k);
+    }
+
+    public Key select(Node<Key,Value> node, int k){
+        if (node == null) return null;
+        if (size(node.left)+1 == k ) {
+            return node.key;
+        } else if (size(node.left) >= k ){
+            return select(node.left, k);
+        }else if ( k > size(node.left)+1){
+            return select(node.right, k - size(node.left) - 1);
+        }else{
+            return null;
+        }
+    }
+
+    public Key selectIterative(int k){
+        Node<Key,Value> node = root;
+        while(node != null) {
+            if (size(node.left) + 1 == k) {
+                return node.key;
+            } else if (size(node.left) >= k) {
+                node = node.left;
+            } else if (k > size(node.left) + 1) {
+                k = k - size(node.left) - 1;
+                node = node.right;
+            } else {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public int rank(Key key){
+        return rank(root, key, size(root)-size(root.right));
+    }
+
+    private int rank(Node<Key, Value> node, Key key, int k) {
+        if (node == null) return -1;
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0){
+            return rank(node.left,key, k - 1 - (node.left != null ? size(node.left.right) : 0));
+        }else if (cmp > 0){
+            return rank(node.right,key, k + size(node.right) - ((node.right != null ? size(node.right.right) : 0)));
+        }else{
+            return k;
+        }
+    }
+
+    public int rankIterative(Key key) {
+        Node<Key, Value> node = root;
+        int k =size(root)-size(root.right);
+        while(node!=null) {
+            int cmp = key.compareTo(node.key);
+            if (cmp < 0) {
+                k = k - 1 - (node.left != null ? size(node.left.right) : 0);
+                node= node.left;
+            } else if (cmp > 0) {
+                k = k + size(node.right) - ((node.right != null ? size(node.right.right) : 0));
+                node = node.right;
+            } else {
+                return k;
+            }
+        }
+        return -1;
+    }
+
 }

@@ -30,6 +30,8 @@ public class BinarySearchTreeTest {
         assertNull(st.ceiling(7));
         assertNull(st.ceilingIterative(7));
 
+        assertEquals(Integer.valueOf(6), st.select(1));
+
         st.put(4,4);
         assertEquals(Integer.valueOf(4), st.root.left.key);
         assertEquals(Integer.valueOf(2), Integer.valueOf(st.root.size));
@@ -55,7 +57,14 @@ public class BinarySearchTreeTest {
         assertNull(st.ceiling(7));
         assertNull(st.ceilingIterative(7));
 
+        assertEquals(Integer.valueOf(4), st.select(1));
+        assertEquals(Integer.valueOf(6), st.select(2));
+
         st.put(5,5);
+        assertEquals(Integer.valueOf(4), st.select(1));
+        assertEquals(Integer.valueOf(5), st.select(2));
+        assertEquals(Integer.valueOf(6), st.select(3));
+
         assertEquals(Integer.valueOf(5), st.root.left.right.key);
         assertEquals(Integer.valueOf(3), Integer.valueOf(st.root.size));
         assertEquals(Integer.valueOf(2), Integer.valueOf(st.root.left.size));
@@ -79,6 +88,12 @@ public class BinarySearchTreeTest {
         assertNull(st.ceilingIterative(7));
 
         st.put(3,3);
+        assertEquals(Integer.valueOf(3), st.select(1));
+        assertEquals(Integer.valueOf(4), st.select(2));
+        assertEquals(Integer.valueOf(5), st.select(3));
+        assertEquals(Integer.valueOf(6), st.select(4));
+
+
         assertEquals(Integer.valueOf(3), st.root.left.left.key);
         assertEquals(Integer.valueOf(4), Integer.valueOf(st.root.size));
         assertEquals(Integer.valueOf(3), Integer.valueOf(st.root.left.size));
@@ -102,6 +117,18 @@ public class BinarySearchTreeTest {
         assertNull(st.ceilingIterative(7));
 
         st.put(8,8);
+        assertEquals(Integer.valueOf(3), st.select(1));
+        assertEquals(Integer.valueOf(4), st.select(2));
+        assertEquals(Integer.valueOf(5), st.select(3));
+        assertEquals(Integer.valueOf(6), st.select(4));
+        assertEquals(Integer.valueOf(8), st.select(5));
+
+        assertEquals(Integer.valueOf(3), st.selectIterative(1));
+        assertEquals(Integer.valueOf(4), st.selectIterative(2));
+        assertEquals(Integer.valueOf(5), st.selectIterative(3));
+        assertEquals(Integer.valueOf(6), st.selectIterative(4));
+        assertEquals(Integer.valueOf(8), st.selectIterative(5));
+
         assertEquals(Integer.valueOf(8), st.get(8));
         assertEquals(Integer.valueOf(8), st.getRecursive(8));
         assertEquals(Integer.valueOf(8), st.root.right.key);
@@ -125,6 +152,21 @@ public class BinarySearchTreeTest {
         assertNull(st.ceilingIterative(10));
 
         st.put(7,7);
+
+        assertEquals(Integer.valueOf(3), st.select(1));
+        assertEquals(Integer.valueOf(4), st.select(2));
+        assertEquals(Integer.valueOf(5), st.select(3));
+        assertEquals(Integer.valueOf(6), st.select(4));
+        assertEquals(Integer.valueOf(7), st.select(5));
+        assertEquals(Integer.valueOf(8), st.select(6));
+
+        assertEquals(Integer.valueOf(3), st.selectIterative(1));
+        assertEquals(Integer.valueOf(4), st.selectIterative(2));
+        assertEquals(Integer.valueOf(5), st.selectIterative(3));
+        assertEquals(Integer.valueOf(6), st.selectIterative(4));
+        assertEquals(Integer.valueOf(7), st.selectIterative(5));
+        assertEquals(Integer.valueOf(8), st.selectIterative(6));
+
         assertEquals(Integer.valueOf(7), st.get(7));
         assertEquals(Integer.valueOf(7), st.getRecursive(7));
         assertEquals(Integer.valueOf(7), st.root.right.left.key);
@@ -148,6 +190,39 @@ public class BinarySearchTreeTest {
         assertNull(st.ceilingIterative(10));
 
         st.put(9,9);
+
+        assertEquals(Integer.valueOf(3), st.select(1));
+        assertEquals(Integer.valueOf(4), st.select(2));
+        assertEquals(Integer.valueOf(5), st.select(3));
+        assertEquals(Integer.valueOf(6), st.select(4));
+        assertEquals(Integer.valueOf(7), st.select(5));
+        assertEquals(Integer.valueOf(8), st.select(6));
+        assertEquals(Integer.valueOf(9), st.select(7));
+
+        assertEquals(Integer.valueOf(3), st.selectIterative(1));
+        assertEquals(Integer.valueOf(4), st.selectIterative(2));
+        assertEquals(Integer.valueOf(5), st.selectIterative(3));
+        assertEquals(Integer.valueOf(6), st.selectIterative(4));
+        assertEquals(Integer.valueOf(7), st.selectIterative(5));
+        assertEquals(Integer.valueOf(8), st.selectIterative(6));
+        assertEquals(Integer.valueOf(9), st.selectIterative(7));
+
+        assertEquals(Integer.valueOf(1), (Integer)st.rank(3));
+        assertEquals(Integer.valueOf(2), (Integer)st.rank(4));
+        assertEquals(Integer.valueOf(3), (Integer)st.rank(5));
+        assertEquals(Integer.valueOf(4), (Integer)st.rank(6));
+        assertEquals(Integer.valueOf(5), (Integer)st.rank(7));
+        assertEquals(Integer.valueOf(6), (Integer)st.rank(8));
+        assertEquals(Integer.valueOf(7), (Integer)st.rank(9));
+
+        assertEquals(Integer.valueOf(1), (Integer)st.rankIterative(3));
+        assertEquals(Integer.valueOf(2), (Integer)st.rankIterative(4));
+        assertEquals(Integer.valueOf(3), (Integer)st.rankIterative(5));
+        assertEquals(Integer.valueOf(4), (Integer)st.rankIterative(6));
+        assertEquals(Integer.valueOf(5), (Integer)st.rankIterative(7));
+        assertEquals(Integer.valueOf(6), (Integer)st.rankIterative(8));
+        assertEquals(Integer.valueOf(7), (Integer)st.rankIterative(9));
+
         assertEquals(Integer.valueOf(9), st.get(9));
         assertEquals(Integer.valueOf(9), st.getRecursive(9));
         assertEquals(Integer.valueOf(9), st.root.right.right.key);

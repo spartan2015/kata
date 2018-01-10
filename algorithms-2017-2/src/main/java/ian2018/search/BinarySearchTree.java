@@ -113,12 +113,13 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 
     public Value minRecursive() {
-        return minRecursive(root);
+        Node<Key,Value> node = minRecursive(root);
+        return node != null ? node.value : null;
     }
 
-    private Value minRecursive(Node<Key, Value> node) {
+    private Node<Key,Value> minRecursive(Node<Key, Value> node) {
         if (node == null) return null;
-        if (node.left == null) return node.value;
+        if (node.left == null) return node;
         else return minRecursive(node.left);
     }
 
@@ -200,39 +201,26 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         }
     }
 
-    static class Node<Key extends Comparable<Key>, Value> {
-        Key key;
-        Value value;
-        int size;
-        Node<Key, Value> left;
-        Node<Key, Value> right;
-
-        public Node(Key key, Value value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
-    public Key select(int k){
+    public Key select(int k) {
         return select(root, k);
     }
 
-    public Key select(Node<Key,Value> node, int k){
+    public Key select(Node<Key, Value> node, int k) {
         if (node == null) return null;
-        if (size(node.left)+1 == k ) {
+        if (size(node.left) + 1 == k) {
             return node.key;
-        } else if (size(node.left) >= k ){
+        } else if (size(node.left) >= k) {
             return select(node.left, k);
-        }else if ( k > size(node.left)+1){
+        } else if (k > size(node.left) + 1) {
             return select(node.right, k - size(node.left) - 1);
-        }else{
+        } else {
             return null;
         }
     }
 
-    public Key selectIterative(int k){
-        Node<Key,Value> node = root;
-        while(node != null) {
+    public Key selectIterative(int k) {
+        Node<Key, Value> node = root;
+        while (node != null) {
             if (size(node.left) + 1 == k) {
                 return node.key;
             } else if (size(node.left) >= k) {
@@ -247,30 +235,30 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         return null;
     }
 
-    public int rank(Key key){
-        return rank(root, key, size(root)-size(root.right));
+    public int rank(Key key) {
+        return rank(root, key, size(root) - size(root.right));
     }
 
     private int rank(Node<Key, Value> node, Key key, int k) {
         if (node == null) return -1;
         int cmp = key.compareTo(node.key);
-        if (cmp < 0){
-            return rank(node.left,key, k - 1 - (node.left != null ? size(node.left.right) : 0));
-        }else if (cmp > 0){
-            return rank(node.right,key, k + size(node.right) - ((node.right != null ? size(node.right.right) : 0)));
-        }else{
+        if (cmp < 0) {
+            return rank(node.left, key, k - 1 - (node.left != null ? size(node.left.right) : 0));
+        } else if (cmp > 0) {
+            return rank(node.right, key, k + size(node.right) - ((node.right != null ? size(node.right.right) : 0)));
+        } else {
             return k;
         }
     }
 
     public int rankIterative(Key key) {
         Node<Key, Value> node = root;
-        int k =size(root)-size(root.right);
-        while(node!=null) {
+        int k = size(root) - size(root.right);
+        while (node != null) {
             int cmp = key.compareTo(node.key);
             if (cmp < 0) {
                 k = k - 1 - (node.left != null ? size(node.left.right) : 0);
-                node= node.left;
+                node = node.left;
             } else if (cmp > 0) {
                 k = k + size(node.right) - ((node.right != null ? size(node.right.right) : 0));
                 node = node.right;
@@ -281,4 +269,126 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         return -1;
     }
 
+    public void deleteMin() {
+        root = deleteMin(root);
+    }
+
+    private Node<Key, Value> deleteMin(Node<Key, Value> node) {
+        if (node == null) return null;
+        if (node.left == null) {
+            node = node.right;
+        } else {
+            node.left = deleteMin(node.left);
+        }
+        if (node!=null) {
+            node.size = size(node.left) + size(node.right) + 1;
+        }
+        return node;
+    }
+
+    public void deleteMinIterative() {
+        Node<Key, Value> current = root;
+        Node<Key, Value> parent = root;
+        Stack<Node<Key,Value>> changedNodes = new Stack<>();
+        boolean changed = false;
+        while (current != null) {
+            changedNodes.push(current);
+            if (current.left == null) {
+                if (current == parent) {
+                    root = current.right;
+                } else {
+                    parent.left = current.right;
+                    changed = true;
+                }
+            }
+            parent = current;
+            current = current.left;
+        }
+        if (changed){
+            while(!changedNodes.isEmpty()){
+                current = changedNodes.pop();
+                current.size = size(current.left) + size(current.right) + 1;
+            }
+        }
+    }
+
+    static class Node<Key extends Comparable<Key>, Value> {
+        Key key;
+        Value value;
+        int size;
+        Node<Key, Value> left;
+        Node<Key, Value> right;
+
+        public Node(Key key, Value value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    public void delete(Key key){
+        root = delete(root, key);
+    }
+
+    private Node<Key,Value> delete(Node<Key, Value> node, Key key) {
+        if (node == null) return null;
+        int cmp = key.compareTo(node.key);
+        if (cmp == 0){
+            Node<Key,Value> savedLeft = node.left;
+            Node<Key,Value> min = minRecursive(node.right);
+            min.right = deleteMin(node.right);
+            min.left =  savedLeft;
+            node = min;
+        }else if(cmp < 0){
+            node.left=delete(node.left,key);
+        }else{
+            node.right=delete(node.right,key);
+        }
+        node.size = size(node.left) + size(node.right) + 1;
+        return node;
+    }
+
+    public void deleteIterative(Key key){
+        Node<Key, Value> node = root;
+        Node<Key, Value> parent = root;
+        boolean isLeft=true;
+        Stack<Node<Key,Value>> changedNodes = new Stack<>();
+        boolean changed = false;
+        while(node!=null){
+            changedNodes.push(node);
+            int cmp = key.compareTo(node.key);
+            if (cmp == 0){
+                changedNodes.pop();
+                changed=true;
+                Node<Key,Value> savedLeft = node.left;
+                Node<Key,Value> min = minRecursive(node.right);
+                changedNodes.push(min);
+                min.right = deleteMin(node.right);
+                min.left =  savedLeft;
+                if (node == root){
+                    root = min;
+                }else{
+                    if (isLeft){
+                        parent.left = min;
+                    }else{
+                        parent.right = min;
+                    }
+                }
+                break;
+            }else if(cmp < 0){
+                parent = node;
+                isLeft=true;
+                node =node.left;
+            }else{
+                isLeft= false;
+                parent = node;
+                node=node.right;
+            }
+        }
+        if (changed){
+            while(!changedNodes.isEmpty()){
+                node = changedNodes.pop();
+                node.size = size(node.left) + size(node.right) + 1;
+            }
+        }
+    }
 }

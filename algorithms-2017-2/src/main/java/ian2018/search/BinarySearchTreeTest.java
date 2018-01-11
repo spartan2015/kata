@@ -2,6 +2,9 @@ package ian2018.search;
 
 import org.junit.Test;
 
+import java.util.Queue;
+import java.util.stream.Stream;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -480,5 +483,24 @@ public class BinarySearchTreeTest {
 
         assertEquals(Integer.valueOf(9), (Integer)st.root.right.key);
         assertEquals(Integer.valueOf(2), (Integer)st.root.right.size);
+    }
+
+    @Test
+    public void testInOrder(){
+        BinarySearchTree<Integer, Integer> st = new BinarySearchTree<>();
+        st.put(6, 6);
+        st.put(8, 8);
+        st.put(7, 7);
+        st.put(9, 9);
+        st.put(4,4);
+        st.put(3,3);
+        st.put(5,5);
+
+        Queue<Integer> result = st.inOrderIterative();
+
+        Stream.of(3,4,5,6,7,8,9).forEach(i->{
+            assertEquals((Integer)i, result.poll());
+        });
+
     }
 }

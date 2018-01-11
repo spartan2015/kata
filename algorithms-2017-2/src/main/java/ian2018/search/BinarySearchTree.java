@@ -1,5 +1,8 @@
 package ian2018.search;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinarySearchTree<Key extends Comparable<Key>, Value> {
@@ -113,11 +116,11 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 
     public Value minRecursive() {
-        Node<Key,Value> node = minRecursive(root);
+        Node<Key, Value> node = minRecursive(root);
         return node != null ? node.value : null;
     }
 
-    private Node<Key,Value> minRecursive(Node<Key, Value> node) {
+    private Node<Key, Value> minRecursive(Node<Key, Value> node) {
         if (node == null) return null;
         if (node.left == null) return node;
         else return minRecursive(node.left);
@@ -280,7 +283,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         } else {
             node.left = deleteMin(node.left);
         }
-        if (node!=null) {
+        if (node != null) {
             node.size = size(node.left) + size(node.right) + 1;
         }
         return node;
@@ -289,7 +292,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     public void deleteMinIterative() {
         Node<Key, Value> current = root;
         Node<Key, Value> parent = root;
-        Stack<Node<Key,Value>> changedNodes = new Stack<>();
+        Stack<Node<Key, Value>> changedNodes = new Stack<>();
         boolean changed = false;
         while (current != null) {
             changedNodes.push(current);
@@ -304,13 +307,138 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             parent = current;
             current = current.left;
         }
-        if (changed){
-            while(!changedNodes.isEmpty()){
+        if (changed) {
+            while (!changedNodes.isEmpty()) {
                 current = changedNodes.pop();
                 current.size = size(current.left) + size(current.right) + 1;
             }
         }
     }
+
+    public void delete(Key key) {
+        root = delete(root, key);
+    }
+
+    private Node<Key, Value> delete(Node<Key, Value> node, Key key) {
+        if (node == null) return null;
+        int cmp = key.compareTo(node.key);
+        if (cmp == 0) {
+            Node<Key, Value> savedLeft = node.left;
+            Node<Key, Value> min = minRecursive(node.right);
+            min.right = deleteMin(node.right);
+            min.left = savedLeft;
+            node = min;
+        } else if (cmp < 0) {
+            node.left = delete(node.left, key);
+        } else {
+            node.right = delete(node.right, key);
+        }
+        node.size = size(node.left) + size(node.right) + 1;
+        return node;
+    }
+
+    public void deleteIterative(Key key) {
+        Node<Key, Value> node = root;
+        Node<Key, Value> parent = root;
+        boolean isLeft = true;
+        Stack<Node<Key, Value>> changedNodes = new Stack<>();
+        boolean changed = false;
+        while (node != null) {
+            changedNodes.push(node);
+            int cmp = key.compareTo(node.key);
+            if (cmp == 0) {
+                changedNodes.pop();
+                changed = true;
+                Node<Key, Value> savedLeft = node.left;
+                Node<Key, Value> min = minRecursive(node.right);
+                changedNodes.push(min);
+                min.right = deleteMin(node.right);
+                min.left = savedLeft;
+                if (node == root) {
+                    root = min;
+                } else {
+                    if (isLeft) {
+                        parent.left = min;
+                    } else {
+                        parent.right = min;
+                    }
+                }
+                break;
+            } else if (cmp < 0) {
+                parent = node;
+                isLeft = true;
+                node = node.left;
+            } else {
+                isLeft = false;
+                parent = node;
+                node = node.right;
+            }
+        }
+        if (changed) {
+            while (!changedNodes.isEmpty()) {
+                node = changedNodes.pop();
+                node.size = size(node.left) + size(node.right) + 1;
+            }
+        }
+    }
+
+    public List<Node<Key, Value>> inOrder() {
+        List<Node<Key, Value>> list = new LinkedList();
+        inOrder(root, list);
+        return list;
+    }
+
+    private void inOrder(Node<Key, Value> node, List<Node<Key, Value>> list) {
+        if (node == null) return;
+        inOrder(node.left, list);
+        list.add(node);
+        inOrder(node.right, list);
+    }
+
+    public Iterable<Key> keys(Key lo, Key hi) {
+        Queue<Key> q = new LinkedList<>();
+        keys(lo, hi, q, root);
+        return q;
+    }
+
+    private void keys(Key lo, Key hi, Queue<Key> q, Node<Key, Value> node) {
+        if (node == null) return;
+        if (lo.compareTo(node.key) < 0) {
+            keys(lo, hi, q, node.left);
+        }
+        if (node.key.compareTo(lo) >= 0 && node.key.compareTo(hi) <= 0) {
+            q.add(node.key);
+        }
+        if (hi.compareTo(node.key) > 0) {
+            keys(lo, hi, q, node.right);
+        }
+    }
+
+    public Queue<Key> inOrderIterative() {
+        Queue<Key> q = new LinkedList<>();
+        Stack<Node<Key, Value>> stackLeft = new Stack<>();
+        Node<Key, Value> current = root;
+
+        addAllLeft(stackLeft, current);
+
+        while (!stackLeft.isEmpty()) {
+            current = stackLeft.pop();
+            q.add(current.key);
+
+            current = current.right;
+            addAllLeft(stackLeft, current);
+        }
+
+        return q;
+    }
+
+    private void addAllLeft(Stack<Node<Key, Value>> stackLeft, Node<Key, Value> current) {
+        while (current != null) {
+            stackLeft.push(current);
+            current = current.left;
+        }
+    }
+
 
     static class Node<Key extends Comparable<Key>, Value> {
         Key key;
@@ -323,72 +451,9 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             this.key = key;
             this.value = value;
         }
-    }
 
-    public void delete(Key key){
-        root = delete(root, key);
-    }
-
-    private Node<Key,Value> delete(Node<Key, Value> node, Key key) {
-        if (node == null) return null;
-        int cmp = key.compareTo(node.key);
-        if (cmp == 0){
-            Node<Key,Value> savedLeft = node.left;
-            Node<Key,Value> min = minRecursive(node.right);
-            min.right = deleteMin(node.right);
-            min.left =  savedLeft;
-            node = min;
-        }else if(cmp < 0){
-            node.left=delete(node.left,key);
-        }else{
-            node.right=delete(node.right,key);
-        }
-        node.size = size(node.left) + size(node.right) + 1;
-        return node;
-    }
-
-    public void deleteIterative(Key key){
-        Node<Key, Value> node = root;
-        Node<Key, Value> parent = root;
-        boolean isLeft=true;
-        Stack<Node<Key,Value>> changedNodes = new Stack<>();
-        boolean changed = false;
-        while(node!=null){
-            changedNodes.push(node);
-            int cmp = key.compareTo(node.key);
-            if (cmp == 0){
-                changedNodes.pop();
-                changed=true;
-                Node<Key,Value> savedLeft = node.left;
-                Node<Key,Value> min = minRecursive(node.right);
-                changedNodes.push(min);
-                min.right = deleteMin(node.right);
-                min.left =  savedLeft;
-                if (node == root){
-                    root = min;
-                }else{
-                    if (isLeft){
-                        parent.left = min;
-                    }else{
-                        parent.right = min;
-                    }
-                }
-                break;
-            }else if(cmp < 0){
-                parent = node;
-                isLeft=true;
-                node =node.left;
-            }else{
-                isLeft= false;
-                parent = node;
-                node=node.right;
-            }
-        }
-        if (changed){
-            while(!changedNodes.isEmpty()){
-                node = changedNodes.pop();
-                node.size = size(node.left) + size(node.right) + 1;
-            }
+        public String toString() {
+            return String.format("Node[key=%s,value=%s", key.toString(), value.toString());
         }
     }
 }

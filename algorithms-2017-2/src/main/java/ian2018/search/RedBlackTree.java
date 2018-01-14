@@ -11,11 +11,17 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> implements OrderedS
         RedBlackNode<Key,Value> right;
         boolean parentLinkIsRead;
         int size;
-        public RedBlackNode(RedBlackNode<Key, Value> left, RedBlackNode<Key, Value> right, boolean parentLinkIsRead, int size) {
+        public RedBlackNode(Key key, Value value, boolean parentLinkIsRead, int size) {
+            this.key=key;
+            this.value=value;
             this.left = left;
             this.right = right;
             this.parentLinkIsRead = parentLinkIsRead;
             this.size = size;
+        }
+
+        public String toString(){
+            return key.toString();
         }
     }
 
@@ -49,7 +55,7 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> implements OrderedS
     }
 
     public RedBlackNode<Key,Value> rotateRight(RedBlackNode<Key,Value> h){
-        RedBlackNode<Key,Value> x = h.right;
+        RedBlackNode<Key,Value> x = h.left;
         h.left = x.right;
         x.right = h;
 
@@ -79,7 +85,67 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> implements OrderedS
 
     @Override
     public void put(Key key, Value value) {
+        root = put(key,value,root);
+        root.parentLinkIsRead=false;
+    }
 
+    private RedBlackNode<Key, Value> put(Key key, Value value, RedBlackNode<Key, Value> node) {
+        if (node == null){
+            return new RedBlackNode<>(key,value,root == null ? false : true,1);
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp == 0){
+            node.value = value;
+            return node;
+        }else if (cmp < 0){
+            node.left = put(key,value,node.left);
+        }else{
+            node.right = put(key,value,node.right);
+        }
+
+        node = balanceNodeSedgewick(key, value, node, cmp);
+
+        node.size = 1 + size(node.left) + size(node.right);
+        return node;
+    }
+
+    private RedBlackNode<Key, Value> balanceNode(Key key, Value value, RedBlackNode<Key, Value> node, int cmp) {
+        if (isTwoNode(node)){
+            if (cmp > 0 && !isPointedByRedLink(node.left) && isPointedByRedLink(node.right)) {
+                node = rotateLeft(node); // when do we do rotation - here or later;
+            }
+        }else{ // a three node
+            if (isPointedByRedLink(node.left)){ // upper right
+                if (cmp > 0 && isPointedByRedLink(node.right)){
+                    flipColors(node);
+                }
+            }else{
+                if (cmp < 0){ // lower left
+                    node = rotateRight(node);
+                }else{ // lower middle
+                    rotateLeft(node); // must rotate c right - shit must go till we find a link to put it in
+                    flipColors(node);
+                }
+            }
+        }
+        return node;
+    }
+
+    private RedBlackNode<Key, Value> balanceNodeSedgewick(Key key, Value value, RedBlackNode<Key, Value> node, int cmp) {
+        if (isPointedByRedLink(node.right) && !isPointedByRedLink(node.left)) return rotateLeft(node);
+        if (isPointedByRedLink(node.left) && isPointedByRedLink(node.left.left)) return rotateRight(node);
+        if (isPointedByRedLink(node.left) && isPointedByRedLink(node.right)) flipColors(node);
+        return node;
+    }
+
+    private void flipColors(RedBlackNode<Key, Value> node) {
+        node.parentLinkIsRead=true;
+        if (node.left!=null) node.left.parentLinkIsRead=false;
+        if (node.right!=null) node.right.parentLinkIsRead=false;
+    }
+
+    private boolean isTwoNode(RedBlackNode<Key, Value> node) {
+        return !isPointedByRedLink(node) && !isPointedByRedLink(node.left);
     }
 
     @Override

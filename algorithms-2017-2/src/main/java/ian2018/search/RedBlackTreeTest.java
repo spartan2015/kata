@@ -45,12 +45,11 @@ public class RedBlackTreeTest {
 
     @Test
     public void test2() {
-        RedBlackTree<String, String> bst = new RedBlackTree<>();
-        bst.put("S","");
-        bst.put("E","");
-        bst.put("A","");
-        bst.put("R","");
-        bst.put("C","");
-        bst.put("H","");
+        RedBlackTree<String, String> bst = new RedBlackTree<>("SEARCH");
+    }
+
+    @Test
+    public void exercise331DrawTree(){
+        RedBlackTree<String, String> bst = new RedBlackTree<>("EASYQUTION");
     }
 }

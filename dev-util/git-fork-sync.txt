@@ -1,3 +1,14 @@
+git remote set-url origin [some repo - maybe your fork]
+
+git commit -m ""
+
+git push origin master
+
+#configure the upstream you forked from - and merge things into your repo
+
 git remote add upstream https://github.com/sdaschner/jaxrs-analyzer
+
 git fetch upstream
 git merge upstream/master
+
+# do pull request(i do it from the interface) to send your commits to upstream repo

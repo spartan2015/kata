@@ -59,4 +59,27 @@ public class LinearProbingHashSTTest {
         st.put(16,16);
         st.put(1,1);
     }
+    @Test
+    public void whatIfWeMingleTheyStillMustLumpTogetherInContiguousClusters(){
+        LinearProbingHashST<Integer,Integer> st = new LinearProbingHashST();
+        st.put(0,0);
+        st.put(1,1);
+        st.put(16,16);
+
+        assertEquals(Integer.valueOf(0), (Integer) ((Object[]) st.keys)[0]);
+        assertEquals(Integer.valueOf(16), (Integer) ((Object[]) st.keys)[1]);
+        assertEquals(Integer.valueOf(1), (Integer) ((Object[]) st.keys)[2]);
+    }
+
+    @Test
+    public void whatIfWeMingleTheyStillMustLumpTogetherInContiguousClustersSedgewick(){
+        LinearProbingHashST<Integer,Integer> st = new LinearProbingHashST();
+        st.putSedgewick(0,0);
+        st.putSedgewick(1,1);
+        st.putSedgewick(16,16);
+
+        assertEquals(Integer.valueOf(0), (Integer) ((Object[]) st.keys)[0]);
+        assertEquals(Integer.valueOf(16), (Integer) ((Object[]) st.keys)[1]);
+        assertEquals(Integer.valueOf(1), (Integer) ((Object[]) st.keys)[2]);
+    }
 }

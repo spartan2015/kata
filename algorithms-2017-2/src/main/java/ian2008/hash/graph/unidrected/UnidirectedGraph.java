@@ -1,61 +1,70 @@
 package ian2008.hash.graph.unidrected;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Other options:
+ *
+ * adjacency matrix- FAST but V2 space - but constant time for edge, check adj, and on V for adjacency
+ * list of edges:  space E  , add edge 1,      check adj: E,              iterate: adj E
+ * adjacency sets: space E+V, add edge log V,  check adj: log V,     iterate: adj: log V + degree(v)
+ * adjacency list: space E+V, add edge      1, check adj: degree(V), iterate: adj: degree(V)
+ *
+ * So we implement the classic: adjacency-lists data structure
+ */
 public class UnidirectedGraph {
     int[] v;
-    List<Integer>[] e;
+    LinkedList<Integer>[] e;
     int E;
 
-    public UnidirectedGraph(int V){
+    public UnidirectedGraph(int V) {
         init(V);
     }
 
-    private void init(int V) {
-        v = new int[V];
-        e = new List[V];
-        for(int i = 0; i < V; i++){
-            e[i] = new LinkedList();
-        }
-    }
-
-    public UnidirectedGraph(String s){
+    public UnidirectedGraph(String s) {
         Scanner sc = new Scanner(s);
         int V = sc.nextInt();
         init(V);
         int E = sc.nextInt();
-        for(int i = 0; i < E; i++){
-            int v= sc.nextInt();
+        for (int i = 0; i < E; i++) {
+            int v = sc.nextInt();
             int w = sc.nextInt();
-            addEdge(v,w);
+            addEdge(v, w);
         }
     }
 
-    public int V(){
+    private void init(int V) {
+        v = new int[V];
+        e = new LinkedList[V];
+        for (int i = 0; i < V; i++) {
+            e[i] = new LinkedList();
+        }
+    }
+
+    public int V() {
         return v.length;
     }
 
-    public int E(){
+    public int E() {
         return E;
     }
 
-    public void addEdge(int v, int w){
-        e[v].add(w);
-        e[w].add(v);
-        E+=2;
+    public void addEdge(int v, int w) {
+        e[v].push(w);
+        e[w].push(v);
+        E++;
     }
 
-    Iterable<Integer> adj(int v){
+    Iterable<Integer> adj(int v) {
         return e[v];
     }
 
-    public String toString(){
-        StringBuilder sb= new StringBuilder();
-        for(int i = 0; i < v.length; i++) {
-            sb.append(i + " : " + adj(i));
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < v.length; i++) {
+            sb.append(i + " : " + adj(i)).append("\n");
         }
         return sb.toString();
     }

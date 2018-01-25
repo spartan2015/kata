@@ -38,6 +38,9 @@ killport(){
 	netstat -anob | grep $1 | awk '{ print $5 }' | head -n 1 | xargs taskkill -f -PID 
 }
 
+alias kc="wmic process where \"Name='java.exe' and CommandLine like '%cargo.base%'\" GET ProcessId | awk 'NR==2' | xargs taskkill /F /PID"
+
+
 alias fortune="cd /C/Users/vairimia/Downloads/fortune-cookies-perl && exec perl fortune.pl | cowsay"
 fortune
 

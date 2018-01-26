@@ -1,4 +1,4 @@
-package ian2008.hash;
+package ian2018.hash;
 
 import ian2018.search.ST;
 

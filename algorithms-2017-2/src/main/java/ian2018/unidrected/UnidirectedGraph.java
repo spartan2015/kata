@@ -1,7 +1,6 @@
-package ian2008.hash.graph.unidrected;
+package ian2018.unidrected;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 /**

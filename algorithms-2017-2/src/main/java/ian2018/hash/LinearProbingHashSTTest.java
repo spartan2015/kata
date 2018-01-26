@@ -1,9 +1,7 @@
-package ian2008.hash;
+package ian2018.hash;
 
 
 import org.junit.Test;
-
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;

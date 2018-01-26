@@ -1,4 +1,4 @@
-package ian2008.hash.unionfind;
+package ian2018.unionfind;
 
 import java.util.Arrays;
 import java.util.Scanner;

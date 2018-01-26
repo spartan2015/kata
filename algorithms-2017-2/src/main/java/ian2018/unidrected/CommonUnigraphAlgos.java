@@ -1,4 +1,4 @@
-package ian2008.hash.graph.unidrected;
+package ian2018.unidrected;
 
 
 public class CommonUnigraphAlgos {

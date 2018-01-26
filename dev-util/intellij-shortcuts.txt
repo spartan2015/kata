@@ -1,4 +1,8 @@
 [View]
+
+
+!!!!Ctrl+P !!! view method parameters in details
+
 Terminal buffer:
 Cmd+shift+A   Then type 'registry'
 It was the first entry

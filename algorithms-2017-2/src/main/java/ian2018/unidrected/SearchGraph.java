@@ -1,7 +1,7 @@
-package ian2008.hash.graph.unidrected;
+package ian2018.unidrected;
 
 
-import ian2008.hash.unionfind.WeightedQuickUnionUnionFind;
+import ian2018.unionfind.WeightedQuickUnionUnionFind;
 
 import java.util.Stack;
 

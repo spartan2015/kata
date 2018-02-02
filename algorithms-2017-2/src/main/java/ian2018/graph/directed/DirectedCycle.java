@@ -1,6 +1,8 @@
 package ian2018.graph.directed;
 
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -13,22 +15,31 @@ public class DirectedCycle {
     public DirectedCycle(Diagraph g) {
         marked = new boolean[g.V()];
 
+        class Line{
+            int v;
+            LinkedList<Integer> line = new LinkedList();
+
+            public Line(int v, List<Integer> prev) {
+                this.v = v;
+                line.addAll(prev);
+                line.add(v);
+            }
+        }
+
         cycleLabel:
         for (int s = 0; s < g.V(); s++) {
-            LinkedList cycleList = new LinkedList();
             if (marked[s]) continue;
-            LinkedList<Integer> q = new LinkedList<>();
-            q.push(s);
+            LinkedList<Line> q = new LinkedList<>();
+            q.push(new Line(0, Collections.EMPTY_LIST));
             while (!q.isEmpty()) {
-                int v = q.pop();
-                cycleList.add(v);
-                marked[v] = true;
-                for (int w : g.adj(v)) {
+                Line current = q.pop();
+                marked[current.v] = true;
+                for (int w : g.adj(current.v)) {
                     if (!marked[w]) {
-                        q.push(w);
-                    } else {
+                        q.push(new Line(w, current.line));
+                    } else if (current.line.contains(w)) {
                         hasCycle = true;
-                        cycle = cycleList;
+                        cycle = current.line;
                         break cycleLabel;
                     }
                 }

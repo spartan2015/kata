@@ -14,7 +14,13 @@ public class TopologicalSortSedgewick {
     Queue<Integer> post=  new LinkedList<>();
     Stack<Integer> reversePost = new Stack();
 
+    boolean hasCycle = false;
+
     public TopologicalSortSedgewick(Diagraph g) {
+        if (new DirectedCycle(g).hasCycle){
+            hasCycle = true;
+            return;
+        }
         marked  = new boolean[g.V()];
 
         for(int v = 0; v < g.V(); v++){
@@ -34,15 +40,22 @@ public class TopologicalSortSedgewick {
         reversePost.push(v);
     }
 
-    Iterable pre(){
+    Iterable<Integer> pre(){
         return pre;
     }
 
-    Iterable post(){
+    Iterable<Integer> post(){
         return post;
     }
 
-    Iterable reversePost(){
+    Iterable<Integer> reversePost(){
+        return reversePost;
+    }
+
+    Iterable<Integer> topologicalSorted(){
+        if (hasCycle){
+            return null;
+        }
         return reversePost;
     }
 }

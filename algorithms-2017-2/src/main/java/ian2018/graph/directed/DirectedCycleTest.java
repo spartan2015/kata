@@ -26,4 +26,10 @@ public class DirectedCycleTest {
         DirectedCycle dc = new DirectedCycle(new Diagraph("2 2 0 1 1 0"));
         assertTrue(dc.isHasCycle());
     }
+
+    @Test
+    public void c4(){
+        DirectedCycle dc = new DirectedCycle(new Diagraph("4 4 0 1 0 2 1 3 2 3"));
+        assertFalse(dc.isHasCycle());
+    }
 }

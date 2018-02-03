@@ -17,19 +17,19 @@ public class ResponseUtil {
 
             boolean pathIsArray = false;
             Pattern arrayPattern = Pattern.compile("(.+)\\[\\d+\\]");
-            Matcher matcher = arrayPattern.matcher(jsonPath);
+            Matcher matcher = arrayPattern.matcher(path);
             String var = path;
             int index = 0;
             if (matcher.find()){
                 pathIsArray=true;
-                var =  matcher.group(0);
-                index = Integer.valueOf(matcher.group(1));
+                var =  matcher.group(1);
+                index = Integer.valueOf(matcher.group(2));
             }
 
             if (value == null || !(value instanceof Map)) {
                 return null;
             } else if (pathIsArray) {
-                value = ((List)((Map<String, Object>) value).get(path)).get(0);
+                value = ((List)((Map<String, Object>) value).get(var)).get(index);
             }else{
                 value = ((Map<String, Object>) value).get(path);
             }

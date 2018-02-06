@@ -1,0 +1,2 @@
+curl -X GET http://localhost:8181/ -H "Authorization: Basic bxWlzeXM6bWlzeXM="
+curl -X POST -d "asd" http://localhost:8181/api -H "Content-type: application/json"

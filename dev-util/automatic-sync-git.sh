@@ -10,10 +10,8 @@ gitsyncho(){
 	git push origin master
 }
 
-for D in $1*
+for D in $1
 do
 	echo "$D synch begun"
     gitsyncho $D
 done
-
-read a

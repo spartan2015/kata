@@ -1,0 +1,4 @@
+echo "if [ "$SHELL" = "/bin/bash" ]; then
+          . ~/.bashrc
+      fi   " > ~/.profile
+touch ~/.bashrc

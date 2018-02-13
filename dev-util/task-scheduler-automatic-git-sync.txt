@@ -1,0 +1,1 @@
+"C:\Program Files\Git\bin\bash.exe" C:\dev\git\kata\dev-util\automatic-sync-git.sh /c/dev/git/*

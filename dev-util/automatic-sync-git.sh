@@ -10,8 +10,10 @@ gitsyncho(){
 	git push origin master
 }
 
-for D in /C/Users/vairimia/Desktop/my-git/*
+for D in $1*
 do
 	echo "$D synch begun"
     gitsyncho $D
 done
+
+read a

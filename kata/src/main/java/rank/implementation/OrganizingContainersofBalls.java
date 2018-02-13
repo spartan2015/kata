@@ -1,3 +1,4 @@
+/*
 package rank.implementation;
 
 import com.sun.org.apache.xpath.internal.SourceTree;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
+*/
 /**
  * Created on 7/11/2017.
  * /challenges/organizing-containers-of-balls/problem
@@ -36,7 +38,8 @@ import static org.junit.Assert.assertEquals;
  * q < 0
  * 1 <= n <=100
  * 0 <= Mct <= Math.pow(10,9) - billions of balls but under integer type
- */
+ *//*
+
 public class OrganizingContainersofBalls {
 
     static class BallType implements Comparable<BallType> {
@@ -144,3 +147,4 @@ public class OrganizingContainersofBalls {
         return "Possible";
     }
 }
+*/

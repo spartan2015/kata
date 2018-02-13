@@ -1,3 +1,7 @@
+export PATH=$PATH:/c/dev/apache-maven-3.5.2/bin
+
+echo "It's a new day"
+
 echo "k=kubectl"
 alias k=kubectl
 echo "mk=minikube"

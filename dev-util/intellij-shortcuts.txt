@@ -23,6 +23,7 @@ Ctrl+Shift+S: -split vertically
 Ctrl+Al+Shift +S - project structure
 
 [Navigate code]
+Ctrl+alt+left arrow to go back to previous location and Ctrl+alt+right arrow to go forward.
 
 Ctrl + Alt + B - navigate to implementation
 

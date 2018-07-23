@@ -1,0 +1,32 @@
+export VBOX_INSTALL_PATH="/C/Program Files/Oracle/VirtualBox/"
+export DOCKER_TLS_VERIFY="1"
+export DOCKER_HOST="tcp://192.168.99.100:2376"
+export DOCKER_CERT_PATH="C:\Users\eXpert\.docker\machine\machines\default"
+export DOCKER_MACHINE_NAME="default"
+export COMPOSE_CONVERT_WINDOWS_PATHS="true"
+
+export JAVA_HOME=/c/dev/jdk8
+ex(){
+	echo PATH=$PATH:$1
+	export PATH=$PATH:$1
+}
+
+ex /C/dev/gradle-4.6/bin
+
+alias kc="wmic process where \"Name='java.exe' and CommandLine like '%/c/dev/jdk8/bin/java%'\" GET ProcessId | awk 'NR==2' | xargs taskkill /F /PID"
+
+alias go-be="notepad ~/.bashrc"
+alias dock="cd /c/Program\ Files/Docker\ Toolbox && start.sh"
+
+alias ucdc="cd /c/dev/git-xo/$PROJECT_FOLDER/test/resources && docker-compose rm postgres"
+
+uc-it(){
+	docker-machine start default
+	cd /c/dev/git-xo/$PROJECT_FOLDER/test/resources
+	docker-compose rm -f postgres
+	sed -i 's/localhost/192.168.99.100/g' pg.test.properties
+	sed -i "s/.\/init-user-db.sh:\/docker-entrypoint-initdb.d\/init-user-db.sh/\/c\/Users\/eXpert\/Desktop:\/docker-entrypoint-initdb.d/g" docker-compose.yml
+	cd /c/dev/git-xo/$PROJECT_FOLDER
+	gradle -Ddb=pg integrationTest -DspannerUrl="grpc:cloudspanner://$PROJECT_ID/eu-instance/vasile?privateKeyPath=blah&actionOnPoolExhausted=FAIL&maxSessions=100&minSessions=20&writeSessionsFraction=0.2&maxIdleSessions=10&keepAliveIntervalMinutes=1" >> /c/dev/it-run-log.log
+	git checkout /c/dev/git-xo/$PROJECT_FOLDER/test/resources/pg.test.properties
+	git checkout /c/dev/git-xo/$PROJECT_FOLDER/test/resources/docker-compose.yml

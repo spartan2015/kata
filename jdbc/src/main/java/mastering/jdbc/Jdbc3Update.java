@@ -19,13 +19,25 @@ public class Jdbc3Update {
 		Connection connection = null;
 		try {
 
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "1234");
+			connection = DriverManager.getConnection("jdbc:oracle:thin:@//10.231.196.185:1533/CUSTDB", "adv", "2Ab}7C");
 
-			PreparedStatement statement = connection.prepareStatement("update book set title=? where id = ?");
-			statement.setString(1, "Mastering JDBC 3rd Edition");
+			//connection.createStatement().execute("insert into book(id,name) values(1,'Test')");
+
+			PreparedStatement statement = connection.prepareStatement("update book set name=? where id = ?");
+			statement.setString(1, "3Mastering JDBC 3rd Edition");
 			statement.setLong(2, 1);
 
 			statement.execute();
+
+			System.out.println("update count:" + statement.getUpdateCount());
+
+			ResultSet rs = connection.createStatement().executeQuery("select * from book");
+			if (rs.next())
+			{
+				System.out.println(
+					rs.getString(2)
+				);
+			}
 
 		} catch (SQLException ex) {
 			if (connection != null) {

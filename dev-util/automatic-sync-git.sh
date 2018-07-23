@@ -12,6 +12,7 @@ gitsyncho(){
 
 for D in $1
 do
-	echo "$D synch begun"
+	echo "$D sync begun"
     gitsyncho $D
 done
+`

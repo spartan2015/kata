@@ -1,0 +1,72 @@
+PACKAGE=INTPafk4d
+SDRM_VERSION=INPYAF3C0100
+FEATURE=flexTicketing
+
+BASE_FOLDER="/c/dev/git-xo/UnifiedCharging-SMAT-spanner"
+cd $BASE_FOLDER
+SIMPLE_FEATURE_FOLDER=feature_$FEATURE
+FEATURE_FOLDER=$BASE_FOLDER/$SIMPLE_FEATURE_FOLDER
+mkdir $FEATURE_FOLDER
+cd $FEATURE_FOLDER
+mkdir rpm
+mkdir sm_all
+cd rpm
+mkdir rpm
+SAVED_FIRST_RPM=`pwd`
+mkdir tmp
+cd tmp
+grep $PACKAGE /c/dev/rpm.txt | cut -f 4 -d ' ' | xargs wget
+find . -name *.rpm -exec 7z x {} \;
+find . -name *.cpio -exec 7z x {} \;
+cd opt/SMAW/INTP/install
+cd `ls`
+cp -r * $SAVED_FIRST_RPM/rpm
+cd $SAVED_FIRST_RPM
+cd ..
+ls $SAVED_FIRST_RPM/rpm/config/jars/config | cut -f 1 -d '.' | xargs mkdir
+cd $FEATURE_FOLDER
+for f in  $(ls *Config);  do
+	cp $BASE_FOLDER/feature_balancing/Bal$(echo $f | cut -c 4-14)/build.gradle $(echo $f | cut -c -14)/;
+done
+FEATURE_PREFIX=`echo $f | cut -c -3`
+cp $BASE_FOLDER/feature_balancing/rpm/build.gradle $FEATURE_FOLDER/rpm/
+cp $BASE_FOLDER/feature_balancing/sm_all/build.gradle $FEATURE_FOLDER/sm_all/
+cp $BASE_FOLDER/feature_balancing/smat_properties.gradle $FEATURE_FOLDER/
+sed -i "s/rpmName = 'INTPaff4d'/rpmName = '$PACKAGE'/g" $FEATURE_FOLDER/smat_properties.gradle
+sed -i "s/packagePrefix = 'Bal'/packagePrefix = '$FEATURE_PREFIX'/g" $FEATURE_FOLDER/smat_properties.gradle
+sed -i "s/subproject = 'feature_balancing'/subproject = 'feature_$FEATURE'/g" $FEATURE_FOLDER/smat_properties.gradle
+echo "include '$SIMPLE_FEATURE_FOLDER:sm_all'" >> $BASE_FOLDER/settings.gradle
+echo "include '$SIMPLE_FEATURE_FOLDER:$(echo $FEATURE_PREFIX)CsSdfConfig'" >> $BASE_FOLDER/settings.gradle
+echo "include '$SIMPLE_FEATURE_FOLDER:$(echo $FEATURE_PREFIX)SdrDmConfig'" >> $BASE_FOLDER/settings.gradle
+echo "include '$SIMPLE_FEATURE_FOLDER:$(echo $FEATURE_PREFIX)SmSdfConfig'" >> $BASE_FOLDER/settings.gradle
+echo "include '$SIMPLE_FEATURE_FOLDER:rpm'"  >> $BASE_FOLDER/settings.gradle
+XML_FOLDER=`echo $FEATURE | sed -e s/_/\\\\//g`
+cp /c/dev/xmls/$XML_FOLDER/xml/* $FEATURE_FOLDER/sm_all/
+DATA_MODEL_FILE=$(cd $FEATURE_FOLDER/sm_all && ls *.xml)
+sed -i "s/xmlFile = 'BalancingCSD.xml'/xmlFile = '$DATA_MODEL_FILE'/g" $FEATURE_FOLDER/smat_properties.gradle
+#REPLACE PACKAGE
+PACKAGE_FEATURE=`echo $FEATURE | sed -e s/_/\\./g`
+
+sed -i "s/balancing/$PACKAGE_FEATURE/g" $FEATURE_FOLDER/smat_properties.gradle
+sed -i "s/INPYAF3C0100/$SDRM_VERSION/g" $FEATURE_FOLDER/smat_properties.gradle
+sed -i "s/packageDescription = \"Bal: Generated Call Processing and Service Management Data Functions\"/packageDescription = \"$FEATURE_PREFIX: $FEATURE\"/g" $FEATURE_FOLDER/smat_properties.gradle
+
+sed -i "s/dm_v7_call.dtd/\\.\\.\\/\\.\\.\\/common\\/dm_v7_call\\.dtd/g" $FEATURE_FOLDER/sm_all/*.xml
+
+sed -i "s/Directory=\".*impl\"/Directory=\"\\.\\.\\/\\.\\.\\/\\.\\.\\/sm_all\\/build\\/libs\"/g" $FEATURE_FOLDER/rpm/rpm/descriptors/*Cs_CD.xml
+sed -i "s/Directory=\".*intf\"/Directory=\"\\.\\.\\/\\.\\.\\/\\.\\.\\/sm_all\\/build\\/libs\"/g" $FEATURE_FOLDER/rpm/rpm/descriptors/*Cs_CD.xml
+sed -i "s/Directory=\".*sdf\"/Directory=\"\\.\\.\\/\\.\\.\\/\\.\\.\\/${FEATURE_PREFIX}CsSdfConfig\\/build\\/libs\"/g" $FEATURE_FOLDER/rpm/rpm/descriptors/*Cs_CD.xml
+
+sed -i "s/Directory=\".*impl\"/Directory=\"\\.\\.\\/\\.\\.\\/\\.\\.\\/sm_all\\/build\\/libs\"/g" $FEATURE_FOLDER/rpm/rpm/descriptors/*Dm_CD.xml
+sed -i "s/Directory=\".*dm\"/Directory=\"\\.\\.\\/\\.\\.\\/\\.\\.\\/${FEATURE_PREFIX}SdrDmConfig\\/build\\/libs\"/g" $FEATURE_FOLDER/rpm/rpm/descriptors/*Dm_CD.xml
+
+sed -i "s/Directory=\".*impl\"/Directory=\"\\.\\.\\/\\.\\.\\/\\.\\.\\/sm_all\\/build\\/libs\"/g" $FEATURE_FOLDER/rpm/rpm/descriptors/*Sm_CD.xml
+sed -i "s/Directory=\".*intf\"/Directory=\"\\.\\.\\/\\.\\.\\/\\.\\.\\/sm_all\\/build\\/libs\"/g" $FEATURE_FOLDER/rpm/rpm/descriptors/*Sm_CD.xml
+sed -i "s/Directory=\".*sdf\"/Directory=\"\\.\\.\\/\\.\\.\\/\\.\\.\\/${FEATURE_PREFIX}SmSdfConfig\\/build\\/libs\"/g" $FEATURE_FOLDER/rpm/rpm/descriptors/*Sm_CD.xml
+sed -i "s/Directory=\".*tools\"/Directory=\"\\.\\.\\/bin\"/g" $FEATURE_FOLDER/rpm/rpm/descriptors/*Sm_CD.xml
+
+rm -rf $SAVED_FIRST_RPM/rpm/config
+rm -rf $SAVED_FIRST_RPM/rpm/install
+rm -rf $SAVED_FIRST_RPM/rpm/installtools
+rm -rf $SAVED_FIRST_RPM/rpm/tmp
+rm -rf $SAVED_FIRST_RPM/rpm/descriptors/*PD.xml

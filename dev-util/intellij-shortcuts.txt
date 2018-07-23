@@ -1,5 +1,23 @@
+Navigate curly braces:
+- To navigate to the code block start, press Ctrl+[, with the caret anywhere inside the code block.
+The caret jumps to the opening brace of the current code block.
+- To navigate to the code block end, press Ctrl+], with the caret anywhere inside the code block.
+The caret jumps to the closing brace of the current code block.
+- To toggle between code block start or end, press Ctrl+Shift+M
+
+
+Multi line select / edit
+
+Add/remove a selection: Alt + Shift + Mouse Click
+Select/unselect the next occurrence: Alt + J / Shift + Alt + J (Ctrl + G / Shift + Ctrl + G) for Mac OS X)
+Select all occurrences: Shift + Ctrl + Alt + J (Ctrl + Cmd + G for Mac OS X)
+Clone caret above/below (the shortcuts are not mapped yet)
+Remove all selections: Esc
+
+
 [View]
 
+Ctrl+shift+u - toggle uppercase
 
 !!!!Ctrl+P !!! view method parameters in details
 
@@ -8,7 +26,6 @@ Cmd+shift+A   Then type 'registry'
 It was the first entry
 Thanks for the answers.
 terminal.buffer.max.lines.count
-
 
 Ctrl+Alt+Shift+Insert - create a scratch file (temp file for testing)
 

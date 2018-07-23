@@ -1,0 +1,1 @@
+C:\Windows\system32>dism /online /enable-feature /featurename:NetFx3 /all /source:f:\sources\sxs /LimitAccess

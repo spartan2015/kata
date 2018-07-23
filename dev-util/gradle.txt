@@ -1,0 +1,48 @@
+#WORKED
+gradle itest --debug-jvm
+
+https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.Test.html
+
+# DID NOT WORK
+gradle test -Dtest.single=ThisUniquelyNamedTest -Dtest.debug
+
+-Dorg.gradle.debug=true
+
+ GRADLE_OPTS:
+
+-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+
+
+
+
+// Is this how to include individual test case? which option below is correct?
+
+include ‘RunAllIntegrationTests.class’
+
+//option 1
+
+include ‘**/RunAllIntegrationTests.class’ //option 2
+
+// Is this how to exclude all test cases under a specific directory?
+
+exclude ‘com/abc/test/windowtester/**’
+
+exclude ‘com/abc/def/myfolder/windowtester/**’
+
+//Is this how to exclude a specific test case? which option below is correct?
+
+exclude ‘TestAppLauncherAutoTest.class’
+
+//option1
+
+exclude ‘**/TestAppLauncherAutoTest.class’ //option2
+
+}
+
+Any help or insight would be greatly appreciated.
+
+Thanks.
+
+
+The test process can be started in debug mode (see Test.getDebug()) in an ad-hoc manner by supplying the `--debug-jvm` switch when invoking the build.
+

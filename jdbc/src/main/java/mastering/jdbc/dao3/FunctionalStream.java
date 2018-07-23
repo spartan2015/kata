@@ -12,7 +12,7 @@ import java.util.stream.StreamSupport;
 
 import javax.sql.DataSource;
 
-public class FunctionalStream {
+/*public class FunctionalStream {
 	
 	public static void main(String[] args) throws Exception{
 		try(Stream stream = tableAsStream(null, "asd")){
@@ -57,4 +57,4 @@ public class FunctionalStream {
 	public static <T> T createRecord(ResultSet rs){
 		return null;
 	}
-}
+}*/

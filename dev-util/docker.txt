@@ -1,3 +1,8 @@
+docker build -t="dockerfile/ubuntu" github.com/dockerfile/ubuntu
+ 
+ docker run -it -v /C/Users/eXpert/Desktop/docker/ciplugins-devspaces-experiment:/opt/ci-dev docker_ci-dev /bin/bash
+ 
+ 
 [install docker compose]
 sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
@@ -97,3 +102,8 @@ docker attach
 
 #to get a new shell on a running container
 docker exec -i -t 665b4a1e17b6 /bin/bash
+
+
+Install pakages:
+
+tce-load -wi python python3 python-dev python3-dev gcc pip3

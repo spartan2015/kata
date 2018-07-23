@@ -1,6 +1,6 @@
 package mastering.jdbc.dao1;
 
-public class DBUtils
+/*public class DBUtils
 {
     private static class ExtendedCommitInfo extends CommitInfo
     {
@@ -410,10 +410,10 @@ public class DBUtils
 
     private static class ThreadInfo
     {
-        /*
-         * In dieser Map werden sämtliche Datenbank relevanten Information gespeichert. Der Zugriff erfolgt nur über die Methoden
+        *//*
+         * In dieser Map werden sï¿½mtliche Datenbank relevanten Information gespeichert. Der Zugriff erfolgt nur ï¿½ber die Methoden
          * getThreadInformation() und getThreadInformation(Thread aThread)
-         */
+         *//*
         private static Map<Integer, ThreadInfo> threads                   = Collections.synchronizedMap(new HashMap<Integer, ThreadInfo>());
 
         private static final boolean            validateAllDb2Connections = RepositoryService.getInstance().get(
@@ -424,17 +424,17 @@ public class DBUtils
 
         private int                             transactionNestingLevel;
 
-        /*
-         * Liefert das ThreadInformation Objekt für den currentThread. Existiert kein ThreadInfo Objekt, dann wird eines erzeugt.
-         */
+        *//*
+         * Liefert das ThreadInformation Objekt fï¿½r den currentThread. Existiert kein ThreadInfo Objekt, dann wird eines erzeugt.
+         *//*
         private static ThreadInfo getThreadInfo()
         {
             return getThreadInfo(Thread.currentThread());
         }
 
-        /*
-         * Liefert das ThreadInformation Objekt für aThread. Existiert kein ThreadInfo Objekt, dann wird eines erzeugt.
-         */
+        *//*
+         * Liefert das ThreadInformation Objekt fï¿½r aThread. Existiert kein ThreadInfo Objekt, dann wird eines erzeugt.
+         *//*
         private static ThreadInfo getThreadInfo(Thread aThread)
         {
             ErrorHandlingService.assertNotNull(aThread, "Parameter aThread darf nicht null sein");
@@ -647,12 +647,12 @@ public class DBUtils
         super();
     }
 
-    /**
+    *//**
      * Returns the name of the Default ConnectionPool. If "database.defaultPoolName" is not defined in the Repository, this method returns
      * the String "IUCCA_Pool". It is also possible to access the defaultPoolName through DBUtilsNew.DEFAULT_POOL_NAME.
      *
      * @return java.lang.String
-     */
+     *//*
     public static String getDefaultPoolName()
     {
         return DEFAULT_POOL_NAME;
@@ -947,11 +947,11 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * closes a statement
      *
      * @param statement
-     */
+     *//*
     public static void closeResultSet(ResultSet rs)
     {
         try
@@ -968,11 +968,11 @@ public class DBUtils
 
     }
 
-    /**
+    *//**
      * closes a statement
      *
      * @param statement
-     */
+     *//*
     public static void closeStatement(Statement stmt)
     {
         try
@@ -988,26 +988,26 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * This method returns an available connection from the default connection pool. This method calls getConnection(connection,
      * getDefaultPoolName()) to perform this operation.<br>
      * If there is a connection with an open transaction for the current thread, then this connection is returned.
      *
      * @return java.sql.Connection
-     */
+     *//*
     public static Connection getConnection()
     {
         return getConnection(DEFAULT_POOL_NAME);
     }
 
-    /**
+    *//**
      * This method returns an available connection from the named connection pool.<br>
      * If there is a connection with an open transaction for the current thread, then this connection is returned.
      *
      * @param poolName
      *            java.String the name of the Connection pool
      * @return java.sql.Connection
-     */
+     *//*
     public static Connection getConnection(String poolName)
     {
         ThreadInfo info = ThreadInfo.getThreadInfo();
@@ -1026,13 +1026,13 @@ public class DBUtils
         return con;
     }
 
-    /**
+    *//**
      * This method returns an available connection from the named connection pool.
      *
      * @param poolName
      *            java.String the name of the Connection pool
      * @return java.sql.Connection
-     */
+     *//*
     private static Connection getNewConnection(String poolName)
     {
         if (CSStringUtils.isNullOrEmptyString(poolName))
@@ -1148,7 +1148,7 @@ public class DBUtils
         return connection;
     }
 
-    /**
+    *//**
      * This method returns a connection which is used to group several database operations within one transaction. If this method is called
      * more than once by one thread, the same connection is returned and the transaction nesting level is increased. If this happens, all
      * calls to <tt>commitTransaction()<tt> and <tt>rollbackTransaction()<tt> reduce just the
@@ -1156,13 +1156,13 @@ public class DBUtils
      * perform a commit or rollback. Uses the default pool name.
      *
      * @return java.sql.Connection
-     */
+     *//*
     public static Connection openTransaction()
     {
         return openTransaction(DEFAULT_POOL_NAME);
     }
 
-    /**
+    *//**
      * This method returns a connection which is used to group several database operations within one transaction. If this method is called
      * more than once by one thread, the same connection is returned and the transaction nesting level is increased. If this happens, all
      * calls to <tt>commitTransaction()<tt> and <tt>rollbackTransaction()<tt> reduce just the
@@ -1173,7 +1173,7 @@ public class DBUtils
      * @param poolName
      *            java.String the name of the Connection pool
      * @return java.sql.Connection
-     */
+     *//*
     public static Connection openTransaction(String poolName)
     {
         if (TracingService.isON())
@@ -1202,19 +1202,19 @@ public class DBUtils
         return con;
     }
 
-    /**
+    *//**
      * This method adds connection back to the defaultPool, so it can be reused. This method calls freeConnection(connection,
      * getDefaultPoolName()) to perform this operation. The connection is only marked available, if it is not used by an open transaction.
      *
      * @param connection
      *            java.sql.Connection
-     */
+     *//*
     public static void freeConnection(Connection connection)
     {
         freeConnection(connection, DEFAULT_POOL_NAME);
     }
 
-    /**
+    *//**
      * This method adds connection back to the defaultPool, so it can be reused. The connection is only marked available, if it is not used
      * by an open transaction. Uses poolName to determine, which database to use.
      *
@@ -1222,7 +1222,7 @@ public class DBUtils
      *            java.String the name of the Connection pool
      * @param connection
      *            java.sql.Connection
-     */
+     *//*
     public static void freeConnection(Connection connection, String poolName)
     {
         if (connection == null)
@@ -1242,27 +1242,27 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * This method adds connection back to the named pool, so it can be reused.
      *
      * @param connection
      *            java.sql.Connection
      * @param poolName
      *            java.String the name of the Connection pool
-     */
+     *//*
     private static void reallyFreeConnection(Connection connection, String poolName)
     {
         reallyFreeConnection(connection, poolName, false);
     }
 
-    /**
+    *//**
      * This method adds connection back to the named pool, so it can be reused.
      *
      * @param connection
      *            java.sql.Connection
      * @param poolName
      *            java.String the name of the Connection pool
-     */
+     *//*
     public static void reallyFreeConnection(Connection connection, String poolName, boolean connectionHadErrors)
     {
         if (CSStringUtils.isNullOrEmptyString(poolName))
@@ -1324,19 +1324,19 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * This method commits a connection, if there is no open transaction opened by the <tt>openTransaction</tt> method. Uses the default
      * pool name.
      *
      * @param connection
      *            java.sql.Connection
-     */
+     *//*
     public static void commit(Connection connection) throws SQLException
     {
         commit(connection, DEFAULT_POOL_NAME);
     }
 
-    /**
+    *//**
      * This method commits a connection, if there is no open transaction opened by the <tt>openTransaction</tt> method. Uses poolName to
      * determine, which database to use.
      *
@@ -1344,13 +1344,13 @@ public class DBUtils
      *            java.String the name of the Connection pool
      * @param connection
      *            java.sql.Connection
-     */
+     *//*
     public static void commit(Connection connection, String poolName) throws SQLException
     {
         commitInternal(connection, poolName, false);
     }
 
-    /**
+    *//**
      * This method commits a connection, if there is no open transaction opened by the <tt>openTransaction</tt> method. Uses poolName to
      * determine, which database to use.
      *
@@ -1358,7 +1358,7 @@ public class DBUtils
      *            java.String the name of the Connection pool
      * @param connection
      *            java.sql.Connection
-     */
+     *//*
     public static void commitWithoutConfidentialLoggingService(Connection connection) throws SQLException
     {
         commitInternal(connection, DEFAULT_POOL_NAME, true);
@@ -1394,7 +1394,7 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * This method commits a transaction formerly opened by the <tt>openTransaction</tt> method if there are no nested transactions. If
      * there are nested transactions this method reduces the nesting level by 1, otherwise a commit is performed. When the commit was
      * successfull the connection is removed from the openTransactionConnection list and returned to the connectionPool. Uses the default
@@ -1402,13 +1402,13 @@ public class DBUtils
      *
      * @param connection
      *            java.sql.Connection
-     */
+     *//*
     public static void commitTransaction()
     {
         commitTransaction(DEFAULT_POOL_NAME);
     }
 
-    /**
+    *//**
      * This method commits a transaction formerly opened by the <tt>openTransaction</tt> method if there are no nested transactions. If
      * there are nested transactions this method reduces the nesting level by 1, otherwise a commit is performed. When the commit was
      * successfull the connection is removed from the openTransactionConnection list and returned to the connectionPool. Uses poolName to
@@ -1416,7 +1416,7 @@ public class DBUtils
      *
      * @param poolName
      *            java.String the name of the Connection pool
-     */
+     *//*
     public static void commitTransaction(String poolName)
     {
         ThreadInfo info = ThreadInfo.getThreadInfo();
@@ -1473,19 +1473,19 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * This method rolls back a connection, if there is no open transaction opened by the <tt>openTransaction</tt> method. Uses the default
      * pool name.
      *
      * @param connection
      *            java.sql.Connection
-     */
+     *//*
     public static void rollback(Connection connection)
     {
         rollback(connection, DEFAULT_POOL_NAME);
     }
 
-    /**
+    *//**
      * This method rolls back a connection, if there is no open transaction opened by the <tt>openTransaction</tt> method. Uses poolName to
      * determine, which database to use.
      *
@@ -1493,7 +1493,7 @@ public class DBUtils
      *            java.String the name of the Connection pool
      * @param connection
      *            java.sql.Connection
-     */
+     *//*
     public static void rollback(Connection connection, String poolName)
     {
         rollbackInternal(connection, poolName, false);
@@ -1540,7 +1540,7 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * This method rolls back a transaction formerly opened by the <tt>openTransaction</tt> method if there are no nested transactions. If
      * there are nested transactions this method reduces the nesting level by 1, otherwise a rollback is performed. When the rollback was
      * successfull the connection is removed from the openTransactionConnection list and returned to the connectionPool. Uses the default
@@ -1548,13 +1548,13 @@ public class DBUtils
      *
      * @param connection
      *            java.sql.Connection
-     */
+     *//*
     public static void rollbackTransaction()
     {
         rollbackTransaction(DEFAULT_POOL_NAME);
     }
 
-    /**
+    *//**
      * This method rolls back a transaction formerly opened by the <tt>openTransaction</tt> method if there are no nested transactions. If
      * there are nested transactions this method reduces the nesting level by 1, otherwise a rollback is performed. When the rollback was
      * successfull the connection is removed from the openTransactionConnection list and returned to the connectionPool. Uses poolName to
@@ -1562,7 +1562,7 @@ public class DBUtils
      *
      * @param poolName
      *            java.String the name of the Connection pool
-     */
+     *//*
     public static void rollbackTransaction(String poolName)
     {
         ThreadInfo info = ThreadInfo.getThreadInfo();
@@ -1607,18 +1607,18 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * This method returns the current transaction nesting level. If no transaction was started by this thread in the specified pool, then 0
      * is returned, otherwise the nesting level of the transactions is returned. If openTransaction() was called just one, then 1 is
      * returned. Every call to openTransaction() increases the nesting level, every call to commitTransaction() or rollbackTransaction()
      * reduces the level.
-     */
+     *//*
     public static int getTransactionNestingLevel()
     {
         return ThreadInfo.getThreadInfo().getTransactionNestingLevel();
     }
 
-    /**
+    *//**
      * This method returns the current transaction nesting level. If no transaction was started by this thread in the specified pool, then 0
      * is returned, otherwise the nesting level of the transactions is returned. If openTransaction() was called just one, then 1 is
      * returned. Every call to openTransaction() increases the nesting level, every call to commitTransaction() or rollbackTransaction()
@@ -1626,7 +1626,7 @@ public class DBUtils
      *
      * @param poolName
      *            java.String the name of the Connection pool
-     */
+     *//*
     public static int getTransactionNestingLevel(String poolName)
     {
         return getTransactionNestingLevel();
@@ -1716,7 +1716,7 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * Assembles a String of multiple questionmarks, separated by commas, for inclusion in a SQL PreparedStatement
      *
      * @param <T>
@@ -1726,7 +1726,7 @@ public class DBUtils
      * @param leadingComma
      *            Set this to true, if a comma shall be inserted in front of the first questionmark
      * @return A String containing objectsToInsert.size() questionmarks, separated by commas or an empty String, if the collection is empty
-     */
+     *//*
     public static <T> String getSQLQuestionmarkString(Collection<T> objectsToInsert, boolean leadingComma)
     {
         StringBuilder sqlStringBuilder = new StringBuilder();
@@ -1749,7 +1749,7 @@ public class DBUtils
         }
     }
 
-    /**
+    *//**
      * Assembles a String of multiple questionmarks, separated by commas, for inclusion in a SQL PreparedStatement
      *
      * @param <T>
@@ -1758,7 +1758,7 @@ public class DBUtils
      * @param leadingComma
      *            Set this to true, if a comma shall be inserted in front of the first questionmark
      * @return A String containing objectsToInsert.length questionmarks, separated by commas or an empty String, if the array is null
-     */
+     *//*
     public static <T> String getSQLQuestionmarkString(T[] objectsToInsert, boolean leadingComma)
     {
         Collection<T> objectsToInsertCollection = null;
@@ -1769,7 +1769,7 @@ public class DBUtils
         return getSQLQuestionmarkString(objectsToInsertCollection, leadingComma);
     }
 
-    /**
+    *//**
      * Sets multiple Strings in a PreparedStatement at once
      *
      * @param pstmt
@@ -1782,7 +1782,7 @@ public class DBUtils
      *
      * @return The next parameter's index, after all Strings have been inserted
      * @throws SQLException
-     */
+     *//*
     public static <T> int setPrepStmtParams(PreparedStatement pstmt, int startIndex, Collection<T> values) throws SQLException
     {
         int paramIndex = startIndex;
@@ -1798,7 +1798,7 @@ public class DBUtils
         return paramIndex;
     }
 
-    /**
+    *//**
      * Sets multiple Strings in a PreparedStatement at once
      *
      * @param pstmt
@@ -1810,7 +1810,7 @@ public class DBUtils
      *            implemented.
      * @return The next parameter's index, after all Strings have been inserted
      * @throws SQLException
-     */
+     *//*
     public static <T> int setPrepStmtParams(PreparedStatement pstmt, int startIndex, T[] values) throws SQLException
     {
         Collection<T> valuesCollection = null;
@@ -1822,4 +1822,5 @@ public class DBUtils
         return setPrepStmtParams(pstmt, startIndex, valuesCollection);
     }
 }
+*/
 

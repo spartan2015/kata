@@ -36,7 +36,7 @@ public class Jdbc2SelectTest {
 				book.setDate(resultSet.getDate("date").toLocalDate());
 				book.setTime(resultSet.getTime("date").toLocalTime());
 				book.setDateTime(resultSet.getTimestamp("date").toLocalDateTime());
-								
+
 				bookList.add(book);
 			}
 			

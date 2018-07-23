@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 
 
+/*
 public class DaoUtils {
 	private static final Logger log = Logger.getLogger(DaoUtils.class.getName());
 	public static <T> T rethrowAsRuntime(UnsafeSupplier<T> supplier) {
@@ -23,3 +24,4 @@ public class DaoUtils {
 		setValues(params, preparedStatement, 1);
 	}
 }
+*/

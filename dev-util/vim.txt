@@ -1,0 +1,15 @@
+vim:
+
+jump to a specific line on opening:
+
+vim file -c ":1524"
+
+#row numbers
+:set numbers
+
+#search
+:/your word
+#next: n, previous N
+
+
+

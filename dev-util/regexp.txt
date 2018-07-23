@@ -1,0 +1,8 @@
+Replace regexp
+assertEquals\((.*), rs.get\w+\("(.*)"\)\);
+map.put\("$2",$1\)\);
+
+Replace
+statement\.set(Long|Int|String|Bytes)\()
+.bind(
+

@@ -1,0 +1,106 @@
+   6 tce-load -wi python3
+   7 tce-load -wi python3-dev
+   8 tce-load -wi python-dev
+   9 tce-load -wi gcc
+  10 tce-load -wi pip3
+  11 tce-load -wi pip
+  12 pip
+  13 tce-load -wi virtualenv
+  14 ls
+  15 mkdir project-test
+  16 cd project-test/
+  17 python3 -m venv venv
+  18 . venv/bin/activate
+  19 pip3 install --extra-index https://pypi.swarm.devfactory.com cndevspaces
+  20 pip
+  21 sudo pip
+  22 locate pip
+  23 locate python
+  24 find / -name python
+  25 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+  26 python get-pip.py
+  27 pip
+  28 ls
+  29 pip install --extra-index https://pypi.swarm.devfactory.com cndevspaces
+  30 tce-load -wi linux-headers
+  31 tce-load -wi linux-libc-dev
+  32 tce-load -wi compiletc
+  33 pip install psutil
+  34 pip install --extra-index https://pypi.swarm.devfactory.com cndevspaces
+  35 cndevspaces configure
+  36 easy_install pip
+  37 cndevspaces configure
+  38 python --version
+  39 vi /home/docker/project-test/venv/lib/python3.3/site-packages/devspaces_cli/constants.py
+  40 cndevspaces configure
+  41 tce-load --help
+  42 tce-remove python3
+  43 python3
+  44 uname -a
+  45 tc-update python3
+  46 tce-update python3
+  47 exit
+  48 tce-update python3
+  49 tce-load -wi linux-libc-dev
+  50 tce-load -wi python3
+  51 tce-update python3
+  52 tce-load -wi python3.6
+  53 python3 --version
+  54 cd project-test/
+  55 . /venv/bin/activate
+  56 ls
+  57 . venv/bin/activate
+  58 cndevspaces configure
+  59 . venv/bin/deactivate
+  60 exit
+  61 ls
+  62 mkdir project-test-2
+  63 python3 -m venv venv
+  64 cd project-test-2/
+  65 python3 -m venv venv
+  66 . venv/bin/activate
+  67 pip3 install --extra-index https://pypi.swarm.devfactory.com cndevspaces
+  68 easy_install psutil
+  69 tce-load -wi python3.6-dev
+  70 easy_install psutil
+  71 cndevspaces configure
+  72 pip3 install --extra-index https://pypi.swarm.devfactory.com cndevspaces
+  73 cndevspaces configure
+  74 ls
+  75 cndevspaces bind hello-world-devspace
+  76 git clone https://github.com/spring-guides/gs-rest-service.git
+  77 ./gradlew build
+  78 ls
+  79 cd gs-rest-service/
+  80 ls
+  81 ./gradlew build
+  82 cd initial/
+  83 ls
+  84 ./gradlew build
+  85 tce-load -wi bash
+  86 ./gradlew build
+  87 tce-load -wi java8
+  88 cd ..
+  89 tce-load -i java-installer
+  90 tce-load -i java
+  91 tce-load -i java-installer
+  92 tce-load -wi java-installer
+  93 ls
+  94 locate java-installer
+  95 tce-load -i java-installer
+  96 java-installer
+  97  java-installer
+  98 whereis java-installer
+  99 which java-installer
+ 100 vi /usr/local/bin/java-installer
+ 101 cd ~/project-test-2/
+ 102 ls
+ 103 cndevspaces exec
+ 104 docker -H 10.224.204.30 exec 98b73144b9 ls
+ 105 docker -H 10.224.204.30 exec 98b73144b9 "cd gs-rest-service && ls"
+ 106 docker -H 10.224.204.30 exec 98b73144b9 bash -c "cd gs-rest-service && ls"
+ 107 docker -H 10.224.204.30 exec 98b73144b9 bash -c "cd gs-rest-service/initial && ./gradlew build"
+ 108 docker -H 10.224.204.30 exec 98b73144b9 bash -c "cd gs-rest-service/complete && ls"
+ 109 docker -H 10.224.204.30 exec 98b73144b9 bash -c "cd gs-rest-service/complete && ./gradlew build"
+ 110 docker -H 10.224.204.30 exec 98b73144b9 bash -c "cd gs-rest-service/complete && java -jar build/libs/gs-rest-service-0.1.0.jar"
+ 111 docker -H 10.224.204.30 exec 98b73144b9 bash -c "ps -auxr"

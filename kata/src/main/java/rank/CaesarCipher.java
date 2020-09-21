@@ -1,4 +1,4 @@
-package hackerRank;
+package rank;
 
 import static org.junit.Assert.*;
 

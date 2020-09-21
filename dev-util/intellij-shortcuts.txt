@@ -17,6 +17,8 @@ Remove all selections: Esc
 
 [View]
 
+ident deindent - Tab / Shift Tab
+
 Ctrl+shift+u - toggle uppercase
 
 !!!!Ctrl+P !!! view method parameters in details

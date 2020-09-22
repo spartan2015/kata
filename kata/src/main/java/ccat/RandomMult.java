@@ -16,11 +16,12 @@ public class RandomMult {
         String next = "";
         do {
             next = multiply(sc, rand);
-            if ("".equals(next)) return;
+            if ("q".equals(next)) break;
             next = nextLetter(sc, rand);
-            if ("".equals(next)) return;
+            if ("q".equals(next)) break;
 
         } while (!"".equals(next));
+
         System.out.println("All Duration: " + (System.currentTimeMillis() - allStart));
 
     }
@@ -32,7 +33,6 @@ public class RandomMult {
 
         int space1 = 1+rand.nextInt(3);
         int start1 = rand.nextInt(25 - 3 * space1);
-3456
 
         StringBuffer sb = new StringBuffer();
         sb.append((char) (65 + start));
@@ -52,6 +52,8 @@ public class RandomMult {
         res.append((char) (65 + start1 + 3 * space1));
 
         String next = sc.next();
+        if ("q".equals(next)) return next;
+
         if (res.toString().equals(next)) {
             System.out.println("yes");
         } else {
@@ -71,6 +73,8 @@ public class RandomMult {
         System.out.println(first + " " + second);
 
         next = sc.next();
+
+        if ("q".equals(next)) return next;
 
         String res = String.valueOf(first * second);
         if (res.equals(next)) {

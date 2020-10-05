@@ -2,6 +2,12 @@ package y2020;
 
 /**
  * Purpose of ServiceLane is
+ *
+ *
+ * given width array - containing width available
+ * given cases - which pin start and end in width array
+ * find max size vehicle that can fit all width (a min problem)
+ *
  */
 public class ServiceLane {
 

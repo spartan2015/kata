@@ -1,4 +1,4 @@
-package test.coinchange. domain.impl;
+package com.vasileirimia.coinchange.domain.impl;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import test.coinchange.domain.Atm;
-import test.coinchange.domain.Coin;
-import test.coinchange.domain.CoinStore;
+import com.vasileirimia.coinchange.domain.Atm;
+import com.vasileirimia.coinchange.domain.Coin;
+import com.vasileirimia.coinchange.domain.CoinStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Limited Coins will attempt to change the amount provided in coins assuming an
@@ -17,13 +19,11 @@ import test.coinchange.domain.CoinStore;
  * @author vasilei
  *
  */
+@Component
 public class LimitedCoinsAtm implements Atm {
 	private static final LinkedList<Coin> EMPTY_BAG = new LinkedList<>();
+	@Autowired
 	private CoinStore coinStore;
-
-	public LimitedCoinsAtm() {
-
-	}
 
 	public void setCoinStore(CoinStore coinStore) {
 		this.coinStore = coinStore;
@@ -34,7 +34,7 @@ public class LimitedCoinsAtm implements Atm {
 	 * Assumes limited coins provided by the CoinStore
 	 */
 	@Override
-	public Collection<Coin> getOptimalChangeFor(int amount) throws InsuficientCoinsException {
+	public Collection<Coin> widthdraw(int amount) throws InsuficientCoinsException {
 		if (amount == 0) { // the bottom up algo already takes care of that - should delete this
 			return EMPTY_BAG;
 		}
@@ -55,7 +55,7 @@ public class LimitedCoinsAtm implements Atm {
 	/**
 	 * A dynamic programming, bottom up algorithm
 	 * 
-	 * @param amoun
+	 * @param forAmount
 	 * @return
 	 */
 	private List<Integer> getOptimalCoinsChange(int forAmount) {
@@ -128,7 +128,7 @@ public class LimitedCoinsAtm implements Atm {
 
 	private boolean hasCoins(Map<Coin, Long> coinMap) {
 		for (Coin coin : coinMap.keySet()) {
-			if (!coinStore.hasCoins(coin, coinMap.getOrDefault(coin, 0l).intValue())) {
+			if (!coinStore.hasCoins(coin, coinMap.getOrDefault(coin, 0L).intValue())) {
 				return false;
 			}
 		}

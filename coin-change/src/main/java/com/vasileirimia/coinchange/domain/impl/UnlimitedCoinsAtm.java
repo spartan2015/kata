@@ -1,9 +1,9 @@
-package test.coinchange.domain.impl;
+package com.vasileirimia.coinchange.domain.impl;
 
 import java.util.Collection;
 
-import test.coinchange.domain.Atm;
-import test.coinchange.domain.Coin;
+import com.vasileirimia.coinchange.domain.Atm;
+import com.vasileirimia.coinchange.domain.Coin;
 
 /**
  * UnlimitedCoinsAtm will attempt to change the amount provided in coins
@@ -18,8 +18,9 @@ public class UnlimitedCoinsAtm implements Atm {
 	 * Returns the min amount of coins need to change the amount provided
 	 * Assumes unlimited coins 
 	 */
-	public Collection<Coin> getOptimalChangeFor(int amount) throws InsuficientCoinsException {
-		UnlimitedCoinCangeTransaction transaction = new UnlimitedCoinChangeTransaction(amount);
+	@Override
+	public Collection<Coin> widthdraw(int amount) throws InsuficientCoinsException {
+		WithdrawTransaction transaction = new UnlimitedCoinWithdrawTransaction(amount);
 		return transaction.change();
 	}
 

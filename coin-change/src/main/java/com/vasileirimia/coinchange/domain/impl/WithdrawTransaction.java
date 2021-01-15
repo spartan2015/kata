@@ -1,16 +1,16 @@
-package test.coinchange.domain.impl;
+package com.vasileirimia.coinchange.domain.impl;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-import test.coinchange.domain.Coin;
+import com.vasileirimia.coinchange.domain.Coin;
 
-abstract class UnlimitedCoinCangeTransaction {
+abstract class WithdrawTransaction {
 	private Collection<Coin> change = new LinkedList<>();
 	private Coin[] orderedCoins = Coin.values();
 	private int amount;
 
-	public UnlimitedCoinCangeTransaction(int amount) {
+	public WithdrawTransaction(int amount) {
 		this.amount = amount;
 	}
 	
@@ -35,7 +35,7 @@ abstract class UnlimitedCoinCangeTransaction {
 	 * @param coin type
 	 * @return actual number of coins substracted from the store 
 	 */
-	protected abstract int getAvailableCoins(Coin coin,int numberOfCoins);
+	protected abstract int getAvailableCoins(Coin coin, int numberOfCoins);
 
 	private void addCoins(int numberOfCoins, Coin coin) {
 		for (int i = 0; i < numberOfCoins; i++) {

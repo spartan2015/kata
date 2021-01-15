@@ -1,13 +1,13 @@
-package test.coinchange;
+package com.vasileirimia.coinchange;
 
 import java.util.Collection;
 
-import test.coinchange.domain.Atm;
-import test.coinchange.domain.Coin;
-import test.coinchange.domain.impl.CoinStoreFactory;
-import test.coinchange.domain.impl.InsuficientCoinsException;
-import test.coinchange.domain.impl.LimitedCoinsAtm;
-import test.coinchange.domain.impl.UnlimitedCoinsAtm;
+import com.vasileirimia.coinchange.domain.impl.InsuficientCoinsException;
+import com.vasileirimia.coinchange.domain.impl.LimitedCoinsAtm;
+import com.vasileirimia.coinchange.domain.impl.UnlimitedCoinsAtm;
+import com.vasileirimia.coinchange.domain.Atm;
+import com.vasileirimia.coinchange.domain.Coin;
+import com.vasileirimia.coinchange.domain.impl.CoinStoreFactory;
 
 public class CoinChangeApp {
 
@@ -19,9 +19,9 @@ public class CoinChangeApp {
 		}
 		Atm atm = getStoreType(args);				
 		try {
-			Collection<Coin> changeCoins = atm.getOptimalChangeFor(getAmount(args));
+			Collection<Coin> changeCoins = atm.widthdraw(getAmount(args));
 			System.out.println(changeCoins);
-		} catch (InsuficientCoinsException e) {			
+		} catch (InsuficientCoinsException e) {
 			System.out.println("Not enough coins to change the amount");
 		}		
 	}
@@ -30,7 +30,7 @@ public class CoinChangeApp {
 		Atm atm = null;
 		String storeType = args[0];
 		if ("unlimited".equals(storeType)){ 
-			atm = new UnlimitedCoinsAtm();		
+			atm = new UnlimitedCoinsAtm();
 		}else if ("limited".equals(storeType)){
 			LimitedCoinsAtm limitedAtm = new LimitedCoinsAtm();
 			limitedAtm.setCoinStore(CoinStoreFactory.getInstance().getDefaultCoinStore());
@@ -41,9 +41,9 @@ public class CoinChangeApp {
 		return atm;
 	}
 
-	private static Integer getAmount(String[] args) {
+	private static java.lang.Integer getAmount(String[] args) {
 		String amountString = args[1];
-		Integer amount = Integer.valueOf(amountString);
+		java.lang.Integer amount = java.lang.Integer.valueOf(amountString);
 		return amount;
 	}
 

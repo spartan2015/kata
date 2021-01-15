@@ -1,6 +1,6 @@
-package test.coinchange.domain.impl;
+package com.vasileirimia.coinchange.domain.impl;
 
-public class InsuficientCoinsException extends Exception {
+public class InsuficientCoinsException extends RuntimeException {
 	/**
 	 * 
 	 */

@@ -1,16 +1,16 @@
-package test.coinchange.domain;
+package com.vasileirimia.coinchange.domain;
 
 import java.util.Collection;
 
-import test.coinchange.domain.impl.InsuficientCoinsException;
+import com.vasileirimia.coinchange.domain.impl.InsuficientCoinsException;
 
 public interface Atm {
 	/**
 	 * Return a collection of Coins that change the amount provided
 	 * 
-	 * @param forAmount - in pence
+	 * @param amount - in pence
 	 * @return collection of coins
 	 * @throws InsuficientCoinsException if not enough coins are in the coins store
 	 */
-	Collection<Coin> getOptimalChangeFor(int forAmount) throws InsuficientCoinsException;
+	Collection<Coin> widthdraw(int amount) throws InsuficientCoinsException;
 }

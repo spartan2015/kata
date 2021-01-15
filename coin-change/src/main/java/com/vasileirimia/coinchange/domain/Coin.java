@@ -1,4 +1,4 @@
-package test.coinchange.domain;
+package com.vasileirimia.coinchange.domain;
 
 public enum Coin {
 	/**
@@ -18,7 +18,7 @@ public enum Coin {
 	public String toString() {
 		return "Coin[" + pence + "]";
 	}
-	
+
 	public static Coin fromPence(int pence){
 		if (pence == 100){
 			return Coin.POUND;

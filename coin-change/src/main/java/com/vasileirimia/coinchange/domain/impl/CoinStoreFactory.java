@@ -1,4 +1,4 @@
-package test.coinchange.domain.impl;
+package com.vasileirimia.coinchange.domain.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,8 +9,8 @@ import java.nio.file.Paths;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import test.coinchange.domain.Coin;
-import test.coinchange.domain.CoinStore;
+import com.vasileirimia.coinchange.domain.Coin;
+import com.vasileirimia.coinchange.domain.CoinStore;
 
 public class CoinStoreFactory {
 
@@ -55,7 +55,7 @@ public class CoinStoreFactory {
 
 		@Override
 		public synchronized void put(Coin coin, int numberOfCoins) {
-			store.merge(coin, numberOfCoins, (oldValue, newValue) -> oldValue + newValue);
+			store.merge(coin, numberOfCoins, Integer::sum);
 			save(this);
 		}
 	}
@@ -121,6 +121,6 @@ public class CoinStoreFactory {
 
 	private void parseCoinStoreLine(String line) {
 		String[] parts = line.split("=");
-		coinStore.put(Coin.fromPence(Integer.valueOf(parts[0].trim())), Integer.valueOf(parts[1].trim()));
+		coinStore.put(Coin.fromPence(java.lang.Integer.valueOf(parts[0].trim())), java.lang.Integer.valueOf(parts[1].trim()));
 	}
 }

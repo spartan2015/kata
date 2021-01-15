@@ -1,15 +1,18 @@
-package test.coinchange;
+package com.vasileirimia.coinchange;
 
-import static org.junit.Assert.assertTrue;
+
 
 import java.util.Collection;
 
-import org.junit.Test;
 
-import test.coinchange.domain.Atm;
-import test.coinchange.domain.Coin;
-import test.coinchange.domain.CoinStore;
-import test.coinchange.domain.impl.UnlimitedCoinsAtm;
+
+import com.vasileirimia.coinchange.domain.Atm;
+import com.vasileirimia.coinchange.domain.Coin;
+import com.vasileirimia.coinchange.domain.CoinStore;
+import com.vasileirimia.coinchange.domain.impl.UnlimitedCoinsAtm;
+import org.junit.jupiter.api.Test;
+
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 public class UnlimitedCoinsAtmTest extends BaseCoinAtmTest {
 
@@ -27,7 +30,7 @@ public class UnlimitedCoinsAtmTest extends BaseCoinAtmTest {
 	
 	@Test
 	public void testChangeForZeroAmount() throws Exception {		
-		Collection<Coin> coinsChange = atm.getOptimalChangeFor(0);
+		Collection<Coin> coinsChange = atm.widthdraw(0);
 		assertTrue("Expected no coins for 0 amount", coinsChange.size() == 0);
 	}
 

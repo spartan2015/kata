@@ -1,4 +1,4 @@
-package test.coinchange.domain;
+package com.vasileirimia.coinchange.domain;
 
 public interface CoinStore {
 
@@ -33,5 +33,5 @@ public interface CoinStore {
 	 * @param numberOfCoins
 	 */
 	void put(Coin coin, int numberOfCoins);
-	
+
 }

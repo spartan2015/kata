@@ -147,3 +147,20 @@ public class BinarySeachHigherAndCeilingLowerAndFloor {
 	}
 	
 }
+interface a {
+	default void a(){}
+}
+
+interface b{
+	default void a(){}
+}
+
+class c implements a,b{
+
+	@Override
+	public void a() {
+
+	}
+}
+
+

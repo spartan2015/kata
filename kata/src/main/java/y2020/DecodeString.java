@@ -2,11 +2,16 @@ package y2020;
 
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Stack;
+import java.util.stream.IntStream;
 
 public class DecodeString {
 
     private static String secondDecode(String s) {
+
+
+
         StringBuilder sb = new StringBuilder();
         int pos = 0;
         int times = 0;

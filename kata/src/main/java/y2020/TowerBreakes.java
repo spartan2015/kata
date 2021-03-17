@@ -19,7 +19,7 @@ public class TowerBreakes {
     }
 
     static int primeFactorization(int n){
-        if (n == 1) return 1;
+        //if (n == 1) return 1; // 1 does not count
         int count = 0;
         for(int i  = 2; i <= n; i++){
             while(n % i == 0) {count++; n=n/i;}

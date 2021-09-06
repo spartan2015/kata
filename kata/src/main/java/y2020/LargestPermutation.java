@@ -1,6 +1,5 @@
 package y2020;
 
-import javafx.geometry.Pos;
 import org.junit.Test;
 
 import java.util.Arrays;

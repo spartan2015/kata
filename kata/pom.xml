@@ -47,9 +47,9 @@
                 <version>3.8.0</version>
                 <configuration>
                     <release>16</release>
-                    <compilerArgs>
-                        --enable-preview
-                    </compilerArgs>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
             <plugin>

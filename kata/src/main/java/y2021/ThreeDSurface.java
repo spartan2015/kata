@@ -8,6 +8,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * /challenges/3d-surface-area/problem
+ */
 public class ThreeDSurface {
 
     public static int surfaceArea(List<List<Integer>> A) {

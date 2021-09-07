@@ -12,6 +12,9 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * /challenges/the-grid-search/problem
+ */
 public class GridSearch {
 
     public static String gridSearch(List<String> G, List<String> P) {

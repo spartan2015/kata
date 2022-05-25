@@ -9,7 +9,7 @@
 	<description>building REST web services with spring, jersey and jpa2/hibernate</description>
 
 	<properties>
-		<spring.version>3.2.6.RELEASE</spring.version>
+		<spring.version>5.2.22.RELEASE</spring.version>
 		<hibernate.version>4.2.7.Final</hibernate.version>
 		<jetty.version>9.0.7.v20131107</jetty.version> <!-- Adapt this to a version found on http://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-maven-plugin/ -->
 		<logback.version>1.1.1</logback.version>
